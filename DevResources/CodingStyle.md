@@ -4,21 +4,25 @@
 
 ## Code formatting
 
-* Always indent with **tabulations**, not spaces
-* Return to a new line before opening a new block (`{}`)
+* Always indent with **4 spaces**, not tabulation.
+* Return 2 lines after open a new bock (`{}`) :
+    > type function(parameters){
+    >   
+    >   `Function body`                                                  
+    > }
 * Use line spacings to separate statements that do distinct things
 * Use spaces betweens objects and operators
 * Write a space after each comma
 
 ### Flow-of-control statements
 
-* Write a space after `if`, `while`, `switch` and `for`
-* In `for` statements, let a space after and **before** expressions separators
+* Do not write a space after `if`, `while`, `switch` and `for`
+* In `for` statements, let a space after expressions separators
 * In `switch` statements, indent after `case:` and outdent after `break,`
 
 ### Classes
 
-* In constuctors initializer list, take one line per attribute and begin each line with `:` or `,`
+* In constuctors initializer list, take one line per attribute and end each line with `,`
 * Separate each type of declarations (attributes, methods, type aliases) with the appropriate `public`, `private` or `protected` section
 
 ---
@@ -46,7 +50,7 @@
 
 * Don't use global or preprocessor variables for computations
 * Declare only one variable per line
-* Attach `*` or `&` to the type name
+* Attach `*` or `&` to the varible name
 * As much as possible and if necessary, use `const`, `constexpr`, `static`, `inline`, `explicit`
 
 ### Functions
