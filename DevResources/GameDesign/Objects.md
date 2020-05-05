@@ -8,61 +8,59 @@ All monsters had a chance to drop:
 >    * a "Badge de LOMS"
 >    * one of his object (show `Monster's loot repartition`)
     
-* Objects can be found in Dungeon chests
-
-* 
+Objects can be found in Dungeon chests.
 
 ---
 ## Object Types :
-   * Equipment :
-        * Helmet
-        * ChestPlate
-        * Leggings
-        * Boots
-        * Projectile
-        * Amulet
+Equipment :
+>    * Helmet
+>    * ChestPlate
+>    * Leggings
+>    * Boots
+>    * Projectile
+>    * Amulet
    
-   * Monster's Loots
+Monster's Loots :
    
-All equipment had two different objects who each have three levels.
+> All equipment had two different objects who each have three levels.
 
-The game have 15 monster's Loot. 
+> The game have 15 monster's Loot. 
   
 --- 
 
 ## Monster's loot repartition :
-* Monstres :
-    * Gripe espagnole:
-        * ADN
-        * Cellules
+### Monstres :
+>    * Gripe espagnole:
+>        * ADN
+>        * Cellules
     
-    * Peste noire:
-        * Sang infecté
-        * Ribosomes
+>    * Peste noire:
+>        * Sang infecté
+>        * Ribosomes
     
-    * Tenia:
-        * Hydroxyde de sodium
-        * Membrane plasmique
+>    * Tenia:
+>        * Hydroxyde de sodium
+>        * Membrane plasmique
         
-    * Listéria:
-        * Cytoplasme
-        * Acide nucléique
+>    * Listéria:
+>        * Cytoplasme
+>        * Acide nucléique
         
-    * Blob:
-        * Spores
-        * Cellulose
+>    * Blob:
+>        * Spores
+>        * Cellulose
 
-* Boss :
-    * Cymothoa exigua:
-        * Noyau
+### Boss :
+>    * Cymothoa exigua:
+>        * Noyau
     
-    * Gripe H1N1:
-        * Toxine botulique
+>    * Gripe H1N1:
+>        * Toxine botulique
     
-    * VIH:
-        * Cyanure
+>    * VIH:
+>        * Cyanure
         
-    * Covid 19:
-        * Novichoc
+>    * Covid 19:
+>        * Novichoc
     
 ---
