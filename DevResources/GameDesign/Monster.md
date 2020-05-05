@@ -21,6 +21,7 @@
 
 ---
 ---
+``A developer``
 ## Monsters IA:
 * Gripe espagnole:
 > Type:
