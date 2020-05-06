@@ -1,7 +1,7 @@
 #include "Rock.h"
 
-Rock::Rock(unsigned number):
-        life (number){
+Rock::Rock(unsigned life):
+        life (life){
 
     selectForm();
 }

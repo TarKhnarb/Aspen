@@ -1,7 +1,10 @@
 #ifndef GAME_STAGE_H
 #define GAME_STAGE_H
 
+#include <iostream>
 #include <memory>
+#include <vector>
+#include <map>
 
 #include "Room.h"
 #include "Orientation.h"
@@ -14,15 +17,17 @@ public:
 
     Stage(unsigned size, unsigned minRoom, unsigned maxRoom);
 
-    ~Stage();
-
 public: /** Functions */
 
     void generate(unsigned &stageNumber, unsigned seed = 1);
 
+    Room* getRoom(unsigned i, unsigned j) const;
+
+    unsigned getSize() const;
+
 private: /** Functions */
 
-    void setSeed();
+    void setSeed(unsigned seed);
 
     void reset(unsigned stage);
 
@@ -30,19 +35,23 @@ private: /** Functions */
 
     void placeDoors();
 
+    /*
+     * créer une fonction qui retourne un map map<Orientation, Room::Type>
+     */
+
 private: /** Variables */
 
     unsigned stageSize;
 
     std::vector<std::vector<std::unique_ptr<Room>>> roomMap;
 
-    bool needGenerate;
-
     unsigned stageSeed;
 
-    unsigned minRoomSize;
+    unsigned minRoomCount;
 
-    unsigned maxRoomSize;
+    unsigned maxRoomCount;
 };
+
+std::ostream& operator<<(std::ostream& stream, const Stage &s);
 
 #endif

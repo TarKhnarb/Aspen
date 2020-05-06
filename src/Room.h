@@ -24,7 +24,9 @@ public:
 
         Common,
         Start,
+        CommonStart,
         Boss,
+        Boost,
         Room2NS1,
         Room2NS2,
         Room2WE1,
@@ -33,6 +35,7 @@ public:
         Room4NESW2,
         Room1N,
         Room1E,
+        Room1S,
         Room1W,
         Room3NES,
         Room3ESW,
@@ -55,6 +58,8 @@ public: // Functions
     void addDoor(Orientation orient, DoorState state = DoorState::Open);
 
     void setDoorState(Orientation orient, DoorState state); // Set state of a door according orientation return true if the doors have be find
+
+    std::map<Orientation, DoorState> getDoors() const;
 
     DoorState getDoorState(Orientation orient) const;
 

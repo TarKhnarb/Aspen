@@ -46,6 +46,14 @@ void Room::setDoorState(Orientation orient, DoorState state){ // Set state of a 
         throw std::out_of_range("Room::setDoorState() : cette porte n'existe pas " + static_cast<int>(orient));
 }
 
+/************
+ * GetDoors *
+ ************/
+std::map<Orientation, DoorState> Room::getDoors() const{
+
+    return doors;
+}
+
 /***********
  * GetDoor *
  ***********/
@@ -59,6 +67,9 @@ DoorState Room::getDoorState(Orientation orient) const{
         throw std::out_of_range("Room::getDoorState() : cette porte n'existe pas " + std::to_string(static_cast<int>(orient)));
 }
 
+/*************
+ * OpenDoors *
+ *************/
 void Room::openDoors(){
 
     for(auto &d : doors){
@@ -68,6 +79,9 @@ void Room::openDoors(){
     }
 }
 
+/*************
+ * CloseDoors *
+ *************/
 void Room::closeDoors(){
 
     for(auto &d : doors){

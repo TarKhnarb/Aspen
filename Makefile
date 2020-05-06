@@ -3,7 +3,7 @@ O = obj
 S = src
 FLAGS = -c -Wall
 
-all: $(O) $(B) $(O)/Aspen.o $(O)/test.o
+all: $(O) $(B) $(O)/test.o
 	g++ -ggdb $(O)/*.o -o $(B)/Aspen -lsfml-graphics -lsfml-window -lsfml-system
 
 $(O)/Aspen.o: $(O)/Game.o

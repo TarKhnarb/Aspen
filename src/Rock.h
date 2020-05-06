@@ -7,7 +7,7 @@ class Rock{
 
 public:
 
-    Rock(unsigned number);
+    Rock(unsigned life);
 
 public: // Functions
 
