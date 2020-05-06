@@ -15,8 +15,6 @@ public: // Functions
 
     bool getState() const;
 
-    unsigned getLife() const;
-
     unsigned getForm() const;
 
 private: // Functions

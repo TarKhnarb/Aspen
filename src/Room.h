@@ -5,14 +5,22 @@
 #include <map>
 #include <utility>
 #include <cassert>
+#include <stdexcept>
 
 #include "Orientation.h"
+
+enum class DoorState{
+
+    Open,
+    Close,
+    Key
+};
 
 class Room{
 
 public:
 
-    enum RoomType{
+    enum Type{
 
         Common,
         Start,
@@ -32,28 +40,23 @@ public:
         Room3NEW
     };
 
-    enum State{
+public:
 
-        Open,
-        Close,
-        Key
-    };
+    Room(const Room&) = delete;
 
-    Room(RoomType roomType = RoomType::Common);
+    Room(Type roomType = Type::Common);
 
 public: // Functions
 
-    void setType(RoomType roomType);
+    void setType(Type roomType);
 
-    Room::RoomType getType() const;
+    Type getType() const;
 
-    void addDoor(Orientation orient, State state);
+    void addDoor(Orientation orient, DoorState state = DoorState::Open);
 
     void setDoorState(Orientation orient, State state); // Set state of a door according orientation return true if the doors have be find
 
-    std::map<Orientation, Room::State> getDoors() const;
-
-    std::pair<Orientation, Room::State> getDoor(Orientation orient) const;
+    DoorState getDoorState(Orientation orient) const;
 
     void openDoors(); // TODO
 
@@ -63,7 +66,7 @@ private: // Variables
 
     std::map<Orientation, State> doors;
 
-    RoomType type;
+    Type type;
 };
 
 #endif

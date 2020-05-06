@@ -3,13 +3,13 @@
 /***************
  * Constructor *
  ***************/
-Room::Room(RoomType roomType):
+Room::Room(Room::Type roomType):
         type(roomType){}
 
 /***********
  * SetType *
  ***********/
-void Room::setType(RoomType roomType){
+void Room::setType(Room::Type roomType){
 
     type = roomType;
 }
@@ -17,7 +17,7 @@ void Room::setType(RoomType roomType){
 /***********
  * GetType *
  ***********/
-Room::RoomType Room::getType() const{
+Room::Type Room::getType() const{
 
     return type;
 }
@@ -25,7 +25,7 @@ Room::RoomType Room::getType() const{
 /***********
  * AddDoor *
  ***********/
-void Room::addDoor(Orientation orient, State state){
+void Room::addDoor(Orientation orient, DoorState state){
 
     if(doors.find(orient) != doors.end()) // We show if the door already exist
         setDoorState(orient, state);
@@ -36,30 +36,25 @@ void Room::addDoor(Orientation orient, State state){
 /****************
  * SetDoorState *
  ****************/
-void Room::setDoorState(Orientation orient, State state) {// Set state of a door according orientation
+void Room::setDoorState(Orientation orient, DoorState state){ // Set state of a door according orientation
 
-    if(doors.find(orient) != doors.end()) // find the right door
-        doors.find(orient)->second = state;
+    auto found = doors.find(orient);
+
+    if(found != doors.end()) // find the right door
+        found->second = state;
     else // else add it
-        doors.emplace(orient, state);
-}
-
-/************
- * GetDoors *
- ************/
-std::map<Orientation, Room::State> Room::getDoors() const{
-
-    return doors;
+        throw std::out_of_range("Room::setDoorState() : cette porte n'existe pas " + static_cast<int>(orient));
 }
 
 /***********
  * GetDoor *
  ***********/
-std::pair<Orientation, Room::State> Room::getDoor(Orientation orient) const{
+DoorState Room::getDoorState(Orientation orient) const{
 
-    assert(doors.find(orient) != doors.end());
+    auto found = doors.find(orient);
 
-    auto find = doors.find(orient);
-
-    return std::make_pair(find->first, find->second);
+    if(found != door.end())
+        return found->second;
+    else
+        throw std::out_of_range("Room::getDoorState() : cette porte n'existe pas " + std::to_string(static_cast<int>(orient)));
 }

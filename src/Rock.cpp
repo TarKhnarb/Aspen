@@ -8,18 +8,15 @@ Rock::Rock(unsigned number):
 
 void Rock::hit(unsigned damage){
 
-    life -= damage;
+    if(life >= damage)
+        life -= damage;
+    else
+        life = 0;
 }
-
 
 bool Rock::getState() const{
 
-    return life !=0;
-}
-
-unsigned Rock::getLife() const{
-
-    return life;
+    return life != 0;
 }
 
 unsigned Rock::getForm() const{

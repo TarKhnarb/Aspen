@@ -5,11 +5,12 @@
 ## Code formatting
 
 * Always indent with **4 spaces**, not tabulation.
-* Return 2 lines after open a new bock (`{}`) :
+* Return 2 lines after opening a new bock (`{}`) :
     > type function(parameters){
     >   
     >   `Function body`                                                  
     > }
+* Do not use space before open new bloc (`{}` or `()`)
 * Use line spacings to separate statements that do distinct things
 * Use spaces betweens objects and operators
 * Write a space after each comma
@@ -31,7 +32,7 @@
 
 * Code in english
 * Use logical and understandable variable names and write them in CamelCase
-* Object and class names begin with an uppercase letter, attributes with `m_`, other names begin with a lowercase letter
+* Object and class names begin with an uppercase letter, other names begin with a lowercase letter
 
 ### Comments
 
