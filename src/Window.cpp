@@ -27,12 +27,12 @@ Window::~Window(){
 /*********
  * Setup *
  *********/
-void Window::setup(const std::string title, const sf::Vector2u &size)
+void Window::setup(const std::string &title, const sf::Vector2u &size)
 {
     windowTitle = title;
     windowSize = size;
-    isFullscreen = false;
-    isClose = false;
+    isFullscreens = false;
+    isClosed = false;
     create();
 }
 
@@ -41,7 +41,7 @@ void Window::setup(const std::string title, const sf::Vector2u &size)
  **********/
 void Window::create(){
 
-    auto style = (m_isFullscreen ? sf::Style::Fullscreen : sf::Style::Default);
+    auto style = (isFullscreens ? sf::Style::Fullscreen : sf::Style::Default);
     window.create({windowSize.x, windowSize.y, 32}, windowTitle, style);
 }
 
@@ -55,11 +55,10 @@ void Window::update(){
     while(window.pollEvent(event)){
 
         if(event.type == sf::Event::Closed)
-            isClose = true;
+            isClosed = true;
 
-        else if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5);
+        else if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5)
             toggleFullscreen();
-
     }
 }
 
@@ -68,7 +67,7 @@ void Window::update(){
  ********************/
 void Window::toggleFullscreen(){
 
-    isFullscreen = !isFullscreen;
+    isFullscreens = !isFullscreens;
     window.close();
     create();
 }
@@ -93,14 +92,14 @@ void Window::endDraw(){
  * IsClose *
  **********/
 bool Window::isClose(){
-    return isClose;
+    return isClosed;
 }
 
 /****************
  * IsFullscreen *
  ****************/
 bool Window::isFullscreen(){
-    return isFullscreen;
+    return isFullscreens;
 }
 
 /*****************

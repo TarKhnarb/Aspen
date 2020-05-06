@@ -3,16 +3,20 @@ O = obj
 S = src
 FLAGS = -c -Wall
 
-all: $(O) $(B) $(B)/Aspen
+all: $(O) $(B) $(O)/Aspen.o
+	g++ -ggdb $(O)/*.o -o $(B)/Aspen -lsfml-graphics -lsfml-window -lsfml-system
 
-$(B)/Aspen:
-	g++ -ggdb $(S)/Aspen.cpp -o $(B)/Aspen $(O)/*.o -lsfml-graphics -lsfml-window -lsfml-system
+$(O)/Aspen.o: $(O)/Game.o
+	g++ $(FLAGS) $(S)/Aspen.cpp -o $(O)/Aspen.o
 
-$(O)/Dungeon.o:
-	g++ $(FLAGS) $(S)/Dungeon.cpp -o $(O)/Dungeon.o
+$(O)/Game.o: $(O)/Window.o
+	g++ $(FLAGS) $(S)/Game.cpp -o $(O)/Game.o
 
 $(O)/Window.o:
 	g++ $(FLAGS) $(S)/Window.cpp -o $(O)/Window.o
+
+$(O)/Dungeon.o:
+	g++ $(FLAGS) $(S)/Dungeon.cpp -o $(O)/Dungeon.o
 
 $(O)/Collider.o:
 	g++ $(FLAGS) $(S)/Collider.cpp -o $(O)/Collider.o
