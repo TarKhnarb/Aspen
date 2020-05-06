@@ -12,7 +12,7 @@
 enum class DoorState{
 
     Open,
-    Close,
+    Closed,
     Key
 };
 
@@ -27,20 +27,20 @@ public:
         CommonStart,
         Boss,
         Boost,
-        Room2NS1,
-        Room2NS2,
-        Room2WE1,
-        Room2WE2,
-        Room4NESW1,
-        Room4NESW2,
-        Room1N,
-        Room1E,
-        Room1S,
-        Room1W,
-        Room3NES,
-        Room3ESW,
-        Room3NSW,
-        Room3NEW
+        N,
+        E,
+        S,
+        W,
+        NS1,
+        NS2,
+        WE1,
+        WE2,
+        NES,
+        ESW,
+        NSW,
+        NEW,
+        NESW1,
+        NESW2
     };
 
 public:
@@ -55,7 +55,7 @@ public: // Functions
 
     Type getType() const;
 
-    void addDoor(Orientation orient, DoorState state = DoorState::Open);
+    void addDoor(Orientation orient, DoorState state = DoorState::Closed);
 
     void setDoorState(Orientation orient, DoorState state); // Set state of a door according orientation return true if the doors have be find
 
@@ -66,6 +66,8 @@ public: // Functions
     void openDoors();
 
     void closeDoors();
+
+    void affectType(unsigned seed);
 
 private: // Variables
 

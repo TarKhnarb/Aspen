@@ -87,6 +87,81 @@ void Room::closeDoors(){
     for(auto &d : doors){
 
         if(d.second != DoorState::Key)
-            d.second = DoorState::Close;
+            d.second = DoorState::Closed;
+    }
+}
+
+void Room::affectType(unsigned seed){
+
+    bool north = (doors.find(Orientation::North) != doors.end());
+    bool east = (doors.find(Orientation::East) != doors.end());
+    bool south = (doors.find(Orientation::South) != doors.end());
+    bool west = (doors.find(Orientation::West) != doors.end());
+
+    switch(doors.size()){
+
+        case 1:
+
+            if(north)
+                setType(Type::N);
+            else if(east)
+                setType(Type::E);
+            else if(south)
+                setType(Type::S);
+            else if(west)
+                setType(Type::W);
+
+            break;
+
+        case 2:
+
+            if(north && south){
+
+                if((rand()%seed)%2)
+                    setType(Type::NS1);
+                else
+                    setType(Type::NS2);
+            }
+            else if(east && west){
+
+                if((rand()%seed)%2)
+                    setType(Type::WE1);
+                else
+                    setType(Type::WE2);
+            }
+            else{
+                setType(NESW2);
+            }
+            break;
+
+
+        case 3:
+
+            if((rand()%seed)%4){
+
+                if(!west)
+                    setType(Type::NES);
+                else if(!north)
+                    setType(Type::ESW);
+                else if(!east)
+                    setType(Type::NSW);
+                else if(!south)
+                    setType(Type::NEW);
+            }
+            else{
+                setType(Type::NESW2);
+            }
+            break;
+
+        case 4:
+
+            if((rand()%seed)%3)
+                setType(Type::NESW1);
+            else
+                setType(Type::NESW2);
+            break;
+
+        default:
+            break;
     }
 }

@@ -1,7 +1,7 @@
 #ifndef DUNGEON_GAME_H
 #define DUNGEON_GAME_H
 
-#include <SFML/Graphics.hpp>
+#include "Stage.h"
 
 class Dungeon{
 
@@ -12,18 +12,9 @@ public:
 
 public:
 
-    void handleInput();
-    void update();
-    void render();
-    Window* getWindow();
-
 private:
 
-    void moveAspen();
-
 private:
-
-    Window window;
     
 };
 

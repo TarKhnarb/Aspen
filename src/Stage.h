@@ -35,9 +35,7 @@ private: /** Functions */
 
     void placeDoors();
 
-    /*
-     * créer une fonction qui retourne un map map<Orientation, Room::Type>
-     */
+    void affectRoomsType();
 
 private: /** Variables */
 

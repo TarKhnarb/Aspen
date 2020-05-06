@@ -8,6 +8,12 @@ Stage::Stage(unsigned size, unsigned minRoom, unsigned maxRoom):
         minRoomCount(minRoom),
         maxRoomCount(maxRoom){
 
+    if(maxRoom >= size*size)
+        throw std::invalid_argument("Stage::Stage() : Number of rooms is too big for the given size");
+
+    if(size%2 == 0)
+        throw std::invalid_argument("Stage::Stage() : The size of the stage need to be odd " + std::to_string(stageSize));
+
     for(unsigned i = 0; i < stageSize; ++i){
 
         roomMap.emplace_back();
@@ -165,6 +171,8 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
     ++stageNumber;
 
     placeDoors();
+
+    affectRoomsType();
 }
 
 /***********
@@ -263,22 +271,55 @@ void Stage::placeDoors(){
 
             if(roomMap[i][j]){
 
-                if((i > 0) && (roomMap[i - 1][j])) // Room above
-                    roomMap[i][j]->addDoor(Orientation::North);
+                if((i > 0) && (roomMap[i - 1][j])){ // Room above
 
-                if ((j > 0) && (roomMap[i][j - 1])) // Left Room
-                    roomMap[i][j]->addDoor(Orientation::West);
+                    if(roomMap[i - 1][j]->getType() == Room::Boost)
+                        roomMap[i][j]->addDoor(Orientation::North, DoorState::Key);
+                    else
+                        roomMap[i][j]->addDoor(Orientation::North);
+                }
 
-                if((i + 1) < (stageSize && roomMap[i + 1][j])) // Room below
-                    roomMap[i][j]->addDoor(Orientation::South);
+                if ((j > 0) && (roomMap[i][j - 1])){ // Left Room
 
-                if((j + 1 < stageSize) && (roomMap[i][j + 1])) // Right Room
-                    roomMap[i][j]->addDoor(Orientation::East);
+                    if(roomMap[i][j - 1]->getType() == Room::Boost)
+                        roomMap[i][j]->addDoor(Orientation::West, DoorState::Key);
+                    else
+                        roomMap[i][j]->addDoor(Orientation::West);
+                }
+
+                if((i + 1) < (stageSize && roomMap[i + 1][j])){ // Room below
+
+                    if(roomMap[i + 1][j]->getType() == Room::Boost)
+                        roomMap[i][j]->addDoor(Orientation::South, DoorState::Key);
+                    else
+                        roomMap[i][j]->addDoor(Orientation::South);
+                }
+
+                if((j + 1 < stageSize) && (roomMap[i][j + 1])){ // Right Room
+
+                    if(roomMap[i][j + 1]->getType() == Room::Boost)
+                        roomMap[i][j]->addDoor(Orientation::East, DoorState::Key);
+                    else
+                        roomMap[i][j]->addDoor(Orientation::East);
+                }
             }
         }
     }
+    unsigned mid = (stageSize - 1)/2;
+    roomMap[mid][mid]->openDoors();
 }
 
+void Stage::affectRoomsType(){
+
+    for(auto &col : roomMap){
+
+        for(auto &room : col){
+
+            if(room && room->getType() == Room::Common)
+                room->affectType(stageSeed);
+        }
+    }
+}
 
 /****************
  * Graphic View *
@@ -310,59 +351,59 @@ std::ostream& operator<<(std::ostream& stream, const Stage &s){
                         stream << "s";
                         break;
 
-                    case Room::Room2WE1 :
+                    case Room::WE1 :
                         stream << "A";
                         break;
 
-                    case Room::Room2WE2 :
+                    case Room::WE2 :
                         stream << "B";
                         break;
 
-                    case Room::Room2NS1 :
+                    case Room::NS1 :
                         stream << "C";
                         break;
 
-                    case Room::Room2NS2 :
+                    case Room::NS2 :
                         stream << "D";
                         break;
 
-                    case Room::Room4NESW1:
+                    case Room::NESW1:
                         stream << "E";
                         break;
 
-                    case Room::Room4NESW2:
+                    case Room::NESW2:
                         stream << "F";
                         break;
 
-                    case Room::Room1N:
+                    case Room::N:
                         stream << "G";
                         break;
 
-                    case Room::Room1E:
+                    case Room::E:
                         stream << "H";
                         break;
 
-                    case Room::Room1S:
+                    case Room::S:
                         stream << "I";
                         break;
 
-                    case Room::Room1W :
+                    case Room::W :
                         stream << "J";
                         break;
 
-                    case Room::Room3NEW:
+                    case Room::NEW:
                         stream << "K";
                         break;
 
-                    case Room::Room3NSW:
+                    case Room::NSW:
                         stream << "L";
                         break;
 
-                    case Room::Room3ESW:
+                    case Room::ESW:
                         stream << "M";
                         break;
 
-                    case Room::Room3NES:
+                    case Room::NES:
                         stream << "N";
                         break;
 
