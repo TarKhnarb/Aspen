@@ -54,7 +54,7 @@ public: // Functions
 
     void addDoor(Orientation orient, DoorState state = DoorState::Open);
 
-    void setDoorState(Orientation orient, State state); // Set state of a door according orientation return true if the doors have be find
+    void setDoorState(Orientation orient, DoorState state); // Set state of a door according orientation return true if the doors have be find
 
     DoorState getDoorState(Orientation orient) const;
 
@@ -64,7 +64,7 @@ public: // Functions
 
 private: // Variables
 
-    std::map<Orientation, State> doors;
+    std::map<Orientation, DoorState> doors;
 
     Type type;
 };

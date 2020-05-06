@@ -53,7 +53,7 @@ DoorState Room::getDoorState(Orientation orient) const{
 
     auto found = doors.find(orient);
 
-    if(found != door.end())
+    if(found != doors.end())
         return found->second;
     else
         throw std::out_of_range("Room::getDoorState() : cette porte n'existe pas " + std::to_string(static_cast<int>(orient)));
