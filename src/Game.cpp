@@ -8,7 +8,7 @@ Game::Game():
 
     blacksmithTexture.loadFromFile("Data/Textures/Entity/Npc/Blacksmith.png");
     blacksmith.setTexture(blacksmithTexture);
-    increment = sf::Vector2i(4,4);
+    increment = sf::Vector2f(40.f, 40.f);
 }
 
 /**************
@@ -24,9 +24,15 @@ void Game::run(){
 
     while(!window.isClose()){
 
+        float gameTick = 1.f/60.f;
         // TODO handleInput();
-        update();
-        render();
+        while(elapsedTime.asSeconds() >= gameTick){
+            update();
+            render();
+
+            elapsedTime -= sf::seconds(gameTick);
+        }
+        restartClock();
     }
 }
 
@@ -58,7 +64,10 @@ void Game::moveBlacksmith(){
     if((blacksmith.getPosition().y > windSize.y - textSize.y && increment.y > 0) || (blacksmith.getPosition().y < 0 && increment.y < 0))
         increment.y = - increment.y;
 
-    blacksmith.setPosition(blacksmith.getPosition().x + increment.x, blacksmith.getPosition().y + increment.y);
+    float secondElapsed = elapsedTime.asSeconds();
+
+    blacksmith.move(increment.x * secondElapsed, increment.y * secondElapsed);
+
 }
 
 /**********
@@ -71,8 +80,18 @@ void Game::render(){
     window.endDraw();
 }
 
-Window* Game::getWindow(){
+/******************
+ * getElapsedTime *
+ ******************/
+sf::Time Game::getElapsedTime(){
 
-    Window *wind = &window;
-    return wind;
+    return elapsedTime;
+}
+
+/****************
+ * RestartClock *
+ ****************/
+void Game::restartClock(){
+
+    elapsedTime += clock.restart();
 }

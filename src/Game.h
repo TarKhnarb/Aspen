@@ -21,7 +21,9 @@ public: // Functions
 
     void render();
 
-    Window* getWindow();
+    sf::Time getElapsedTime();
+
+    void restartClock();
 
 private: // Functions
 
@@ -33,9 +35,13 @@ private: // Variable
 
     sf::Texture blacksmithTexture;
 
-    sf::Vector2i increment;
+    sf::Vector2f increment;
 
     Window window;
+
+    sf::Clock clock;
+
+    sf::Time elapsedTime;
 
 };
 
