@@ -58,9 +58,9 @@ public: // Functions
 
     DoorState getDoorState(Orientation orient) const;
 
-    void openDoors(); // TODO
+    void openDoors();
 
-    void closeDoors(); // TODO
+    void closeDoors();
 
 private: // Variables
 

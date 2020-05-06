@@ -58,3 +58,21 @@ DoorState Room::getDoorState(Orientation orient) const{
     else
         throw std::out_of_range("Room::getDoorState() : cette porte n'existe pas " + std::to_string(static_cast<int>(orient)));
 }
+
+void Room::openDoors(){
+
+    for(auto &d : doors){
+
+        if(d.second != DoorState::Key)
+            d.second = DoorState::Open;
+    }
+}
+
+void Room::closeDoors(){
+
+    for(auto &d : doors){
+
+        if(d.second != DoorState::Key)
+            d.second = DoorState::Close;
+    }
+}
