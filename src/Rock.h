@@ -1,7 +1,7 @@
 #ifndef GAME_ROCK_H
 #define GAME_ROCK_H
 
-#include <iostream>
+#include <cstdlib>
 
 class Rock{
 
