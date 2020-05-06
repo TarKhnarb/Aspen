@@ -39,11 +39,11 @@ public:
         Key
     };
 
-    Room(RoomType roomType);
+    Room(RoomType roomType = RoomType::Common);
 
 public: // Functions
 
-    void setType(RoomType roomType = RoomType::Common);
+    void setType(RoomType roomType);
 
     Room::RoomType getType() const;
 
@@ -54,6 +54,10 @@ public: // Functions
     std::map<Orientation, Room::State> getDoors() const;
 
     std::pair<Orientation, Room::State> getDoor(Orientation orient) const;
+
+    void openDoors(); // TODO
+
+    void closeDoors(); // TODO
 
 private: // Variables
 
