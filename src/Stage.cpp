@@ -280,9 +280,9 @@ void Stage::reset(unsigned stage){
     unsigned mid = (stageSize - 1)/2;
 
     if(stage == 0)
-        roomMap[mid][mid].reset(new Room(Room::CommonStart));
-    else
         roomMap[mid][mid].reset(new Room(Room::Start));
+    else
+        roomMap[mid][mid].reset(new Room(Room::CommonStart));
 }
 
 /*******************

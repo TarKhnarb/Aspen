@@ -1,13 +1,16 @@
 #include <iostream>
 
-#include "Stage.h"
+#include "Dungeon.h"
 
 int main(){
+    unsigned i, j;
 
-    unsigned stageNb = 0;
+    Dungeon test;
 
-    Stage stage(21, 10, 15);
-    stage.generate(stageNb);
+    std::cout << "Entrer les coordonnées d'une salle" << std::endl;
 
-    std::cout << stage;
+    std::cin >> i >> j;
+    std::cout << std::endl;
+
+    test.getRoom(i, j)->display();
 }

@@ -6,6 +6,7 @@
 #include <utility>
 #include <cassert>
 #include <stdexcept>
+#include <iostream>
 
 #include "Orientation.h"
 
@@ -68,6 +69,8 @@ public: // Functions
     void closeDoors();
 
     void affectType(unsigned seed);
+
+    void display(); // TODO a virer une fois tout les tests réalisés
 
 private: // Variables
 

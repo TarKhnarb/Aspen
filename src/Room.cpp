@@ -165,3 +165,16 @@ void Room::affectType(unsigned seed){
             break;
     }
 }
+
+void Room::display(){ // TODO a virer une fois tout les tests réalisés
+
+    std::cout << "Type de salle : " << type << std:: endl;
+    std::cout << std::endl;
+    std::cout << "Doors :" << std::endl;
+
+    for(auto &d : doors){
+        std::cout << "      Orientation : " << static_cast<int>(d.first) << std::endl;
+        std::cout << "      State : " << static_cast<int>(d.second) << std::endl;
+        std::cout << std::endl;
+    }
+}
