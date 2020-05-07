@@ -41,6 +41,8 @@ private: /** Variables */
      */
 
     std::unique_ptr<Stage> currentStage;
+
+    std::string filePath;
 };
 
 #endif

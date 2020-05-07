@@ -1,7 +1,8 @@
 #include "Dungeon.h"
 
 Dungeon::Dungeon():
-        actualStage(0){
+        actualStage(0),
+        filePath("Data/Files/Dungeon/DungeonInformations.csv"){
 
     fillInformation();
     maxStageNumber = information.size();
@@ -39,13 +40,12 @@ void Dungeon::setStage(){
 void Dungeon::fillInformation(){
 
     std::ifstream file;
-    std::string filename = "Data/Files/Dungeon/DungeonInformations.csv";
-    file.open(filename);
+    file.open(filePath);
 
-    if (file.is_open()) {
+    if(file.is_open()){
         std::string csvItem;
 
-        while (std::getline(file, csvItem)){
+        while(std::getline(file, csvItem)){
 
             std::vector<unsigned> vect;
             std::istringstream iss(csvItem);
@@ -58,7 +58,7 @@ void Dungeon::fillInformation(){
         }
     }
     else
-        throw std::runtime_error ("Failed to load " + filename);
+        throw std::runtime_error ("Failed to load " + filePath);
 
     file.close();
 }

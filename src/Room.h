@@ -1,7 +1,6 @@
 #ifndef GAME_ROOM_H
 #define GAME_ROOM_H
 
-#include <SFML/System/Vector2.hpp>
 #include <map>
 #include <utility>
 #include <cassert>
