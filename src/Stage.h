@@ -31,7 +31,7 @@ private: /** Functions */
 
     void reset(unsigned stage);
 
-    bool checkRoomAround(unsigned i, unsigned j);
+    bool checkRoomAround(unsigned i, unsigned j, Room::Type type = Room::Common);
 
     void placeDoors();
 

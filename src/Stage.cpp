@@ -49,7 +49,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                 if((i > 0 && roomMap[i - 1][mid - k]) || (roomMap[i][mid - k + 1])){ // Test sur les cases à gauche et en dessous
 
-                    if ((roomsCnt < roomsNb - 1) && (rand()%entropy == entropy - 1)){ // Place une salle seulement si le mod est différent de 0
+                    if ((roomsCnt < roomsNb - 2) && (rand()%entropy == entropy - 1)){ // Place une salle seulement si le mod est différent de 0
 
                         roomMap[i][mid - k].reset(new Room());
                         ++roomsCnt;
@@ -59,7 +59,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
             if(roomMap[mid - k + 1][mid - k]){ // Traitement de la case tout en haut à gauche
 
-                if((roomsCnt < roomsNb - 1) && (rand()%entropy == entropy - 1)){
+                if((roomsCnt < roomsNb - 2) && (rand()%entropy == entropy - 1)){
 
                     roomMap[mid - k][mid - k].reset(new Room());
                     ++roomsCnt;
@@ -70,7 +70,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                 if((j > 0 && roomMap[mid + k][j - 1]) || roomMap[mid + k - 1][j]){ // Test sur les cases au dessus et à gauche
 
-                    if((roomsCnt < roomsNb - 1) && (rand()%entropy == entropy - 1)){
+                    if((roomsCnt < roomsNb - 2) && (rand()%entropy == entropy - 1)){
 
                         roomMap[mid + k][j].reset(new Room());
                         ++roomsCnt;
@@ -82,7 +82,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                 if((j > 0 && roomMap[mid - k][j - 1]) || (roomMap[mid - k + 1][j])){ // test sur les cases au dessus et à droite
 
-                    if((roomsCnt < roomsNb-1) && (rand()%entropy == entropy - 1)){
+                    if((roomsCnt < roomsNb - 2) && (rand()%entropy == entropy - 1)){
 
                         roomMap[mid - k][j].reset(new Room());
                         ++roomsCnt;
@@ -94,7 +94,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                 if((i + 1 < stageSize && roomMap[i + 1][mid + k]) || roomMap[i][mid + k - 1]){ // Test de la case à gauche et au dessus
 
-                    if((roomsCnt < roomsNb - 1) && (rand()%entropy == entropy - 1)){
+                    if((roomsCnt < roomsNb - 2) && (rand()%entropy == entropy - 1)){
 
                         roomMap[i][mid + k].reset(new Room());
                         ++roomsCnt;
@@ -102,15 +102,74 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
                 }
             }
 
-            /*
-             * La salle du boss
-             */
+                // Sale de boost
+            if(roomsCnt == roomsNb - 2){
 
+                for(unsigned i = mid - k + 1; i <= mid + k; ++i){ // Première ligne, en haut à l'horizontal, sauf case tout en haut à gauche
+
+                    if((!roomMap[i][mid - k]) && (checkRoomAround(i, mid - k))){
+
+                        if((roomsCnt == roomsNb - 2) && (rand()%entropy == entropy - 1)){ // Place une salle seulement si le mod est différent de 0
+
+                            roomMap[i][mid - k].reset(new Room(Room::Boost));
+                            ++roomsCnt;
+                        }
+                    }
+                }
+
+                if((!roomMap[mid - k][mid - k]) && (checkRoomAround(mid - k, mid - k))){ // Traitement de la case tout en haut à gauche
+
+                    if((roomsCnt == roomsNb - 2) && (rand()%entropy == entropy - 1)){
+
+                        roomMap[mid - k][mid - k].reset(new Room(Room::Boost));
+                        ++roomsCnt;
+                    }
+                }
+
+                for(unsigned j = mid - k + 1; j <= mid + k - 1; ++j){ // Deuxième ligne, à droite à la verticale
+
+                    if((!roomMap[mid + k][j]) && (checkRoomAround(mid + k, j))){
+
+                        if((roomsCnt == roomsNb - 2) && (rand()%entropy == entropy - 1)){
+
+                            roomMap[mid + k][j].reset(new Room(Room::Boost));
+                            ++roomsCnt;
+                        }
+                    }
+                }
+
+                for(unsigned j = mid - k + 1; j <= mid + k - 1; ++j){ // Troisième ligne, à gauche à la verticale
+
+                    if((!roomMap[mid - k][j]) && (checkRoomAround(mid - k, j))){
+
+                        if((roomsCnt == roomsNb - 2) && (rand()%entropy == entropy - 1)){
+
+                            roomMap[mid - k][j].reset(new Room(Room::Boost));
+                            ++roomsCnt;
+                        }
+                    }
+                }
+
+                for(unsigned i = mid - k; i <= mid + k; ++i){ // Dernière ligne, en bas à l'horizontal
+
+                    if((!roomMap[i][mid + k]) && (checkRoomAround(i, mid + k))){
+
+                        if((roomsCnt == roomsNb - 2) && (rand()%entropy == entropy - 1)){
+
+                            roomMap[i][mid + k].reset(new Room(Room::Boost));
+                            roomsCnt ++;
+                        }
+                    }
+                }
+            }
+
+
+                //La salle du boss
             if(roomsCnt == roomsNb - 1){
 
                 for(unsigned i = mid - k + 1; i <= mid + k; ++i){ // Première ligne, en haut à l'horizontal, sauf case tout en haut à gauche
 
-                    if((!roomMap[i][mid - k]) && (checkRoomAround(i, mid - k) == 1)){
+                    if((!roomMap[i][mid - k]) && (checkRoomAround(i, mid - k)) && !(checkRoomAround(i, mid - k, Room::Boost))){
 
                         if((roomsCnt == roomsNb - 1) && (rand()%entropy == entropy - 1)){ // Place une salle seulement si le mod est différent de 0
 
@@ -120,9 +179,9 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
                     }
                 }
 
-                if((!roomMap[mid - k][mid - k]) && (checkRoomAround(mid - k, mid - k))){ // Traitement de la case tout en haut à gauche
+                if((!roomMap[mid - k][mid - k]) && (checkRoomAround(mid - k, mid - k)) && !(checkRoomAround(mid - k, mid - k, Room::Boost))){ // Traitement de la case tout en haut à gauche
 
-                    if((roomsCnt == roomsNb-1) && (rand()%entropy == entropy - 1)){
+                    if((roomsCnt == roomsNb - 1) && (rand()%entropy == entropy - 1)){
 
                         roomMap[mid - k][mid - k].reset(new Room(Room::Boss));
                         ++roomsCnt;
@@ -131,7 +190,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                 for(unsigned j = mid - k + 1; j <= mid + k - 1; ++j){ // Deuxième ligne, à droite à la verticale
 
-                    if((!roomMap[mid + k][j]) && (checkRoomAround(mid + k, j))){
+                    if((!roomMap[mid + k][j]) && (checkRoomAround(mid + k, j)) && !(checkRoomAround(mid + k, j, Room::Boost))){
 
                         if((roomsCnt == roomsNb - 1) && (rand()%entropy == entropy - 1)){
 
@@ -143,7 +202,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                 for(unsigned j = mid - k + 1; j <= mid + k - 1; ++j){ // Troisième ligne, à gauche à la verticale
 
-                    if((!roomMap[mid - k][j]) && (checkRoomAround(mid - k, j))){
+                    if((!roomMap[mid - k][j]) && (checkRoomAround(mid - k, j)) && !(checkRoomAround(mid - k, j, Room::Boost))){
 
                         if((roomsCnt == roomsNb - 1) && (rand()%entropy == entropy - 1)){
 
@@ -155,7 +214,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                 for(unsigned i = mid - k; i <= mid + k; ++i){ // Dernière ligne, en bas à l'horizontal
 
-                    if((!roomMap[i][mid + k]) && (checkRoomAround(i, mid + k))){
+                    if((!roomMap[i][mid + k]) && (checkRoomAround(i, mid + k)) && !(checkRoomAround(i, mid + k, Room::Boost))){
 
                         if((roomsCnt == roomsNb - 1) && (rand()%entropy == entropy - 1)){
 
@@ -229,31 +288,31 @@ void Stage::reset(unsigned stage){
 /*******************
  * CheckRoomAround *
  *******************/
-bool Stage::checkRoomAround(unsigned i, unsigned j) { // prend les coords d'une case et retourne le nb de salles EXISTANTES autour
+bool Stage::checkRoomAround(unsigned i, unsigned j, Room::Type type) { // prend les coords d'une case et retourne le nb de salles EXISTANTES autour
 
     unsigned count = 0;
 
     if(i > 0){
         
-        if(roomMap[i - 1][j]) // Left Room
+        if(roomMap[i - 1][j] && (roomMap[i - 1][j]->getType() == type)) // Left Room
             ++count;
     }
 
     if(j > 0){
         
-        if(roomMap[i][j - 1]) // Room above
+        if(roomMap[i][j - 1] && (roomMap[i][j - 1]->getType() == type)) // Room above
             ++count;
     }
 
     if(i + 1 < stageSize){
         
-        if(roomMap[i + 1][j]) // Right Room
+        if(roomMap[i + 1][j] && (roomMap[i + 1][j]->getType() == type)) // Right Room
             ++count;
     }
 
     if(j + 1 < stageSize){
         
-        if(roomMap[i][j + 1]) // Room below
+        if((roomMap[i][j + 1]) && (roomMap[i][j + 1]->getType() == type)) // Room below
             ++count;
     }
 
@@ -287,7 +346,7 @@ void Stage::placeDoors(){
                         roomMap[i][j]->addDoor(Orientation::West);
                 }
 
-                if((i + 1) < (stageSize && roomMap[i + 1][j])){ // Room below
+                if((i + 1 < stageSize) && (roomMap[i + 1][j])){ // Room below
 
                     if(roomMap[i + 1][j]->getType() == Room::Boost)
                         roomMap[i][j]->addDoor(Orientation::South, DoorState::Key);
@@ -345,6 +404,11 @@ std::ostream& operator<<(std::ostream& stream, const Stage &s){
 
                     case Room::Boss:
                         stream << "Z";
+                        break;
+
+                    case Room::Boost:
+
+                        stream << "b";
                         break;
 
                     case Room::CommonStart:
