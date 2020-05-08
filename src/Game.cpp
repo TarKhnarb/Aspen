@@ -30,13 +30,16 @@ void Game::run(){
     while(!window.isClose()){
 
         float gameTick = 1.f/60.f;
-        // TODO handleInput();
+        processEvent();
+
         while(elapsedTime.asSeconds() >= gameTick){
+
             processEvent();
-            render();
+            update();
 
             elapsedTime -= sf::seconds(gameTick);
         }
+        render();
         restartClock();
     }
 }
@@ -61,11 +64,12 @@ void Game::processEvent(){
  * MoveBlacksmith *
  ******************/
 void Game::moveBlacksmith(EventDetails *details){
-    
+
+    /* particle in a case
     sf::Vector2u windSize = window.getWindowSize();
     sf::Vector2u textSize = blacksmithTexture.getSize();
 
-    /* particle in a case
+
     if((blacksmith.getPosition().x > windSize.x - textSize.x && increment.x > 0) || (blacksmith.getPosition().x < 0 && increment.x < 0))
         increment.x = - increment.x;
 

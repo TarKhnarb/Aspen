@@ -54,6 +54,9 @@ void EventManager::handleEvent(sf::Event &event){
                     break;
                 }
             }
+            else
+                ++(bind->count);
+
         }
     }
 }
@@ -74,7 +77,7 @@ void EventManager::update(){
 
                     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(e_itr.second.code))){
 
-                        if(bind->details.keyCode != -1)
+                        if(bind->details.keyCode == -1)
                             bind->details.keyCode = e_itr.second.code;
 
                         ++(bind->count);
@@ -122,7 +125,7 @@ void EventManager::loadBindings(){
             std::string keyval;
             keystream >> keyval;
             int start = 0;
-            int end = keyval.find(delimiter);
+            std::size_t end = keyval.find(delimiter);
 
             if (end == std::string::npos){
 

@@ -95,7 +95,7 @@ struct Binding{
 
     Events events;
     std::string name;
-    int count; // Count of events that are "happening".
+    std::size_t count; // Count of events that are "happening".
     EventDetails details;
 };
 

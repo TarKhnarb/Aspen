@@ -92,20 +92,32 @@ void Window::draw(sf::Drawable &drawable){
     window.draw(drawable);
 }
 
+/***********
+ * IsFocus *
+ ***********/
 bool Window::isFocus(){
 
     return isFocused;
 }
 
+/*******************
+ * GetEventManager *
+ *******************/
 EventManager* Window::getEventManager(){
 
     return &eventManager;
 }
 
+/*************
+ * GetWindow *
+ *************/
 sf::RenderWindow* Window::getWindow(){
     return &window;
 }
 
+/****************
+ * ProcessEvent *
+ ****************/
 void Window::processEvents(){
 
     sf::Event event;
@@ -115,6 +127,9 @@ void Window::processEvents(){
     }
 }
 
+/********************
+ * ToggleFullscreen *
+ ********************/
 void Window::toggleFullscreen(EventDetails *details){
 
     isFullscreens = !isFullscreens;
