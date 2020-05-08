@@ -3,7 +3,7 @@ O = obj
 S = src
 FLAGS = -c -Wall
 
-all: $(O) $(B) $(O)/test.o
+all: $(O) $(B) $(O)/Aspen.o
 	g++ -ggdb $(O)/*.o -o $(B)/Aspen -lsfml-graphics -lsfml-window -lsfml-system
 
 $(O)/Aspen.o: $(O)/Game.o
@@ -15,8 +15,11 @@ $(O)/test.o: $(O)/Dungeon.o
 $(O)/Game.o: $(O)/Window.o
 	g++ $(FLAGS) $(S)/Game.cpp -o $(O)/Game.o
 
-$(O)/Window.o:
+$(O)/Window.o: $(O)/EventManager.o
 	g++ $(FLAGS) $(S)/Window.cpp -o $(O)/Window.o
+
+$(O)/EventManager.o:
+	g++ $(FLAGS) $(S)/EventManager.cpp -o $(O)/EventManager.o
 
 $(O)/Dungeon.o: $(O)/Stage.o
 	g++ $(FLAGS) $(S)/Dungeon.cpp -o $(O)/Dungeon.o

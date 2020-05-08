@@ -2,6 +2,7 @@
 #define GAME_GAME_H
 
 #include "Window.h"
+#include "EventManager.h"
 
 class Game{
 
@@ -15,7 +16,9 @@ public: // Functions
 
     void run();
 
-    void handleInput(); // TODO
+private: // Functions
+
+    void processEvent();
 
     void update();
 
@@ -25,9 +28,7 @@ public: // Functions
 
     void restartClock();
 
-private: // Functions
-
-    void moveBlacksmith();
+    void moveBlacksmith(EventDetails *details);
 
 private: // Variable
 
@@ -42,7 +43,6 @@ private: // Variable
     sf::Clock clock;
 
     sf::Time elapsedTime;
-
 };
 
 #endif

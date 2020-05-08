@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "EventManager.h"
+
 class Window{
 public: // Constructor / Destructor
 
@@ -18,6 +20,8 @@ public: // Function
 
     void endDraw(); // Display the changes.
 
+    void draw(sf::Drawable &drawable);
+
     void update();
 
     bool isClose();
@@ -28,11 +32,22 @@ public: // Function
 
     void toggleFullscreen();
 
-    void draw(sf::Drawable &drawable);
+    bool isFocus();
+
+    EventManager* getEventManager();
+
+    sf::RenderWindow* getWindow();
+
+    void processEvents();
 
 private: // Function
 
+    void toggleFullscreen(EventDetails *details);
+
+    void close(EventDetails *details = nullptr);
+
     void setup(const std::string &title, const sf::Vector2u &size);
+
     void create();
 
 private: // Variable
@@ -46,6 +61,10 @@ private: // Variable
     bool isClosed;
 
     bool isFullscreens;
+
+    EventManager eventManager;
+
+    bool isFocused;
 };
 
 #endif

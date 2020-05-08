@@ -22,54 +22,8 @@ Window::Window(const std::string &title, const sf::Vector2u &size){
 Window::~Window(){
 
     window.close();
-}
-
-/*********
- * Setup *
- *********/
-void Window::setup(const std::string &title, const sf::Vector2u &size)
-{
-    windowTitle = title;
-    windowSize = size;
-    isFullscreens = false;
-    isClosed = false;
-    create();
-}
-
-/**********
- * Create *
- **********/
-void Window::create(){
-
-    auto style = (isFullscreens ? sf::Style::Fullscreen : sf::Style::Default);
-    window.create({windowSize.x, windowSize.y, 32}, windowTitle, style);
-}
-
-/**********
- * Update *
- **********/
-void Window::update(){
-
-    sf::Event event;
-
-    while(window.pollEvent(event)){
-
-        if(event.type == sf::Event::Closed)
-            isClosed = true;
-
-        else if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5)
-            toggleFullscreen();
-    }
-}
-
-/********************
- * ToggleFullscreen *
- ********************/
-void Window::toggleFullscreen(){
-
-    isFullscreens = !isFullscreens;
-    window.close();
-    create();
+    eventManager.removeCallback("Fullscreen_toggle");
+    eventManager.removeCallback("Window_close");
 }
 
 /*************
@@ -89,9 +43,18 @@ void Window::endDraw(){
 }
 
 /**********
+ * Update *
+ **********/
+void Window::update(){
+
+    eventManager.update();
+}
+
+/**********
  * IsClose *
  **********/
 bool Window::isClose(){
+
     return isClosed;
 }
 
@@ -99,6 +62,7 @@ bool Window::isClose(){
  * IsFullscreen *
  ****************/
 bool Window::isFullscreen(){
+
     return isFullscreens;
 }
 
@@ -106,13 +70,90 @@ bool Window::isFullscreen(){
  * GetWindowSize *
  *****************/
 sf::Vector2u Window::getWindowSize(){
+
     return windowSize;
+}
+
+/********************
+ * ToggleFullscreen *
+ ********************/
+void Window::toggleFullscreen(){
+
+    isFullscreens = !isFullscreens;
+    window.close();
+    create();
 }
 
 /********
  * Draw *
  ********/
 void Window::draw(sf::Drawable &drawable){
+
     window.draw(drawable);
 }
 
+bool Window::isFocus(){
+
+    return isFocused;
+}
+
+EventManager* Window::getEventManager(){
+
+    return &eventManager;
+}
+
+sf::RenderWindow* Window::getWindow(){
+    return &window;
+}
+
+void Window::processEvents(){
+
+    sf::Event event;
+    while (window.pollEvent(event)){
+
+        eventManager.handleEvent(event);
+    }
+}
+
+void Window::toggleFullscreen(EventDetails *details){
+
+    isFullscreens = !isFullscreens;
+    window.close();
+
+    create();
+}
+
+/*********
+ * Close *
+ *********/
+void Window::close(EventDetails *details){
+
+    isClosed = true;
+}
+
+/*********
+ * Setup *
+ *********/
+void Window::setup(const std::string &title, const sf::Vector2u &size){
+
+    windowTitle = title;
+    windowSize = size;
+
+    isFullscreens = false;
+    isClosed = false;
+    isFocused = true; // Default value for focused flag.
+
+    eventManager.addCallback("Fullscreen_toggle", &Window::toggleFullscreen, this);
+    eventManager.addCallback("Window_close", &Window::close, this);
+
+    create();
+}
+
+/**********
+ * Create *
+ **********/
+void Window::create(){
+
+    auto style = (isFullscreens ? sf::Style::Fullscreen : sf::Style::Default);
+    window.create({windowSize.x, windowSize.y, 32}, windowTitle, style);
+}
