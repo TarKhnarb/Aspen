@@ -19,7 +19,7 @@ $(O)/Game.o: $(O)/Window.o
 $(O)/Window.o: $(O)/EventManager.o $(O)/StateManager.o
 	g++ $(FLAGS) $(S)/Window.cpp -o $(O)/Window.o
 
-$(O)/StateManager.o: $(O)/State_Intro.o $(O)/State_Dungeon.o $(O)/State_GamePause.o
+$(O)/StateManager.o: $(STAT_O)
 	g++ $(FLAGS) $(S)/StateManager.cpp -o $(O)/StateManager.o
 
 $(O)/State_Intro.o: $(O)/EventManager.o

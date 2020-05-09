@@ -10,8 +10,10 @@ class State_Dungeon : public BaseState{
 
 public:
     
-    State_Dungeon(StateManager*);
+    State_Dungeon(StateManager *stateMgr);
     ~State_Dungeon();
+
+public:
 
     void onCreate();
     void onDestroy();
@@ -29,7 +31,6 @@ public:
 private:
 
     sf::Sprite sBlacksmith;
-
     sf::Texture tBlacksmith;
 
     sf::Vector2f increment;

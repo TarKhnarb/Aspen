@@ -4,6 +4,9 @@
 #include "Window.h"
 #include "EventManager.h"
 
+#include "EventManager.h"
+#include "Window.h"
+
 struct SharedContext{
 
     SharedContext():

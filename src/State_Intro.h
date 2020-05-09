@@ -10,7 +10,7 @@ class State_Intro : public BaseState{
 
 public:
 
-    State_Intro(StateManager*);
+    State_Intro(StateManager *stateMgr);
     ~State_Intro();
 
 public:

@@ -1,7 +1,7 @@
 #include "State_Intro.h"
 #include "StateManager.h"
 
-State_Intro::State_Intro(StateManager* stateMgr):
+State_Intro::State_Intro(StateManager *stateMgr):
     BaseState(stateMgr){}
 
 State_Intro::~State_Intro(){}
@@ -45,7 +45,7 @@ void State_Intro::onDestroy(){
  ***********/
 void State_Intro::continu(EventDetails *details){
 
-    if(timePassed >= 5.0f){
+    if(timePassed >= 2.f){
         // stateMgr->switchTo(StateType::MainMenu); // ToDo later set a MainMenu where the player can chose between 3 saves
         stateMgr->switchTo(StateType::Dungeon);
         stateMgr->remove(StateType::Intro);
@@ -57,7 +57,7 @@ void State_Intro::continu(EventDetails *details){
  **********/
 void State_Intro::update(const sf::Time &time){
 
-    if(timePassed < 5.0f){
+    if(timePassed < 2.f){
 
         timePassed += time.asSeconds();
         introSprite.setPosition(introSprite.getPosition().x, introSprite.getPosition().y + (48 * time.asSeconds()));
@@ -72,7 +72,7 @@ void State_Intro::draw(){
     sf::RenderWindow *window = stateMgr->getContext()->wind->getWindow();
     window->draw(introSprite);
 
-    if(timePassed >= 5.0f)
+    if(timePassed >= 2.f)
         window->draw(text);
 }
 

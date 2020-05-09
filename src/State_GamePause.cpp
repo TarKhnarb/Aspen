@@ -36,10 +36,6 @@ void State_GamePause::onDestroy(){
     evMgr->removeCallback(StateType::GamePause,"GamePause");
 }
 
-void State_GamePause::activate(){}
-
-void State_GamePause::deactivate(){}
-
 void State_GamePause::unpause(EventDetails *details){
 
     stateMgr->switchTo(StateType::Dungeon);
