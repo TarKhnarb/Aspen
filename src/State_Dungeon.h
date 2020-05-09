@@ -4,17 +4,24 @@
 #include <SFML/Graphics.hpp>
 
 #include "BaseState.h"
-#include "Window.h"
+#include "EventManager.h"
 
 class State_Dungeon : public BaseState{
 
 public:
+    
+    State_Dungeon(StateManager*);
+    ~State_Dungeon();
 
     void onCreate();
     void onDestroy();
-
-    void update(EventDetails *details);
-
+    
+    void activate();
+    void deactivate();
+    
+    void moveCharacter(EventDetails *details);
+    
+    void update(const sf::Time &time);
     void draw();
 
     void pause(EventDetails *details);

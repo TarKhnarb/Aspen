@@ -4,17 +4,24 @@
 #include <SFML/Graphics.hpp>
 
 #include "BaseState.h"
-#include "Window.h"
+#include "EventManager.h"
 
 class State_GamePause : public BaseState{
 
 public:
 
+    State_GamePause(StateManager*);
+    ~State_GamePause();
+
     void onCreate();
     void onDestroy();
+    
+    void activate();
+    void deactivate();
 
     void unpause(EventDetails *details);
-
+    
+    void update(const sf::Time &time);
     void draw();
 
 private:

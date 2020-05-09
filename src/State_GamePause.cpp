@@ -1,6 +1,11 @@
 #include "State_GamePause.h"
 #include "StateManager.h"
 
+State_GamePause::State_GamePause(StateManager* stateMgr):
+    BaseState(stateMgr){}
+
+State_GamePause::~State_GamePause(){}
+
 void State_GamePause::onCreate(){
 
     setTransparent(true);
@@ -31,10 +36,17 @@ void State_GamePause::onDestroy(){
     evMgr->removeCallback(StateType::GamePause,"GamePause");
 }
 
+void State_GamePause::activate(){}
+
+void State_GamePause::deactivate(){}
+
 void State_GamePause::unpause(EventDetails *details){
 
     stateMgr->switchTo(StateType::Dungeon);
+    stateMgr->remove(StateType::GamePause);
 }
+
+void State_GamePause::update(const sf::Time &time){}
 
 void State_GamePause::draw(){
 

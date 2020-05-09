@@ -5,6 +5,8 @@
 
 #include "EventManager.h"
 
+enum class StateType;
+
 class Window{
 public: // Constructor / Destructor
 

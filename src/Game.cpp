@@ -8,8 +8,8 @@ Game::Game():
         stateManager(&context){
 
     context.wind = &window;
-    context.eventManager = window.GetEventManager();
-    stateManager.SwitchTo(StateType::Intro);
+    context.eventManager = window.getEventManager();
+    stateManager.switchTo(StateType::Intro);
 }
 
 /**************
@@ -47,7 +47,7 @@ void Game::run(){
 void Game::update(){
     
     window.update(); // Update window events.
-    stateManager.update(elapsed);
+    stateManager.update(elapsedTime);
 }
 
 /****************

@@ -1,6 +1,11 @@
 #include "State_Dungeon.h"
 #include "StateManager.h"
 
+State_Dungeon::State_Dungeon(StateManager* stateMgr):
+    BaseState(stateMgr){}
+
+State_Dungeon::~State_Dungeon(){}
+
 /************
  * OnCreate *
  ************/
@@ -16,12 +21,12 @@ void State_Dungeon::onCreate(){
 
     EventManager *evMgr = stateMgr->getContext()->eventManager;
 
-    evMgr->addCallback(StateType::Dungeon, "MoveUp", &State_Dungeon::update, this);
-    evMgr->addCallback(StateType::Dungeon, "MoveRight", &State_Dungeon::update, this);
-    evMgr->addCallback(StateType::Dungeon, "MoveDown", &State_Dungeon::update, this);
-    evMgr->addCallback(StateType::Dungeon, "MoveLeft", &State_Dungeon::update, this);
+    evMgr->addCallback(StateType::Dungeon, "MoveUp", &State_Dungeon::moveCharacter, this);
+    evMgr->addCallback(StateType::Dungeon, "MoveRight", &State_Dungeon::moveCharacter, this);
+    evMgr->addCallback(StateType::Dungeon, "MoveDown", &State_Dungeon::moveCharacter, this);
+    evMgr->addCallback(StateType::Dungeon, "MoveLeft", &State_Dungeon::moveCharacter, this);
     evMgr->addCallback(StateType::Dungeon, "GamePause", &State_Dungeon::pause, this);
-    evMgr->addCallback(StateType::Dungeon,"Dungeon",&State_Dungeon::update,this);
+    //evMgr->addCallback(StateType::Dungeon,"Dungeon",&State_Dungeon::update,this);
 
 }
 
@@ -39,10 +44,14 @@ void State_Dungeon::onDestroy(){
     evMgr->removeCallback(StateType::Dungeon,"GamePause");
 }
 
+void State_Dungeon::activate(){}
+
+void State_Dungeon::deactivate(){}
+
 /**********
  * Update *
  **********/
-void State_Dungeon::update(EventDetails *details){
+void State_Dungeon::moveCharacter(EventDetails *details){
 
     /* particle in a case
     sf::Vector2u windSize = window.getWindowSize();
@@ -80,6 +89,8 @@ void State_Dungeon::update(EventDetails *details){
     sBlacksmith.move(direction.x, direction.y);
 
 }
+
+void State_Dungeon::update(const sf::Time &time){}
 
 /********
  * Draw *

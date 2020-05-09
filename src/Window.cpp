@@ -22,8 +22,8 @@ Window::Window(const std::string &title, const sf::Vector2u &size){
 Window::~Window(){
 
     window.close();
-    eventManager.removeCallback("Fullscreen_toggle");
-    eventManager.removeCallback("Window_close");
+    eventManager.removeCallback(StateType(0), "Fullscreen_toggle");
+    eventManager.removeCallback(StateType(0), "Window_close");
 }
 
 /*************
@@ -158,8 +158,8 @@ void Window::setup(const std::string &title, const sf::Vector2u &size){
     isClosed = false;
     isFocused = true; // Default value for focused flag.
 
-    eventManager.addCallback("Fullscreen_toggle", &Window::toggleFullscreen, this);
-    eventManager.addCallback("Window_close", &Window::close, this);
+    eventManager.addCallback(StateType(0), "Fullscreen_toggle", &Window::toggleFullscreen, this);
+    eventManager.addCallback(StateType(0), "Window_close", &Window::close, this);
 
     create();
 }

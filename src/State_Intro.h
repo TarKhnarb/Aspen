@@ -5,12 +5,12 @@
 
 #include "BaseState.h"
 #include "EventManager.h"
-#include "Window.h"
 
 class State_Intro : public BaseState{
 
 public:
 
+    State_Intro(StateManager*);
     ~State_Intro();
 
 public:

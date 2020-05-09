@@ -7,8 +7,6 @@
 #include <unordered_map>
 #include <functional>
 
-#include "Window.h"
-
 #include "SharedContext.h"
 #include "State_Intro.h"
 #include "State_Dungeon.h"
