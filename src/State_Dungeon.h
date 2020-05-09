@@ -1,5 +1,5 @@
-#ifndef GAME_STATE_INTRO_H
-#define GAME_STATE_INTRO_H
+#ifndef GAME_STATE_DUNGEON_H
+#define GAME_STATE_DUNGEON_H
 
 #include <SFML/Graphics.hpp>
 
