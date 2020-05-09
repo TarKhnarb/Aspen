@@ -3,6 +3,7 @@
 
 #include "Window.h"
 #include "EventManager.h"
+#include "StateManager.h"
 
 class Game{
 
@@ -30,19 +31,17 @@ private: // Functions
 
     void moveBlacksmith(EventDetails *details);
 
+    void lateUpdate();
+
 private: // Variable
-
-    sf::Sprite blacksmith;
-
-    sf::Texture blacksmithTexture;
-
-    sf::Vector2f increment;
 
     Window window;
 
     sf::Clock clock;
 
     sf::Time elapsedTime;
+
+    StateManager stateManager;
 };
 
 #endif

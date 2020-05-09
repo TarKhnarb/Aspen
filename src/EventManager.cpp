@@ -1,10 +1,16 @@
 #include "EventManager.h"
 
+/***************
+ * Constructor *
+ ***************/
 EventManager::EventManager():
         hasFocus(true){
     loadBindings();
 }
 
+/**************
+ * Destructor *
+ **************/
 EventManager::~EventManager(){
 
     for(auto &itr : bindings){
@@ -14,6 +20,9 @@ EventManager::~EventManager(){
     }
 }
 
+/**************
+ * AddBinding *
+ **************/
 bool EventManager::addBinding(Binding *binding){
 
     if(bindings.find(binding->name) != bindings.end())
@@ -21,6 +30,9 @@ bool EventManager::addBinding(Binding *binding){
     return bindings.emplace(binding->name, binding).second;
 }
 
+/*****************
+ * RemoveBinding *
+ *****************/
 bool EventManager::removeBinding(std::string name){
 
     auto itr = bindings.find(name);
@@ -32,6 +44,25 @@ bool EventManager::removeBinding(std::string name){
     return true;
 }
 
+/************
+ * SetFocus *
+ ************/
+void EventManager::setFocus(const bool &focus){
+
+    hasFocus = focus;
+}
+
+/*******************
+ * SetCurrentState *
+ *******************/
+void EventManager::setCurrentState(const StateType &type){
+
+    currentState = type;
+}
+
+/***************
+ * HandleEvent *
+ ***************/
 void EventManager::handleEvent(sf::Event &event){
 
     for(auto &b_itr : bindings){
@@ -61,6 +92,9 @@ void EventManager::handleEvent(sf::Event &event){
     }
 }
 
+/**********
+ * Update *
+ **********/
 void EventManager::update(){
 
     if(!hasFocus)
@@ -68,7 +102,8 @@ void EventManager::update(){
 
     for(auto &b_itr : bindings){
 
-        Binding* bind = b_itr.second;
+        Binding *bind = b_itr.second;
+
         for(auto &e_itr : bind->events){
 
             switch (e_itr.first){
@@ -90,16 +125,31 @@ void EventManager::update(){
         }
         if(bind->events.size() == bind->count){
 
-            auto callItr = callbacks.find(bind->name);
-            if(callItr != callbacks.end())
-                callItr->second(&bind->details);
+            auto stateCallbacks = callbacks.find(currentState);
+            if(stateCallbacks != callbacks.end()){
 
+                auto callItr = stateCallbacks->second.find(bind->name);
+                if (callItr != stateCallbacks->second.end())
+                    callItr->second(&bind->details);
+            }
+
+            auto otherCallbacks = callbacks.find(StateType(0));
+            if (otherCallbacks != callbacks.end()){
+
+                auto callItr = otherCallbacks->second.find(bind->name);
+                if (callItr != otherCallbacks->second.end())
+                    callItr->second(&bind->details);
+            }
         }
+
         bind->count = 0;
         bind->details.clear();
     }
 }
 
+/****************
+ * LoadBindings *
+ ****************/
 void EventManager::loadBindings(){
 
     std::string delimiter = ":";

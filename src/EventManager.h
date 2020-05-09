@@ -101,7 +101,11 @@ struct Binding{
 
 using Bindings = std::unordered_map<std::string, Binding*>;
 
-using Callbacks = std::unordered_map<std::string, std::function<void(EventDetails*)>>;
+using CallbackContainer = std::unordered_map<std::string, std::function<void(EventDetails*)>>;
+
+enum class StateType;
+
+using Callbacks = std::unordered_map<StateType, CallbackContainer>;
 
 class EventManager{
 
@@ -115,16 +119,28 @@ public:
     bool addBinding(Binding *binding);
     bool removeBinding(std::string name);
     void setFocus(const bool &focus);
-// Needs to be defined in the header!
-    template<class T>
-    bool addCallback(const std::string &name, void(T::*func)(EventDetails*), T* instance){
+    void setCurrentState(const StateType &type);
 
+    template<class T>
+    bool addCallback(StateType state, const std::string &name, void(T::*func)(EventDetails*), T *instance){
+
+        auto itr = callbacks.emplace(state, CallbackContainer()).first;
         auto temp = std::bind(func, instance, std::placeholders::_1);
-        return callbacks.emplace(name, temp).second;
+        return itr->second.emplace(name, temp).second;
     }
 
-    void removeCallback(const std::string& name){
-        callbacks.erase(name);
+    bool removeCallback(StateType state, const std::string &name){
+
+        auto itr = callbacks.find(state);
+        if (itr == callbacks.end())
+            return false;
+
+        auto itr2 = itr->second.find(name);
+        if(itr2 == itr->second.end())
+            return false;
+
+        itr->second.erase(name);
+        return true;
     }
 
     void handleEvent(sf::Event &event);
@@ -135,6 +151,7 @@ private:
 
     void loadBindings();
     Bindings bindings;
+    StateType currentState;
     Callbacks callbacks;
     bool hasFocus;
 };

@@ -2,6 +2,7 @@ B = bin
 O = obj
 S = src
 FLAGS = -c -Wall
+STAT_O = $(O)/State_Intro.o $(O)/State_Dungeon.o $(O)/State_GamePause.o
 
 all: $(O) $(B) $(O)/Aspen.o
 	g++ -ggdb $(O)/*.o -o $(B)/Aspen -lsfml-graphics -lsfml-window -lsfml-system
@@ -15,8 +16,20 @@ $(O)/test.o: $(O)/Dungeon.o
 $(O)/Game.o: $(O)/Window.o
 	g++ $(FLAGS) $(S)/Game.cpp -o $(O)/Game.o
 
-$(O)/Window.o: $(O)/EventManager.o
+$(O)/Window.o: $(O)/EventManager.o $(O)/StateManager.o
 	g++ $(FLAGS) $(S)/Window.cpp -o $(O)/Window.o
+
+$(O)/StateManager.o: $(O)/State_Intro.o $(O)/State_Dungeon.o $(O)/State_GamePause.o
+	g++ $(FLAGS) $(S)/StateManager.cpp -o $(O)/StateManager.o
+
+$(O)/State_Intro.o: $(O)/EventManager.o
+	g++ $(FLAGS) $(S)/State_Intro.cpp -o $(O)/State_Intro.o
+
+$(O)/State_Dungeon.o: $(O)/EventManager.o
+	g++ $(FLAGS) $(S)/State_Dungeon.cpp -o $(O)/State_Dungeon.o
+
+$(O)/State_GamePause.o: $(O)/EventManager.o
+	g++ $(FLAGS) $(S)/State_GamePause.cpp -o $(O)/State_GamePause.o
 
 $(O)/EventManager.o:
 	g++ $(FLAGS) $(S)/EventManager.cpp -o $(O)/EventManager.o
