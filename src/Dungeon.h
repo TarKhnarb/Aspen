@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <stdexcept>
+#include <SFML/System/Vector2.hpp>
 
 #include "Stage.h"
 #include "Orientation.h"
@@ -20,16 +21,17 @@ public:
 
     void nextStage();
 
-    Room* getRoom(unsigned i, unsigned j) const; // TODO change for minimap
+    Room::Type getRoomType(unsigned i, unsigned j) const;
 
-    Room* changeRoom(Orientation orient); // TODO change posDungeon value
-    // TODO make getCurrentRoom
+    Room* getCurrentRoom();
+    
+    void changeRoom(Orientation orient);
 
-    unsigned getDungeonSize();
+    unsigned getDungeonSize() const;
 
     void setPosDungeon(unsigned i, unsigned j);
 
-    std::pair<int,int> getPosDungeon() const;
+    sf::Vector2u getPosDungeon() const;
 
 private:
 
@@ -52,7 +54,7 @@ private:
 
     std::unique_ptr<Stage> currentStage;
 
-    std::pair<unsigned, unsigned> posDungeon; // TODO changes with sf::Vector2u
+    sf::Vector2u posDungeon;
 
     std::string filePath;
     

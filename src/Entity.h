@@ -14,6 +14,13 @@ class Entity : public sf::Drawable, public sf::Transformable{
 
 public:
     
+    enum Type{
+        
+        Rock
+    };
+    
+public:
+    
     Entity(TextureManager*);
     virtual ~Entity() {}
     
@@ -25,7 +32,9 @@ public:
     void move(const sf::Vector2f& offset);
     void setOrigin(float x, float y);
     void setOrigin(const sf::Vector2f &origin);
-
+    
+    Type getType() const;
+    
 private:
     
     virtual void draw(sf::RenderTarget&, sf::RenderStates) const = 0;
@@ -35,6 +44,8 @@ protected:
     sf::FloatRect collisionBox;
     
     TextureManager* textureMgr;
+    
+    Type type;
 };
 
 #endif // ENTITY

@@ -4,8 +4,20 @@
  * Constructor *
  ***************/
 Room::Room(TextureManager* textureMgr, Room::Type roomType):
-        type(roomType),
-        textureMgr(textureMgr){}
+        textureMgr(textureMgr){
+            
+    setType(roomType);
+    
+    textureMgr->requireResource("Room");
+    sprite.setTexture(*textureMgr->getResource("Room"));
+}
+
+Room::~Room(){
+    
+    if(textureMgr){
+        textureMgr->releaseResource("Room");
+    }
+}
 
 /***********
  * SetType *
@@ -13,6 +25,9 @@ Room::Room(TextureManager* textureMgr, Room::Type roomType):
 void Room::setType(Room::Type roomType){
 
     type = roomType;
+    
+    if (type == Boss)
+        sprite.setColor(sf::Color::Blue);
 }
 
 /***********
@@ -168,13 +183,6 @@ void Room::affectType(unsigned seed){
         default:
             break;
     }
-
-    makeRoomTiles();
-}
-
-std::vector<std::vector<unsigned>> Room::getRoomTiles() const{
-
-    return roomTiles;
 }
 
 /*****************
@@ -188,14 +196,37 @@ void Room::makeRoomTiles(){
 
     std::string line;
     if(file.is_open()){
-
+        
+        std::size_t lineNb = 0;
         while(!file.eof()){
 
             getline(file, line);
             for(std::size_t i = 0; i < line.size(); ++i){
-                roomTiles.emplace_back();
-                roomTiles.back().push_back(std::stoi(line.substr(i, 1)));
+                switch(std::stoi(line.substr(i, 1))){
+                    
+                    case 1: // hole
+                        break;
+                    
+                    case 2: // rock
+                        {
+                            std::unique_ptr<Rock> rock (new Rock(10, textureMgr));
+                            rock->setPosition(205.f + 30.f * i, 135.f + 30.f * lineNb);
+                            entities.push_back(std::move(rock));
+                        }
+                        break;
+                    
+                    case 3: // chest
+                        break;
+                    
+                    case 4: // boost
+                        break;
+                    
+                    default:
+                        break;
+                }
             }
+            
+            ++lineNb;
         }
 
     }
@@ -208,8 +239,8 @@ void Room::makeRoomTiles(){
 /*****************
  * TakeTilesPath *
  *****************/
-std::string Room::takeTilesPath(unsigned roomId){
-
+std::string Room::takeTilesPath(int roomId){
+    
     std::string path;
     
     std::ifstream file;
@@ -218,7 +249,7 @@ std::string Room::takeTilesPath(unsigned roomId){
 
     if(file.is_open()) {
 
-        for(unsigned i = 1; i != roomId; ++i){
+        for(int i = 0; i != roomId; ++i){
 
             if(file.eof())
                 throw std::runtime_error("Failed to load id " + std::to_string(roomId));
@@ -233,4 +264,17 @@ std::string Room::takeTilesPath(unsigned roomId){
     file.close();
 
     return path;
+}
+
+/********
+ * draw *
+ ********/
+
+void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+    
+    target.draw(sprite, states);
+    for (const auto& entity : entities){
+        
+        target.draw(*entity, states);
+    }
 }

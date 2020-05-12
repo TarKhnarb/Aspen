@@ -54,3 +54,8 @@ void Entity::setOrigin(const sf::Vector2f &origin){
     
     // TODO
 }
+
+Entity::Type Entity::getType() const{
+    
+    return type;
+}

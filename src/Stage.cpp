@@ -238,15 +238,12 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 /***********
  * GetRoom *
  ***********/
-Room* Stage::getRoom(unsigned i, unsigned j) const{
+Room* Stage::getRoom(unsigned i, unsigned j){
 
-    return roomMap[i][j].get();
-    /*
     if(roomMap[i][j])
         return roomMap[i][j].get();
     else
-        throw std::domain_error("Stage::getRoom() : the coordinates (" + std::to_string(i) + ", " + std::to_string(j) + ") are not valid.");
-        */
+        return nullptr;
 }
 
 /***********
@@ -381,8 +378,11 @@ void Stage::affectRoomsType(){
 
         for(auto &room : col){
 
-            if(room && room->getType() == Room::Common)
-                room->affectType(stageSeed);
+            if(room){
+                if(room->getType() == Room::Common)
+                    room->affectType(stageSeed);
+                room->makeRoomTiles();
+            }
         }
     }
 }
@@ -390,7 +390,7 @@ void Stage::affectRoomsType(){
 /****************
  * Graphic View *
  ***************/
-std::ostream& operator<<(std::ostream& stream, const Stage &s){
+std::ostream& operator<<(std::ostream& stream, Stage &s){
 
     for(unsigned i = 0; i < s.getSize(); ++i){
 

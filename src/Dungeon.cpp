@@ -11,9 +11,6 @@ Dungeon::Dungeon(TextureManager* textureMgr):
     fillInformation();
     maxStageNumber = information.size();
 
-    unsigned mid = (information[0].at(0) - 1)/2;
-    posDungeon = std::make_pair(mid, mid);
-
     setStage();
 }
 
@@ -31,34 +28,63 @@ void Dungeon::nextStage(){
 /***********
  * GetRoom *
  ***********/
-Room* Dungeon::getRoom(unsigned i, unsigned j) const{
+Room::Type Dungeon::getRoomType(unsigned i, unsigned j) const{
 
-    if(currentStage)
-        return currentStage->getRoom(i, j);
-    else
-        throw std::domain_error("Dungeon::getRoom() : The room you are referring to does not exist, coordonate (" + std::to_string(i) + ", " + std::to_string(j) + ")");
+    if(currentStage){
+        
+        Room* room = currentStage->getRoom(i, j);
+        
+        if (room){
+            
+            return room->getType();
+        }
+        else{
+            
+            return Room::None;
+        }
+    }
+    else{
+        throw std::runtime_error("Dungon::getRoomType() : Unaccessible stage");
+    }
+}
+
+Room* Dungeon::getCurrentRoom(){
+    
+    return currentStage->getRoom(posDungeon.x, posDungeon.y);
 }
 
 /**************
  * ChangeRoom *
  **************/
-Room* Dungeon::changeRoom(Orientation orient){
+void Dungeon::changeRoom(Orientation orient){
 
     switch(orient){
         case Orientation::North:
-            return getRoom(posDungeon.first, posDungeon.second - 1);
+            if (getRoomType(posDungeon.x, posDungeon.y - 1) != Room::None){
+                posDungeon.y -= 1;
+            }
+            break;
 
         case Orientation::East:
-            return getRoom(posDungeon.first + 1, posDungeon.second);
+            if (getRoomType(posDungeon.x + 1, posDungeon.y) != Room::None){
+                posDungeon.x += 1;
+            }
+            break;
 
         case Orientation::South:
-            return getRoom(posDungeon.first, posDungeon.second + 1);
+            if (getRoomType(posDungeon.x, posDungeon.y + 1) != Room::None){
+                posDungeon.y += 1;
+            }
+            break;
 
         case Orientation::West:
-            return getRoom(posDungeon.first - 1, posDungeon.second);
+            if (getRoomType(posDungeon.x - 1, posDungeon.y) != Room::None){
+                posDungeon.x -= 1;
+            }
+            break;
 
         default:
-            return nullptr;//return getRoom(posDungeon.first, posDungeon.second);
+            break;
     }
 }
 
@@ -68,16 +94,17 @@ Room* Dungeon::changeRoom(Orientation orient){
 void Dungeon::setPosDungeon(unsigned i, unsigned j){
 
     if((j >= 0 && i >= 0) && (j < information[0].at(0) && i < information[0].at(0))){
-
-        posDungeon.first = i;
-        posDungeon.second = j;
+        if (getRoomType(i, j) != Room::None){
+            posDungeon.x = i;
+            posDungeon.y = j;
+        }
     }
 }
 
 /*****************
  * GetPosDungeon *
  *****************/
-std::pair<int,int> Dungeon::getPosDungeon() const{
+sf::Vector2u Dungeon::getPosDungeon() const{
 
     return posDungeon;
 }
@@ -85,7 +112,7 @@ std::pair<int,int> Dungeon::getPosDungeon() const{
 /******************
  * GetDungeonSize *
  ******************/
-unsigned Dungeon::getDungeonSize(){
+unsigned Dungeon::getDungeonSize() const{
 
     return information[0].at(0);
 }
@@ -100,6 +127,9 @@ void Dungeon::setStage(){
     information.erase(information.begin());
 
     currentStage->generate(actualStage);
+    
+    unsigned mid = (information[0].at(0) - 1)/2;
+    setPosDungeon(mid, mid);
 
     std::cout << *currentStage;
 }

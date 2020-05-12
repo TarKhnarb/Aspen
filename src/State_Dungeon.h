@@ -33,17 +33,10 @@ public:
 
 private:
 
-    void changeRoom(Orientation orient);
-
     sf::Sprite sBlacksmith;
     sf::Texture tBlacksmith;
 
-    sf::Sprite sDungeon;
-    sf::Texture tDungeon;
-
     sf::Vector2f increment;
-
-    sf::Vector2i posDungeon;
 
     Dungeon dungeon;
 };

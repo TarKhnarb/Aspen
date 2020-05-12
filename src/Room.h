@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <SFML/Graphics/Color.hpp>
 
 #include "Orientation.h"
 #include "Rock.h"
@@ -20,7 +21,7 @@ enum class DoorState{
     Key
 };
 
-class Room{
+class Room : public sf::Drawable{
 
 public:
 
@@ -44,7 +45,8 @@ public:
         NSW,
         NEW,
         NESW1,
-        NESW2
+        NESW2,
+        None
     };
 
     enum class Tile{
@@ -61,6 +63,7 @@ public:
     Room(const Room&) = delete;
 
     Room(TextureManager*, Type roomType = Type::Common);
+    ~Room();
 
 public: // Functions
 
@@ -81,23 +84,25 @@ public: // Functions
     void closeDoors();
 
     void affectType(unsigned seed);
-
-    std::vector<std::vector<unsigned>> getRoomTiles() const;
+    
+    void makeRoomTiles();
 
 private:
 
-    void makeRoomTiles(); // TODO create entities depending on the file
+    std::string takeTilesPath(int roomId); // return Room path witch type corresponding
 
-    std::string takeTilesPath(unsigned roomId); // return Room path witch type corresponding
-
+    void draw(sf::RenderTarget&, sf::RenderStates) const override;
+    
 private: // Variables
 
     std::map<Orientation, DoorState> doors;
 
     Type type;
-
-    std::vector<std::vector<unsigned>> roomTiles; // TODO delete this
-
+    
+    std::vector<std::unique_ptr<Entity>> entities;
+    
+    sf::Sprite sprite;
+    
     TextureManager* textureMgr;
 };
 

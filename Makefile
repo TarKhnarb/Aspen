@@ -10,7 +10,7 @@ all: $(O) $(B) $(O)/Aspen.o
 $(O)/Aspen.o: $(O)/Game.o $(O)/SpriteSheet.o
 	g++ $(FLAGS) $(S)/Aspen.cpp -o $(O)/Aspen.o
 
-$(O)/test.o: $(O)/Dungeon.o
+$(O)/test.o:
 	g++ $(FLAGS) $(S)/test.cpp -o $(O)/test.o
 
 $(O)/Game.o: $(O)/Window.o

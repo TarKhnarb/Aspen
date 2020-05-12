@@ -7,12 +7,15 @@ Rock::Rock(unsigned life, TextureManager* textureMgr):
         Entity(textureMgr),
         life (life){
 
+    type = Type::Rock;
     selectForm();
 }
 
 Rock::~Rock(){
     
-    textureMgr->releaseResource(textureName);
+    if(textureMgr){
+        textureMgr->releaseResource(textureName);
+    }
 }
 
 /*******

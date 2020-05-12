@@ -6,11 +6,7 @@
  ***************/
 State_Dungeon::State_Dungeon(StateManager* stateMgr):
         BaseState(stateMgr),
-        dungeon(stateMgr->getContext()->textureManager){
-
-    std::pair<int,int> tPos = dungeon.getPosDungeon();
-    posDungeon = sf::Vector2i(tPos.first, tPos.second);
-}
+        dungeon(stateMgr->getContext()->textureManager){}
 
 /**************
  * Destructor *
@@ -27,10 +23,6 @@ void State_Dungeon::onCreate(){
     tBlacksmith.loadFromFile("Data/Textures/Entity/Npc/Blacksmith.png");
     sBlacksmith.setTexture(tBlacksmith);
     sBlacksmith.setPosition((windowSize.x - tBlacksmith.getSize().x)/2.f, (windowSize.y - tBlacksmith.getSize().y)/2.f);
-
-    tDungeon.loadFromFile("Data/Textures/Room/Room.png");
-    sDungeon.setTexture(tDungeon);
-    sDungeon.setPosition(0.f, 0.f);
 
     increment = sf::Vector2f(5.f, 5.f);
 
@@ -112,22 +104,22 @@ void State_Dungeon::moveCharacter(EventDetails *details) {
     if (sBlacksmith.getPosition().x < 0) {
 
         sBlacksmith.setPosition((windowSize.x - tBlacksmith.getSize().x) / 2.f,(windowSize.y - tBlacksmith.getSize().y) / 2.f);
-        changeRoom(Orientation::North);
+        dungeon.changeRoom(Orientation::North);
     }
     if (sBlacksmith.getPosition().y < 0){
 
         sBlacksmith.setPosition((windowSize.x - tBlacksmith.getSize().x)/2.f, (windowSize.y - tBlacksmith.getSize().y)/2.f);
-        changeRoom(Orientation::West);
+        dungeon.changeRoom(Orientation::West);
     }
     if(sBlacksmith.getPosition().x + 40.f > windowSize.x){
 
         sBlacksmith.setPosition((windowSize.x - tBlacksmith.getSize().x)/2.f, (windowSize.y - tBlacksmith.getSize().y)/2.f);
-        changeRoom(Orientation::South);
+        dungeon.changeRoom(Orientation::South);
     }
     if(sBlacksmith.getPosition().y + 80.f > windowSize.y){
 
         sBlacksmith.setPosition((windowSize.x - tBlacksmith.getSize().x)/2.f, (windowSize.y - tBlacksmith.getSize().y)/2.f);
-        changeRoom(Orientation::East);
+        dungeon.changeRoom(Orientation::East);
     }
 }
 
@@ -143,8 +135,10 @@ void State_Dungeon::update(const sf::Time &time){
  ********/
 void State_Dungeon::draw(){
 
-    stateMgr->getContext()->wind->getWindow()->draw(sDungeon);
-    stateMgr->getContext()->wind->getWindow()->draw(sBlacksmith);
+    Window* window = stateMgr->getContext()->wind;
+    
+    window->draw(*dungeon.getCurrentRoom());
+    window->draw(sBlacksmith);
 }
 
 /*********
@@ -153,9 +147,4 @@ void State_Dungeon::draw(){
 void State_Dungeon::pause(EventDetails *details){
 
     stateMgr->switchTo(StateType::GamePause);
-}
-
-void State_Dungeon::changeRoom(Orientation orient){
-
-    dungeon.changeRoom(orient);
 }

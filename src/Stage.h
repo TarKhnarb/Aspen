@@ -21,7 +21,7 @@ public: /** Functions */
 
     void generate(unsigned &stageNumber, unsigned seed = 1);
 
-    Room* getRoom(unsigned i, unsigned j) const;
+    Room* getRoom(unsigned i, unsigned j);
 
     unsigned getSize() const;
 
@@ -35,7 +35,7 @@ private: /** Functions */
 
     void placeDoors();
 
-    void affectRoomsType();
+    void affectRoomsType(); // affects types and fills rooms
 
 private: /** Variables */
 
@@ -52,6 +52,6 @@ private: /** Variables */
     TextureManager* textureMgr;
 };
 
-std::ostream& operator<<(std::ostream& stream, const Stage &s);
+std::ostream& operator<<(std::ostream& stream, Stage &s);
 
 #endif
