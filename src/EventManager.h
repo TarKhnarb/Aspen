@@ -68,13 +68,11 @@ struct EventDetails{
     }
     std::string name;
     sf::Vector2i size;
-    sf::Uint32 textEntered;
     int keyCode; // Single key code.
 
     void clear(){
 
         size = sf::Vector2i(0, 0);
-        textEntered = 0;
         keyCode = -1;
     }
 };

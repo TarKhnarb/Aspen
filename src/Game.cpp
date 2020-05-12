@@ -9,7 +9,7 @@ Game::Game():
 
     context.wind = &window;
     context.eventManager = window.getEventManager();
-    stateManager.switchTo(StateType::Intro);
+    stateManager.switchTo(StateType::Dungeon);
 }
 
 /**************
@@ -64,7 +64,6 @@ void Game::processEvent(){
 void Game::render(){
 
     window.beginDraw();
-    //window.draw(blacksmith); // ToDo place blacksmith in State_Intro
     stateManager.draw();
     window.endDraw();
 }
@@ -85,6 +84,9 @@ void Game::restartClock(){
     elapsedTime += clock.restart();
 }
 
+/**************
+ * LateUpdate *
+ **************/
 void Game::lateUpdate(){
     stateManager.processRequests();
     restartClock();

@@ -5,6 +5,9 @@
 
 #include "BaseState.h"
 #include "EventManager.h"
+#include "Dungeon.h"
+
+#include "Orientation.h"
 
 class State_Dungeon : public BaseState{
 
@@ -30,10 +33,19 @@ public:
 
 private:
 
+    void changeRoom(Orientation orient);
+
     sf::Sprite sBlacksmith;
     sf::Texture tBlacksmith;
 
+    sf::Sprite sDungeon;
+    sf::Texture tDungeon;
+
     sf::Vector2f increment;
+
+    sf::Vector2i posDungeon;
+
+    Dungeon dungeon;
 };
 
 #endif

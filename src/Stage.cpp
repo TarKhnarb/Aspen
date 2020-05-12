@@ -239,10 +239,13 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
  ***********/
 Room* Stage::getRoom(unsigned i, unsigned j) const{
 
+    return roomMap[i][j].get();
+    /*
     if(roomMap[i][j])
         return roomMap[i][j].get();
     else
         throw std::domain_error("Stage::getRoom() : the coordinates (" + std::to_string(i) + ", " + std::to_string(j) + ") are not valid.");
+        */
 }
 
 /***********

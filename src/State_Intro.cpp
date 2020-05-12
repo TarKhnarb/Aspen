@@ -1,9 +1,15 @@
 #include "State_Intro.h"
 #include "StateManager.h"
 
+/***************
+ * Constructor *
+ ***************/
 State_Intro::State_Intro(StateManager *stateMgr):
     BaseState(stateMgr){}
 
+/**************
+ * Destructor *
+ **************/
 State_Intro::~State_Intro(){}
 
 /************

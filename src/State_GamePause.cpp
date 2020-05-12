@@ -1,11 +1,20 @@
 #include "State_GamePause.h"
 #include "StateManager.h"
 
+/***************
+ * Constructor *
+ ***************/
 State_GamePause::State_GamePause(StateManager* stateMgr):
     BaseState(stateMgr){}
 
+/**************
+ * Destructor *
+ **************/
 State_GamePause::~State_GamePause(){}
 
+/************
+ * OnCreate *
+ ************/
 void State_GamePause::onCreate(){
 
     setTransparent(true);
@@ -30,20 +39,32 @@ void State_GamePause::onCreate(){
     evMgr->addCallback(StateType::GamePause,"GamePause",&State_GamePause::unpause,this);
 }
 
+/*************
+ * OnDestroy *
+ *************/
 void State_GamePause::onDestroy(){
 
     EventManager *evMgr = stateMgr->getContext()->eventManager;
     evMgr->removeCallback(StateType::GamePause,"GamePause");
 }
 
+/***********
+ * Unpause *
+ ***********/
 void State_GamePause::unpause(EventDetails *details){
 
     stateMgr->switchTo(StateType::Dungeon);
     stateMgr->remove(StateType::GamePause);
 }
 
+/**********
+ * Update *
+ **********/
 void State_GamePause::update(const sf::Time &time){}
 
+/********
+ * Draw *
+ ********/
 void State_GamePause::draw(){
 
     sf::RenderWindow *wind = stateMgr->getContext()->wind->getWindow();

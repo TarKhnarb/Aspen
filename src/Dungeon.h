@@ -8,6 +8,7 @@
 #include <stdexcept>
 
 #include "Stage.h"
+#include "Orientation.h"
 
 class Dungeon{
 
@@ -15,13 +16,21 @@ public:
 
     Dungeon(); // Lit les information necessaire et les stock dans Informations
 
-public: /** Functions */
+public:
 
     void nextStage();
 
     Room* getRoom(unsigned i, unsigned j) const;
 
-private: /** Functions */
+    Room* changeRoom(Orientation orient);
+
+    unsigned getDungeonSize();
+
+    void setPosDungeon(unsigned i, unsigned j);
+
+    std::pair<int,int> getPosDungeon() const;
+
+private:
 
     void fillInformation();
 
@@ -29,7 +38,7 @@ private: /** Functions */
 
     void setStage();
 
-private: /** Variables */
+private:
 
     unsigned maxStageNumber; // ( = informations.size() )
 
@@ -41,6 +50,8 @@ private: /** Variables */
      */
 
     std::unique_ptr<Stage> currentStage;
+
+    std::pair<unsigned, unsigned> posDungeon;
 
     std::string filePath;
 };

@@ -1,9 +1,20 @@
 #include "State_Dungeon.h"
 #include "StateManager.h"
 
+/***************
+ * Constructor *
+ ***************/
 State_Dungeon::State_Dungeon(StateManager* stateMgr):
-    BaseState(stateMgr){}
+        BaseState(stateMgr),
+        dungeon(){
 
+    std::pair<int,int> tPos = dungeon.getPosDungeon();
+    posDungeon = sf::Vector2i(tPos.first, tPos.second);
+}
+
+/**************
+ * Destructor *
+ **************/
 State_Dungeon::~State_Dungeon(){}
 
 /************
@@ -17,7 +28,11 @@ void State_Dungeon::onCreate(){
     sBlacksmith.setTexture(tBlacksmith);
     sBlacksmith.setPosition((windowSize.x - tBlacksmith.getSize().x)/2.f, (windowSize.y - tBlacksmith.getSize().y)/2.f);
 
-    increment = sf::Vector2f(80.f, 80.f);
+    tDungeon.loadFromFile("Data/Textures/Room/Room.png");
+    sDungeon.setTexture(tDungeon);
+    sDungeon.setPosition(0.f, 0.f);
+
+    increment = sf::Vector2f(5.f, 5.f);
 
     EventManager *evMgr = stateMgr->getContext()->eventManager;
 
@@ -26,8 +41,6 @@ void State_Dungeon::onCreate(){
     evMgr->addCallback(StateType::Dungeon, "MoveDown", &State_Dungeon::moveCharacter, this);
     evMgr->addCallback(StateType::Dungeon, "MoveLeft", &State_Dungeon::moveCharacter, this);
     evMgr->addCallback(StateType::Dungeon, "GamePause", &State_Dungeon::pause, this);
-    //evMgr->addCallback(StateType::Dungeon,"Dungeon",&State_Dungeon::update,this);
-
 }
 
 /*************
@@ -44,14 +57,22 @@ void State_Dungeon::onDestroy(){
     evMgr->removeCallback(StateType::Dungeon,"GamePause");
 }
 
+/************
+ * Activate *
+ ************/
 void State_Dungeon::activate(){}
 
+/**************
+ * Deactivate *
+ **************/
 void State_Dungeon::deactivate(){}
 
-/**********
- * Update *
- **********/
-void State_Dungeon::moveCharacter(EventDetails *details){
+/*****************
+ * MoveCharacter *
+ *****************/
+void State_Dungeon::moveCharacter(EventDetails *details) {
+
+    sf::Vector2u windowSize = stateMgr->getContext()->wind->getWindow()->getSize();
 
     /* particle in a case
     sf::Vector2u windSize = window.getWindowSize();
@@ -67,36 +88,62 @@ void State_Dungeon::moveCharacter(EventDetails *details){
 
     sf::Vector2f direction(0.f, 0.f);
 
-    if(details->name == "MoveUp"){
+    if (details->name == "MoveUp") {
 
         direction = sf::Vector2f(0.f, -increment.y);
     }
-    if(details->name == "MoveRight"){
+    if (details->name == "MoveRight") {
 
         direction = sf::Vector2f(increment.x, 0.f);
     }
-    if(details->name == "MoveDown"){
+    if (details->name == "MoveDown") {
 
         direction = sf::Vector2f(0.f, increment.y);
     }
-    if(details->name == "MoveLeft"){
+    if (details->name == "MoveLeft") {
 
         direction = sf::Vector2f(-increment.x, 0.f);
     }
 
-    //float secondElapsed = .asSeconds();
+    //float secondElapsed = time.asSeconds();
 
     sBlacksmith.move(direction.x, direction.y);
 
+    if (sBlacksmith.getPosition().x < 0) {
+
+        sBlacksmith.setPosition((windowSize.x - tBlacksmith.getSize().x) / 2.f,(windowSize.y - tBlacksmith.getSize().y) / 2.f);
+        changeRoom(Orientation::North);
+    }
+    if (sBlacksmith.getPosition().y < 0){
+
+        sBlacksmith.setPosition((windowSize.x - tBlacksmith.getSize().x)/2.f, (windowSize.y - tBlacksmith.getSize().y)/2.f);
+        changeRoom(Orientation::West);
+    }
+    if(sBlacksmith.getPosition().x + 40.f > windowSize.x){
+
+        sBlacksmith.setPosition((windowSize.x - tBlacksmith.getSize().x)/2.f, (windowSize.y - tBlacksmith.getSize().y)/2.f);
+        changeRoom(Orientation::South);
+    }
+    if(sBlacksmith.getPosition().y + 80.f > windowSize.y){
+
+        sBlacksmith.setPosition((windowSize.x - tBlacksmith.getSize().x)/2.f, (windowSize.y - tBlacksmith.getSize().y)/2.f);
+        changeRoom(Orientation::East);
+    }
 }
 
-void State_Dungeon::update(const sf::Time &time){}
+/**********
+ * Update *
+ **********/
+void State_Dungeon::update(const sf::Time &time){
+
+}
 
 /********
  * Draw *
  ********/
 void State_Dungeon::draw(){
 
+    stateMgr->getContext()->wind->getWindow()->draw(sDungeon);
     stateMgr->getContext()->wind->getWindow()->draw(sBlacksmith);
 }
 
@@ -106,4 +153,9 @@ void State_Dungeon::draw(){
 void State_Dungeon::pause(EventDetails *details){
 
     stateMgr->switchTo(StateType::GamePause);
+}
+
+void State_Dungeon::changeRoom(Orientation orient){
+
+    dungeon.changeRoom(orient);
 }

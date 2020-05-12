@@ -42,6 +42,14 @@ void Window::endDraw(){
     window.display();
 }
 
+/********
+ * Draw *
+ ********/
+void Window::draw(sf::Drawable &drawable){
+
+    window.draw(drawable);
+}
+
 /**********
  * Update *
  **********/
@@ -84,14 +92,6 @@ void Window::toggleFullscreen(){
     create();
 }
 
-/********
- * Draw *
- ********/
-void Window::draw(sf::Drawable &drawable){
-
-    window.draw(drawable);
-}
-
 /***********
  * IsFocus *
  ***********/
@@ -112,7 +112,21 @@ EventManager* Window::getEventManager(){
  * GetWindow *
  *************/
 sf::RenderWindow* Window::getWindow(){
+
     return &window;
+}
+
+/****************
+ * GetViewSpace *
+ ****************/
+sf::FloatRect Window::getViewSpace(){
+
+    sf::Vector2f viewCenter = window.getView().getCenter();
+    sf::Vector2f viewSize = window.getView().getSize();
+    sf::Vector2f viewSizeHalf(viewSize.x / 2, viewSize.y / 2);
+    sf::FloatRect viewSpace(viewCenter - viewSizeHalf, viewSize);
+
+    return viewSpace;
 }
 
 /****************

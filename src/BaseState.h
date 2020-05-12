@@ -55,11 +55,17 @@ public:
         return stateMgr;
     }
 
+    sf::View& getView(){
+
+        return view;
+    }
+
 protected:
 
     StateManager *stateMgr;
     bool transparent;
     bool transcendent;
+    sf::View view;
 };
 
 #endif

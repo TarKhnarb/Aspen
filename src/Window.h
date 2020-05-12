@@ -18,9 +18,9 @@ public: // Constructor / Destructor
 
 public: // Function
 
-    void beginDraw(); // Clear the window.
+    void beginDraw(); // Clear the window
 
-    void endDraw(); // Display the changes.
+    void endDraw(); // Display the changes
 
     void draw(sf::Drawable &drawable);
 
@@ -39,6 +39,8 @@ public: // Function
     EventManager* getEventManager();
 
     sf::RenderWindow* getWindow();
+
+    sf::FloatRect getViewSpace();
 
     void processEvents();
 

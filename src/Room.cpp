@@ -91,6 +91,9 @@ void Room::closeDoors(){
     }
 }
 
+/**************
+ * AffectType *
+ **************/
 void Room::affectType(unsigned seed){
 
     bool north = (doors.find(Orientation::North) != doors.end());
@@ -166,6 +169,9 @@ void Room::affectType(unsigned seed){
     }
 }
 
+/***********
+ * Display *
+ ***********/
 void Room::display(){ // TODO a virer une fois tout les tests réalisés
 
     std::cout << "Type de salle : " << type << std:: endl;
