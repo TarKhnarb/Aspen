@@ -192,8 +192,10 @@ void Room::makeRoomTiles(){
         while(!file.eof()){
 
             getline(file, line);
-            for(std::size_t i = 0; i < line.size(); ++i)
+            for(std::size_t i = 0; i < line.size(); ++i){
+                roomTiles.emplace_back();
                 roomTiles.back().push_back(std::stoi(line.substr(i, 1)));
+            }
         }
 
     }

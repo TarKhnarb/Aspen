@@ -11,7 +11,7 @@ class TextureManager: public ResourceManager<TextureManager, sf::Texture>{
 
 public:
 
-    TextureManager(): ResourceManager("Data/Files/Texture/Textures.cfg"){}
+    TextureManager(): ResourceManager("Data/Files/Textures/Textures.cfg"){}
 
     sf::Texture* load(const std::string &path){
 
