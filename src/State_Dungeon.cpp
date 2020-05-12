@@ -6,7 +6,7 @@
  ***************/
 State_Dungeon::State_Dungeon(StateManager* stateMgr):
         BaseState(stateMgr),
-        dungeon(){
+        dungeon(stateMgr->getContext()->textureManager){
 
     std::pair<int,int> tPos = dungeon.getPosDungeon();
     posDungeon = sf::Vector2i(tPos.first, tPos.second);

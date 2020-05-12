@@ -3,9 +3,10 @@
 /***************
  * Constructor *
  ***************/
-Dungeon::Dungeon():
+Dungeon::Dungeon(TextureManager* textureMgr):
         actualStage(0),
-        filePath("Data/Files/Dungeon/DungeonInformations.csv"){
+        filePath("Data/Files/Dungeon/DungeonInformations.csv"),
+        textureMgr(textureMgr){
 
     fillInformation();
     maxStageNumber = information.size();
@@ -57,7 +58,7 @@ Room* Dungeon::changeRoom(Orientation orient){
             return getRoom(posDungeon.first - 1, posDungeon.second);
 
         default:
-            break;//return getRoom(posDungeon.first, posDungeon.second);
+            return nullptr;//return getRoom(posDungeon.first, posDungeon.second);
     }
 }
 
@@ -94,7 +95,7 @@ unsigned Dungeon::getDungeonSize(){
  ************/
 void Dungeon::setStage(){
 
-    currentStage.reset(new Stage(information[0].at(0), information[0].at(1), information[0].at(2)));
+    currentStage.reset(new Stage(information[0].at(0), information[0].at(1), information[0].at(2), textureMgr));
 
     information.erase(information.begin());
 

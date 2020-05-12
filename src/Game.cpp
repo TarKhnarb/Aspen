@@ -9,6 +9,8 @@ Game::Game():
 
     context.wind = &window;
     context.eventManager = window.getEventManager();
+    context.textureManager = &textureManager;
+    
     stateManager.switchTo(StateType::Dungeon);
 }
 

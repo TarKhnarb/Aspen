@@ -3,10 +3,16 @@
 /***************
  * Constructor *
  ***************/
-Rock::Rock(unsigned life):
+Rock::Rock(unsigned life, TextureManager* textureMgr):
+        Entity(textureMgr),
         life (life){
 
     selectForm();
+}
+
+Rock::~Rock(){
+    
+    textureMgr->releaseResource(textureName);
 }
 
 /*******
@@ -14,10 +20,16 @@ Rock::Rock(unsigned life):
  *******/
 void Rock::hit(unsigned damage){
 
-    if(life >= damage)
+    if(life > damage)
         life -= damage;
-    else
+    else{
         life = 0;
+        
+        textureMgr->requireResource("BrokenRock");
+        sprite.setTexture(*textureMgr->getResource("BrokenRock"));
+        textureMgr->releaseResource(textureName);
+        textureName = "BrokenRock";
+    }
 }
 
 /************
@@ -42,4 +54,19 @@ unsigned Rock::getForm() const{
 void Rock::selectForm(){
 
     form = rand()%3;
+    
+    textureName = "Rock" + std::to_string(form + 1);
+    
+    textureMgr->requireResource(textureName);
+    sprite.setTexture(*textureMgr->getResource(textureName));
+}
+
+/********
+ * draw *
+ ********/
+
+void Rock::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+    
+    states.transform *= getTransform();
+    target.draw(sprite, states);
 }

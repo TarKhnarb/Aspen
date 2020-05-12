@@ -3,19 +3,20 @@
 
 #include "Window.h"
 #include "EventManager.h"
-
-#include "EventManager.h"
-#include "Window.h"
+#include "TextureManager.h"
 
 struct SharedContext{
 
     SharedContext():
             wind(nullptr),
-            eventManager(nullptr){}
+            eventManager(nullptr),
+            textureManager(nullptr){}
 
     Window *wind;
 
     EventManager *eventManager;
+    
+    TextureManager *textureManager;
 };
 
 #endif

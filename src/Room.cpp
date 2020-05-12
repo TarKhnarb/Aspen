@@ -3,8 +3,9 @@
 /***************
  * Constructor *
  ***************/
-Room::Room(Room::Type roomType):
-        type(roomType){}
+Room::Room(TextureManager* textureMgr, Room::Type roomType):
+        type(roomType),
+        textureMgr(textureMgr){}
 
 /***********
  * SetType *
@@ -176,22 +177,6 @@ std::vector<std::vector<unsigned>> Room::getRoomTiles() const{
     return roomTiles;
 }
 
-/***********
- * Display *
- ***********/
-void Room::display(){ // TODO a virer une fois tout les tests réalisés
-
-    std::cout << "Type de salle : " << type << std:: endl;
-    std::cout << std::endl;
-    std::cout << "Doors :" << std::endl;
-
-    for(auto &d : doors){
-        std::cout << "      Orientation : " << static_cast<int>(d.first) << std::endl;
-        std::cout << "      State : " << static_cast<int>(d.second) << std::endl;
-        std::cout << std::endl;
-    }
-}
-
 /*****************
  * MakeRoomTiles *
  *****************/
@@ -204,11 +189,11 @@ void Room::makeRoomTiles(){
     std::string line;
     if(file.is_open()){
 
-        while(!file.eof){
+        while(!file.eof()){
 
             getline(file, line);
             for(std::size_t i = 0; i < line.size(); ++i)
-                roomTiles.back().push_back(std::stou(line.substr(i, 1)));
+                roomTiles.back().push_back(std::stoi(line.substr(i, 1)));
         }
 
     }
@@ -221,15 +206,16 @@ void Room::makeRoomTiles(){
 /*****************
  * TakeTilesPath *
  *****************/
-std::string Room::takeTilesPath(int roomId){
+std::string Room::takeTilesPath(unsigned roomId){
 
+    std::string path;
+    
     std::ifstream file;
     std::string filename("Data/Files/Dungeon/Rooms/All.cfg");
     file.open(filename);
 
     if(file.is_open()) {
 
-        std::string path;
         for(unsigned i = 1; i != roomId; ++i){
 
             if(file.eof())
@@ -245,9 +231,4 @@ std::string Room::takeTilesPath(int roomId){
     file.close();
 
     return path;
-}
-
-void Room::fillRoomUnit(){
-
-    for(auto &d : )
 }

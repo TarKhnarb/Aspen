@@ -4,6 +4,7 @@
 #include "Window.h"
 #include "EventManager.h"
 #include "StateManager.h"
+#include "TextureManager.h"
 #include "SharedContext.h"
 
 class Game{
@@ -43,8 +44,10 @@ private: // Variable
     sf::Time elapsedTime;
 
     StateManager stateManager;
-	
-	SharedContext context;
+    
+    TextureManager textureManager;
+
+    SharedContext context;
 };
 
 #endif

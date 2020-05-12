@@ -15,7 +15,7 @@ public:
 
     Stage(const Stage&) = delete;
 
-    Stage(unsigned size, unsigned minRoom, unsigned maxRoom);
+    Stage(unsigned size, unsigned minRoom, unsigned maxRoom, TextureManager*);
 
 public: /** Functions */
 
@@ -48,6 +48,8 @@ private: /** Variables */
     unsigned minRoomCount;
 
     unsigned maxRoomCount;
+    
+    TextureManager* textureMgr;
 };
 
 std::ostream& operator<<(std::ostream& stream, const Stage &s);

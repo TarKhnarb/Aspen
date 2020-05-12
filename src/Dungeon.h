@@ -14,15 +14,16 @@ class Dungeon{
 
 public:
 
-    Dungeon(); // Lit les information necessaire et les stock dans Informations
+    Dungeon(TextureManager*); // Lit les information necessaire et les stock dans Informations
 
 public:
 
     void nextStage();
 
-    Room* getRoom(unsigned i, unsigned j) const;
+    Room* getRoom(unsigned i, unsigned j) const; // TODO change for minimap
 
-    Room* changeRoom(Orientation orient);
+    Room* changeRoom(Orientation orient); // TODO change posDungeon value
+    // TODO make getCurrentRoom
 
     unsigned getDungeonSize();
 
@@ -51,9 +52,11 @@ private:
 
     std::unique_ptr<Stage> currentStage;
 
-    std::pair<unsigned, unsigned> posDungeon;
+    std::pair<unsigned, unsigned> posDungeon; // TODO changes with sf::Vector2u
 
     std::string filePath;
+    
+    TextureManager* textureMgr;
 };
 
 #endif

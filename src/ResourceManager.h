@@ -4,6 +4,8 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <string>
+#include <unordered_map>
 
 template<typename Derived, typename T>
 class ResourceManager{

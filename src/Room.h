@@ -2,12 +2,16 @@
 #define GAME_ROOM_H
 
 #include <map>
+#include <vector>
 #include <utility>
 #include <cassert>
 #include <stdexcept>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 #include "Orientation.h"
+#include "Rock.h"
 
 enum class DoorState{
 
@@ -43,9 +47,9 @@ public:
         NESW2
     };
 
-    enum Tile{
+    enum class Tile{
 
-        Nothing = 0;
+        Nothing = 0,
         Hole,
         Rock,
         Chest,
@@ -56,7 +60,7 @@ public:
 
     Room(const Room&) = delete;
 
-    Room(Type roomType = Type::Common);
+    Room(TextureManager*, Type roomType = Type::Common);
 
 public: // Functions
 
@@ -80,17 +84,11 @@ public: // Functions
 
     std::vector<std::vector<unsigned>> getRoomTiles() const;
 
-    Unit getRoomUnit() const;
-
-    void display(); // TODO a virer une fois tout les tests réalisés
-
 private:
 
-    void makeRoomTiles();
+    void makeRoomTiles(); // TODO create entities depending on the file
 
-    std::string takeTilesPath(int roomId); // return Room path witch type corresponding
-
-    void fillRoomUnit();
+    std::string takeTilesPath(unsigned roomId); // return Room path witch type corresponding
 
 private: // Variables
 
@@ -98,9 +96,9 @@ private: // Variables
 
     Type type;
 
-    std::vector<std::vector<unsigned>> roomTiles;
+    std::vector<std::vector<unsigned>> roomTiles; // TODO delete this
 
-
+    TextureManager* textureMgr;
 };
 
 #endif

@@ -2,12 +2,17 @@
 #define GAME_ROCK_H
 
 #include <cstdlib>
+#include <string>
+#include <SFML/Graphics/Sprite.hpp>
 
-class Rock{
+#include "Entity.h"
+
+class Rock : public Entity{
 
 public:
 
-    Rock(unsigned life);
+    Rock(unsigned life, TextureManager*);
+    ~Rock();
 
 public: // Functions
 
@@ -20,13 +25,17 @@ public: // Functions
 private: // Functions
 
     void selectForm();
+    
+    void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
 private: // Variables
 
     unsigned life;
 
     unsigned form;
-
+    
+    sf::Sprite sprite;
+    std::string textureName;
 };
 
 #endif

@@ -52,8 +52,11 @@ $(O)/Stage.o: $(O)/Room.o
 $(O)/Room.o: $(O)/Rock.o
 	g++ $(FLAGS) $(S)/Room.cpp -o $(O)/Room.o
 
-$(O)/Rock.o:
+$(O)/Rock.o: $(O)/Entity.o
 	g++ $(FLAGS) $(S)/Rock.cpp -o $(O)/Rock.o
+
+$(O)/Entity.o:
+	g++ $(FLAGS) $(S)/Entity.cpp -o $(O)/Entity.o
 
 $(O):
 	mkdir $(O)
