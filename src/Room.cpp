@@ -167,6 +167,13 @@ void Room::affectType(unsigned seed){
         default:
             break;
     }
+
+    makeRoomTiles();
+}
+
+std::vector<std::vector<unsigned>> Room::getRoomTiles() const{
+
+    return roomTiles;
 }
 
 /***********
@@ -183,4 +190,64 @@ void Room::display(){ // TODO a virer une fois tout les tests réalisés
         std::cout << "      State : " << static_cast<int>(d.second) << std::endl;
         std::cout << std::endl;
     }
+}
+
+/*****************
+ * MakeRoomTiles *
+ *****************/
+void Room::makeRoomTiles(){
+
+    std::ifstream file;
+    std::string filename(takeTilesPath(static_cast<int>(type)));
+    file.open(filename);
+
+    std::string line;
+    if(file.is_open()){
+
+        while(!file.eof){
+
+            getline(file, line);
+            for(std::size_t i = 0; i < line.size(); ++i)
+                roomTiles.back().push_back(std::stou(line.substr(i, 1)));
+        }
+
+    }
+    else
+        throw std::runtime_error ("Failed to load " + filename);
+
+    file.close();
+}
+
+/*****************
+ * TakeTilesPath *
+ *****************/
+std::string Room::takeTilesPath(int roomId){
+
+    std::ifstream file;
+    std::string filename("Data/Files/Dungeon/Rooms/All.cfg");
+    file.open(filename);
+
+    if(file.is_open()) {
+
+        std::string path;
+        for(unsigned i = 1; i != roomId; ++i){
+
+            if(file.eof())
+                throw std::runtime_error("Failed to load id " + std::to_string(roomId));
+
+            getline(file, path);
+        }
+
+    }
+    else
+        throw std::runtime_error ("Failed to load " + filename);
+
+    file.close();
+
+    return path;
+}
+
+void Room::fillRoomUnit(){
+
+    for(auto &d : )
 }

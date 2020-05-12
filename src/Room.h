@@ -22,7 +22,7 @@ public:
 
     enum Type{
 
-        Common,
+        Common = 0,
         Start,
         CommonStart,
         Boss,
@@ -41,6 +41,15 @@ public:
         NEW,
         NESW1,
         NESW2
+    };
+
+    enum Tile{
+
+        Nothing = 0;
+        Hole,
+        Rock,
+        Chest,
+        Boost
     };
 
 public:
@@ -69,13 +78,29 @@ public: // Functions
 
     void affectType(unsigned seed);
 
+    std::vector<std::vector<unsigned>> getRoomTiles() const;
+
+    Unit getRoomUnit() const;
+
     void display(); // TODO a virer une fois tout les tests réalisés
+
+private:
+
+    void makeRoomTiles();
+
+    std::string takeTilesPath(int roomId); // return Room path witch type corresponding
+
+    void fillRoomUnit();
 
 private: // Variables
 
     std::map<Orientation, DoorState> doors;
 
     Type type;
+
+    std::vector<std::vector<unsigned>> roomTiles;
+
+
 };
 
 #endif
