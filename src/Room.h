@@ -16,6 +16,7 @@
 #include "Orientation.h"
 #include "Rock.h"
 #include "Hole.h"
+#include "Wall.h"
 #include "Door.h"
 
 class Room : public sf::Drawable{
@@ -37,6 +38,10 @@ public:
         NS2,
         WE1,
         WE2,
+        NE,
+        ES,
+        SW,
+        NW,
         NES,
         ESW,
         NSW,
