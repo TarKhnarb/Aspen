@@ -31,7 +31,6 @@ private: // Functions
 private: // Variables
 
     unsigned life;
-
     unsigned form;
     
     sf::Sprite sprite;

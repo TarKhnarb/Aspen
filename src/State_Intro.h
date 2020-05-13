@@ -28,10 +28,13 @@ public:
     void deactivate();
 
 private:
+
     sf::Texture introTexture;
     sf::Sprite introSprite;
+
     sf::Text text;
     sf::Font font;
+
     float timePassed;
 };
 

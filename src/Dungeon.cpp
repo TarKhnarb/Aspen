@@ -48,7 +48,7 @@ Room::Type Dungeon::getRoomType(unsigned i, unsigned j) const{
     }
 }
 
-Room* Dungeon::getCurrentRoom(){
+Room* Dungeon::getCurrentRoom() const{
     
     return currentStage->getRoom(posDungeon.x, posDungeon.y);
 }
@@ -88,6 +88,14 @@ void Dungeon::changeRoom(Orientation orient){
     }
 }
 
+/******************
+ * GetDungeonSize *
+ ******************/
+unsigned Dungeon::getDungeonSize() const{
+
+    return information[0].at(0);
+}
+
 /*****************
  * SetPosDungeon *
  *****************/
@@ -107,31 +115,6 @@ void Dungeon::setPosDungeon(unsigned i, unsigned j){
 sf::Vector2u Dungeon::getPosDungeon() const{
 
     return posDungeon;
-}
-
-/******************
- * GetDungeonSize *
- ******************/
-unsigned Dungeon::getDungeonSize() const{
-
-    return information[0].at(0);
-}
-
-/************
- * SetStage *
- ************/
-void Dungeon::setStage(){
-
-    currentStage.reset(new Stage(information[0].at(0), information[0].at(1), information[0].at(2), textureMgr));
-
-    information.erase(information.begin());
-
-    currentStage->generate(actualStage);
-    
-    unsigned mid = (information[0].at(0) - 1)/2;
-    setPosDungeon(mid, mid);
-
-    std::cout << *currentStage;
 }
 
 /*******************
@@ -170,4 +153,21 @@ unsigned Dungeon::returnCsvItemSTOI(std::istringstream &ss){
     std::string result;
     std::getline(ss, result, ',');
     return std::stoi(result);
+}
+
+/************
+ * SetStage *
+ ************/
+void Dungeon::setStage(){
+
+    currentStage.reset(new Stage(information[0].at(0), information[0].at(1), information[0].at(2), textureMgr));
+
+    information.erase(information.begin());
+
+    currentStage->generate(actualStage);
+
+    unsigned mid = (information[0].at(0) - 1)/2;
+    setPosDungeon(mid, mid);
+
+    std::cout << *currentStage;
 }

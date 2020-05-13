@@ -35,7 +35,7 @@ public:
         transparent = transp;
     }
 
-    bool isTransparent()const{
+    bool isTransparent() const{
 
         return transparent;
     }
@@ -45,7 +45,7 @@ public:
         transcendent = transc;
     }
 
-    bool isTranscendent()const{
+    bool isTranscendent() const{
 
         return transcendent;
     }

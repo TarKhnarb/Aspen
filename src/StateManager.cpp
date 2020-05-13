@@ -87,10 +87,22 @@ void StateManager::draw(){
         states.back().second->draw();
 }
 
+/*******************
+ * ProcessRequests *
+ *******************/
+void StateManager::processRequests(){
+
+    while(toRemove.begin() != toRemove.end()){
+
+        removeState(*toRemove.begin());
+        toRemove.erase(toRemove.begin());
+    }
+}
+
 /**************
  * GetContext *
  **************/
-SharedContext* StateManager::getContext(){
+SharedContext* StateManager::getContext() const{
 
     return shared;
 }
@@ -112,26 +124,6 @@ bool StateManager::hasState(const StateType &type){
         }
     }
     return false;
-}
-
-/**********
- * Remove *
- **********/
-void StateManager::remove(const StateType &type){
-
-    toRemove.push_back(type);
-}
-
-/*******************
- * ProcessRequests *
- *******************/
-void StateManager::processRequests(){
-
-    while(toRemove.begin() != toRemove.end()){
-
-        removeState(*toRemove.begin());
-        toRemove.erase(toRemove.begin());
-    }
 }
 
 /************
@@ -161,6 +153,14 @@ void StateManager::switchTo(const StateType &type){
     createState(type);
     states.back().second->activate();
     shared->wind->getWindow()->setView(states.back().second->getView());
+}
+
+/**********
+ * Remove *
+ **********/
+void StateManager::remove(const StateType &type){
+
+    toRemove.push_back(type);
 }
 
 /***************

@@ -10,6 +10,9 @@ Rock::Rock(unsigned life, TextureManager* textureMgr):
     selectForm();
 }
 
+/**************
+ * Destructor *
+ **************/
 Rock::~Rock(){
     
     textureMgr->releaseResource(textureName);

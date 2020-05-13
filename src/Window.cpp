@@ -16,9 +16,9 @@ Window::Window(const std::string &title, const sf::Vector2u &size){
     setup(title, size);
 }
 
-/*************
- * Destuctor *
- *************/
+/**************
+ * Destructor *
+ **************/
 Window::~Window(){
 
     window.close();
@@ -77,7 +77,7 @@ bool Window::isFullscreen(){
 /*****************
  * GetWindowSize *
  *****************/
-sf::Vector2u Window::getWindowSize(){
+sf::Vector2u Window::getWindowSize() const{
 
     return windowSize;
 }

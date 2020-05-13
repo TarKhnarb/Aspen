@@ -1,5 +1,8 @@
 #include "Hole.h"
 
+/***************
+ * Constructor *
+ ***************/
 Hole::Hole(bool border, TextureManager* textureMgr):
         Entity(textureMgr, Type::Hole){
     
@@ -11,11 +14,17 @@ Hole::Hole(bool border, TextureManager* textureMgr):
     collisionBox = sprite.getLocalBounds();
 }
 
+/**************
+ * Destructor *
+ **************/
 Hole::~Hole(){
     
     textureMgr->releaseResource(textureName);
 }
 
+/********
+ * Draw *
+ ********/
 void Hole::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     
     states.transform *= getTransform();

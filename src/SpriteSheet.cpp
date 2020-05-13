@@ -171,6 +171,14 @@ bool SpriteSheet::loadSheet(const std::string &file){
 }
 
 /****************
+ * GetAnimation *
+ ****************/
+Anim_Base* SpriteSheet::getCurrentAnim() const{
+
+    return animationCurrent;
+}
+
+/****************
  * SetAnimation *
  ****************/
 bool SpriteSheet::setAnimation(const std::string &name, const bool &play, const bool &loop){

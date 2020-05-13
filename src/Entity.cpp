@@ -1,9 +1,15 @@
 #include "Entity.h"
 
+/***************
+ * Constructor *
+ ***************/
 Entity::Entity(TextureManager* textureMgr, Type type):
         textureMgr(textureMgr),
         type(type){}
 
+/************
+ * Collides *
+ ************/
 bool Entity::collides(Entity& other, float push){
     
     push = std::max(0.f, std::min(1.f, push)); // must be in [0, 1]
@@ -62,6 +68,9 @@ bool Entity::collides(Entity& other, float push){
     return false;
 }
 
+/***************
+ * SetPosition *
+ ***************/
 void Entity::setPosition(float x, float y){
     
     sf::Vector2f initialPos = getPosition();
@@ -73,6 +82,9 @@ void Entity::setPosition(float x, float y){
     collisionBox.top += offset.y;
 }
 
+/***************
+ * SetPosition *
+ ***************/
 void Entity::setPosition(const sf::Vector2f& position){
     
     sf::Vector2f initialPos = getPosition();
@@ -84,6 +96,9 @@ void Entity::setPosition(const sf::Vector2f& position){
     collisionBox.top += offset.y;
 }
 
+/********
+ * Move *
+ ********/
 void Entity::move(float offsetX, float offsetY){
     
     sf::Transformable::move(offsetX, offsetY);
@@ -92,6 +107,9 @@ void Entity::move(float offsetX, float offsetY){
     collisionBox.top += offsetY;
 }
 
+/********
+ * Move *
+ ********/
 void Entity::move(const sf::Vector2f& offset){
     
     sf::Transformable::move(offset);
@@ -100,6 +118,9 @@ void Entity::move(const sf::Vector2f& offset){
     collisionBox.top += offset.y;
 }
 
+/***********
+ * GetType *
+ ***********/
 Entity::Type Entity::getType() const{
     
     return type;

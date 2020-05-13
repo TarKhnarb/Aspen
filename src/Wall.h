@@ -1,5 +1,5 @@
-#ifndef WALL_H
-#define WALL_H
+#ifndef GAME_WALL_H
+#define GAME_WALL_H
 
 #include "Entity.h"
 
@@ -8,6 +8,8 @@ class Wall : public Entity{
 public:
     
     Wall();
+
+public:
     
     float& left;
     float& top;

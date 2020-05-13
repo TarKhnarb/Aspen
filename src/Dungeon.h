@@ -23,7 +23,7 @@ public:
 
     Room::Type getRoomType(unsigned i, unsigned j) const;
 
-    Room* getCurrentRoom();
+    Room* getCurrentRoom() const;
     
     void changeRoom(Orientation orient);
 

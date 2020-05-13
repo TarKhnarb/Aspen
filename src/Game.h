@@ -28,7 +28,7 @@ private: // Functions
 
     void render();
 
-    sf::Time getElapsedTime();
+    sf::Time getElapsedTime() const;
 
     void restartClock();
 

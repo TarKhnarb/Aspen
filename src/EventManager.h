@@ -115,8 +115,11 @@ public:
 public:
 
     bool addBinding(Binding *binding);
+
     bool removeBinding(std::string name);
+
     void setFocus(const bool &focus);
+
     void setCurrentState(const StateType &type);
 
     template<class T>
@@ -148,6 +151,9 @@ public:
 private:
 
     void loadBindings();
+
+private:
+
     Bindings bindings;
     StateType currentState;
     Callbacks callbacks;

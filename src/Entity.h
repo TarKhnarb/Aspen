@@ -1,5 +1,5 @@
-#ifndef ENTITY_H
-#define ENTITY_H
+#ifndef GAME_ENTITY_H
+#define GAME_ENTITY_H
 
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
@@ -31,12 +31,17 @@ public:
     
     Entity(TextureManager*, Type = None);
     virtual ~Entity() {}
-    
+
+public:
+
     bool collides(Entity&, float);
     
     void setPosition(float x, float y);
+
     void setPosition(const sf::Vector2f& position);
+
     void move(float offsetX, float offsetY);
+
     void move(const sf::Vector2f& offset);
     
     Type getType() const;
@@ -54,4 +59,4 @@ protected:
     Type type;
 };
 
-#endif // ENTITY
+#endif

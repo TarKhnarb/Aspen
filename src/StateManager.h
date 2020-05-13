@@ -49,7 +49,7 @@ public:
 
     void processRequests();
 
-    SharedContext *getContext();
+    SharedContext* getContext() const;
 
     bool hasState(const StateType &type);
 

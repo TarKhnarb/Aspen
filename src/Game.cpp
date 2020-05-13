@@ -73,7 +73,7 @@ void Game::render(){
 /******************
  * getElapsedTime *
  ******************/
-sf::Time Game::getElapsedTime(){
+sf::Time Game::getElapsedTime() const{
 
     return elapsedTime;
 }

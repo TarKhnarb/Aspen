@@ -40,7 +40,7 @@ public:
 
     bool loadSheet(const std::string &file);
 
-    Anim_Base* getCurrentAnim();
+    Anim_Base* getCurrentAnim() const;
 
     bool setAnimation(const std::string &name, const bool &play = false, const bool &loop = false);
 

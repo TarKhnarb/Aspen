@@ -92,10 +92,9 @@ private:
 private: // Variables
 
     std::vector<std::unique_ptr<Door>> doors;
+    std::vector<std::unique_ptr<Entity>> entities;
 
     Type type;
-    
-    std::vector<std::unique_ptr<Entity>> entities;
     
     sf::Sprite sprite;
     

@@ -8,7 +8,8 @@
 enum class StateType;
 
 class Window{
-public: // Constructor / Destructor
+
+public:
 
     Window();
 
@@ -16,7 +17,7 @@ public: // Constructor / Destructor
 
     ~Window();
 
-public: // Function
+public:
 
     void beginDraw(); // Clear the window
 
@@ -30,7 +31,7 @@ public: // Function
 
     bool isFullscreen();
 
-    sf::Vector2u getWindowSize();
+    sf::Vector2u getWindowSize() const;
 
     void toggleFullscreen();
 
@@ -44,7 +45,7 @@ public: // Function
 
     void processEvents();
 
-private: // Function
+private:
 
     void toggleFullscreen(EventDetails *details);
 
@@ -54,21 +55,17 @@ private: // Function
 
     void create();
 
-private: // Variable
+private:
 
     sf::RenderWindow window;
-
     sf::Vector2u windowSize;
-
     std::string windowTitle;
 
     bool isClosed;
-
     bool isFullscreens;
+    bool isFocused;
 
     EventManager eventManager;
-
-    bool isFocused;
 };
 
 #endif

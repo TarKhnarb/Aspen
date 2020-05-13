@@ -21,7 +21,7 @@ public: /** Functions */
 
     void generate(unsigned &stageNumber, unsigned seed = 1);
 
-    Room* getRoom(unsigned i, unsigned j);
+    Room* getRoom(unsigned i, unsigned j) const;
 
     unsigned getSize() const;
 

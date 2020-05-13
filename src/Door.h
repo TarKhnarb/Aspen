@@ -37,9 +37,9 @@ public:
 
     Orientation getOrientation() const;
 
-    void draw(sf::RenderTarget&, sf::RenderStates) const override;
-
 private:
+
+    void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
     void placeDoor();
 

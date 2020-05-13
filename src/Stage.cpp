@@ -238,7 +238,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 /***********
  * GetRoom *
  ***********/
-Room* Stage::getRoom(unsigned i, unsigned j){
+Room* Stage::getRoom(unsigned i, unsigned j) const{
 
     if(roomMap[i][j])
         return roomMap[i][j].get();
@@ -372,6 +372,9 @@ void Stage::placeDoors(){
     roomMap[mid][mid]->openDoors();
 }
 
+/*******************
+ * AffectRoomsType *
+ *******************/
 void Stage::affectRoomsType(){
 
     for(auto &col : roomMap){

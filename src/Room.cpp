@@ -12,6 +12,9 @@ Room::Room(TextureManager* textureMgr, Room::Type roomType):
     sprite.setTexture(*textureMgr->getResource("Room"));
 }
 
+/**************
+ * Destructor *
+ **************/
 Room::~Room(){
     
     textureMgr->releaseResource("Room");

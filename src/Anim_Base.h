@@ -16,6 +16,8 @@ public:
     Anim_Base();
     virtual ~Anim_Base();
 
+public:
+
     void setSpriteSheet(SpriteSheet *sheet);
 
     void setFrame(const unsigned int &frame);

@@ -23,6 +23,9 @@ Door::Door(Orientation orient, State dState, TextureManager *textureMgr):
     placeDoor();
 }
 
+/**************
+ * Destructor *
+ **************/
 Door::~Door(){
 
         textureMgr->releaseResource(textureName);
