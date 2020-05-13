@@ -16,12 +16,18 @@ public:
     
     enum Type{
         
-        Rock
+        None,
+        Rock,
+        Hole,
+        Chest,
+        Boost,
+        Door,
+        Wall
     };
     
 public:
     
-    Entity(TextureManager*);
+    Entity(TextureManager*, Type = None);
     virtual ~Entity() {}
     
     // bool collides(Entity&, float);

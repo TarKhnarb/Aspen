@@ -13,10 +13,10 @@ $(O)/Aspen.o: $(O)/Game.o $(O)/SpriteSheet.o
 $(O)/test.o:
 	g++ $(FLAGS) $(S)/test.cpp -o $(O)/test.o
 
-$(O)/Game.o: $(O)/Window.o
+$(O)/Game.o: $(O)/Window.o $(O)/StateManager.o
 	g++ $(FLAGS) $(S)/Game.cpp -o $(O)/Game.o
 
-$(O)/Window.o: $(O)/EventManager.o $(O)/StateManager.o
+$(O)/Window.o: $(O)/EventManager.o
 	g++ $(FLAGS) $(S)/Window.cpp -o $(O)/Window.o
 
 $(O)/StateManager.o: $(STAT_O)
@@ -49,11 +49,14 @@ $(O)/Dungeon.o: $(O)/Stage.o
 $(O)/Stage.o: $(O)/Room.o
 	g++ $(FLAGS) $(S)/Stage.cpp -o $(O)/Stage.o
 
-$(O)/Room.o: $(O)/Rock.o
+$(O)/Room.o: $(O)/Hole.o $(O)/Rock.o
 	g++ $(FLAGS) $(S)/Room.cpp -o $(O)/Room.o
 
 $(O)/Rock.o: $(O)/Entity.o
 	g++ $(FLAGS) $(S)/Rock.cpp -o $(O)/Rock.o
+
+$(O)/Hole.o: $(O)/Entity.o
+	g++ $(FLAGS) $(S)/Hole.cpp -o $(O)/Hole.o
 
 $(O)/Entity.o:
 	g++ $(FLAGS) $(S)/Entity.cpp -o $(O)/Entity.o

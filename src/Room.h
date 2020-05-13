@@ -13,6 +13,7 @@
 
 #include "Orientation.h"
 #include "Rock.h"
+#include "Hole.h"
 
 enum class DoorState{
 

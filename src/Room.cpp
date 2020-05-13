@@ -14,9 +14,7 @@ Room::Room(TextureManager* textureMgr, Room::Type roomType):
 
 Room::~Room(){
     
-    if(textureMgr){
-        textureMgr->releaseResource("Room");
-    }
+    textureMgr->releaseResource("Room");
 }
 
 /***********
@@ -27,7 +25,7 @@ void Room::setType(Room::Type roomType){
     type = roomType;
     
     if (type == Boss)
-        sprite.setColor(sf::Color::Blue);
+        sprite.setColor(sf::Color(20, 20, 255, 128));
 }
 
 /***********
@@ -193,7 +191,8 @@ void Room::makeRoomTiles(){
     std::ifstream file;
     std::string filename(takeTilesPath(static_cast<int>(type)));
     file.open(filename);
-
+    
+    std::string previousLine; // use to read the tile above
     std::string line;
     if(file.is_open()){
         
@@ -205,6 +204,12 @@ void Room::makeRoomTiles(){
                 switch(std::stoi(line.substr(i, 1))){
                     
                     case 1: // hole
+                        {
+                            bool border = (lineNb == 0 || std::stoi(previousLine.substr(i, 1)) != 1);
+                            std::unique_ptr<Hole> hole (new Hole(border, textureMgr));
+                            hole->setPosition(205.f + 30.f * i, 135.f + 30.f * lineNb);
+                            entities.push_back(std::move(hole));
+                        }
                         break;
                     
                     case 2: // rock
@@ -226,6 +231,7 @@ void Room::makeRoomTiles(){
                 }
             }
             
+            previousLine = line;
             ++lineNb;
         }
 

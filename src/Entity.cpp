@@ -1,7 +1,8 @@
 #include "Entity.h"
 
-Entity::Entity(TextureManager* textureMgr):
-        textureMgr(textureMgr){}
+Entity::Entity(TextureManager* textureMgr, Type type):
+        textureMgr(textureMgr),
+        type(type){}
 
 void Entity::setPosition(float x, float y){
     
@@ -39,20 +40,6 @@ void Entity::move(const sf::Vector2f& offset){
     
     collisionBox.left += offset.x;
     collisionBox.top += offset.y;
-}
-
-void Entity::setOrigin(float x, float y){
-    
-    sf::Transformable::setOrigin(x, y);
-    
-    // TODO
-}
-
-void Entity::setOrigin(const sf::Vector2f &origin){
-    
-    sf::Transformable::setOrigin(origin);
-    
-    // TODO
 }
 
 Entity::Type Entity::getType() const{

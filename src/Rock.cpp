@@ -4,18 +4,15 @@
  * Constructor *
  ***************/
 Rock::Rock(unsigned life, TextureManager* textureMgr):
-        Entity(textureMgr),
+        Entity(textureMgr, Type::Rock),
         life (life){
 
-    type = Type::Rock;
     selectForm();
 }
 
 Rock::~Rock(){
     
-    if(textureMgr){
-        textureMgr->releaseResource(textureName);
-    }
+    textureMgr->releaseResource(textureName);
 }
 
 /*******
@@ -62,6 +59,8 @@ void Rock::selectForm(){
     
     textureMgr->requireResource(textureName);
     sprite.setTexture(*textureMgr->getResource(textureName));
+    
+    collisionBox = sprite.getLocalBounds();
 }
 
 /********
