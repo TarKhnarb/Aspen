@@ -126,9 +126,7 @@ void State_Dungeon::moveCharacter(EventDetails *details) {
 /**********
  * Update *
  **********/
-void State_Dungeon::update(const sf::Time &time){
-
-}
+void State_Dungeon::update(const sf::Time &time){}
 
 /********
  * Draw *

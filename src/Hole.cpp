@@ -7,6 +7,7 @@ Hole::Hole(bool border, TextureManager* textureMgr):
     
     textureMgr->requireResource(textureName);
     sprite.setTexture(*textureMgr->getResource(textureName));
+    
     collisionBox = sprite.getLocalBounds();
 }
 

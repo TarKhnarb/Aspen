@@ -7,6 +7,8 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <cstdlib>
+#include <cmath>
 
 #include "TextureManager.h"
 
@@ -30,14 +32,12 @@ public:
     Entity(TextureManager*, Type = None);
     virtual ~Entity() {}
     
-    // bool collides(Entity&, float);
+    bool collides(Entity&, float);
     
     void setPosition(float x, float y);
     void setPosition(const sf::Vector2f& position);
     void move(float offsetX, float offsetY);
     void move(const sf::Vector2f& offset);
-    void setOrigin(float x, float y);
-    void setOrigin(const sf::Vector2f &origin);
     
     Type getType() const;
     
