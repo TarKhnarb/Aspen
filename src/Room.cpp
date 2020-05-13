@@ -25,7 +25,7 @@ void Room::setType(Room::Type roomType){
     type = roomType;
     
     if (type == Boss)
-        sprite.setColor(sf::Color(20, 20, 255, 128));
+        sprite.setColor(sf::Color(80, 170, 255));
 }
 
 /***********
@@ -146,33 +146,36 @@ void Room::affectType(unsigned seed){
                 else
                     setType(Type::WE2);
             }
-            else{
-                setType(NESW2);
+            else if(north && east){
+                setType(Type::NE);
+            }
+            else if(east && south){
+                setType(Type::ES);
+            }
+            else if(south && west){
+                setType(Type::SW);
+            }
+            else if(west && north){
+                setType(Type::NW);
             }
             break;
 
 
         case 3:
 
-            if((rand()%seed)%4){
-
-                if(!west)
-                    setType(Type::NES);
-                else if(!north)
-                    setType(Type::ESW);
-                else if(!east)
-                    setType(Type::NSW);
-                else if(!south)
-                    setType(Type::NEW);
-            }
-            else{
-                setType(Type::NESW2);
-            }
+            if(!west)
+                setType(Type::NES);
+            else if(!north)
+                setType(Type::ESW);
+            else if(!east)
+                setType(Type::NSW);
+            else if(!south)
+                setType(Type::NEW);
             break;
 
         case 4:
 
-            if((rand()%seed)%3)
+            if((rand()%seed)%2)
                 setType(Type::NESW1);
             else
                 setType(Type::NESW2);

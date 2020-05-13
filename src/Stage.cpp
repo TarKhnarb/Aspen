@@ -477,7 +477,23 @@ std::ostream& operator<<(std::ostream& stream, Stage &s){
                     case Room::NES:
                         stream << "N";
                         break;
-
+                    
+                    case Room::NE:
+                        stream << "O";
+                        break;
+                    
+                    case Room::ES:
+                        stream << "P";
+                        break;
+                    
+                    case Room::SW:
+                        stream << "Q";
+                        break;
+                    
+                    case Room::NW:
+                        stream << "R";
+                        break;
+                    
                     default:
                         break;
                 }
