@@ -1,6 +1,8 @@
 #ifndef GAME_ROOM_H
 #define GAME_ROOM_H
 
+#include <SFML/Graphics/Color.hpp>
+
 #include <map>
 #include <vector>
 #include <utility>
@@ -9,18 +11,12 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <SFML/Graphics/Color.hpp>
+#include <algorithm>
 
 #include "Orientation.h"
 #include "Rock.h"
 #include "Hole.h"
-
-enum class DoorState{
-
-    Open,
-    Closed,
-    Key
-};
+#include "Door.h"
 
 class Room : public sf::Drawable{
 
@@ -72,13 +68,7 @@ public: // Functions
 
     Type getType() const;
 
-    void addDoor(Orientation orient, DoorState state = DoorState::Closed);
-
-    void setDoorState(Orientation orient, DoorState state); // Set state of a door according orientation return true if the doors have be find
-
-    std::map<Orientation, DoorState> getDoors() const;
-
-    DoorState getDoorState(Orientation orient) const;
+    void addDoor(const Orientation &orient, const Door::State &state = Door::State::Closed);
 
     void openDoors();
 
@@ -88,6 +78,8 @@ public: // Functions
     
     void makeRoomTiles();
 
+    void makeRoomDoor();
+
 private:
 
     std::string takeTilesPath(int roomId); // return Room path witch type corresponding
@@ -96,7 +88,7 @@ private:
     
 private: // Variables
 
-    std::map<Orientation, DoorState> doors;
+    std::vector<std::unique_ptr<Door>> doors;
 
     Type type;
     

@@ -6,6 +6,7 @@
 #include "StateManager.h"
 #include "TextureManager.h"
 #include "SharedContext.h"
+#include "ResourceManager.h"
 
 class Game{
 

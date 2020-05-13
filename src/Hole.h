@@ -1,5 +1,5 @@
-#ifndef HOLE_H
-#define HOLE_H
+#ifndef GAME_HOLE_H
+#define GAME_HOLE_H
 
 #include <string>
 #include <SFML/Graphics/Sprite.hpp>

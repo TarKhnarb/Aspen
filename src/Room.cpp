@@ -39,46 +39,14 @@ Room::Type Room::getType() const{
 /***********
  * AddDoor *
  ***********/
-void Room::addDoor(Orientation orient, DoorState state){
+void Room::addDoor(const Orientation &orient, const Door::State &state){
 
-    if(doors.find(orient) != doors.end()) // We show if the door already exist
-        setDoorState(orient, state);
-    else // else create it
-        doors.emplace(orient, state);
-}
+    auto found = std::find_if(doors.begin(), doors.end(), [orient] (const auto& d) { return d->getOrientation() == orient; });
 
-/****************
- * SetDoorState *
- ****************/
-void Room::setDoorState(Orientation orient, DoorState state){ // Set state of a door according orientation
-
-    auto found = doors.find(orient);
-
-    if(found != doors.end()) // find the right door
-        found->second = state;
-    else // else add it
-        throw std::out_of_range("Room::setDoorState() : cette porte n'existe pas " + static_cast<int>(orient));
-}
-
-/************
- * GetDoors *
- ************/
-std::map<Orientation, DoorState> Room::getDoors() const{
-
-    return doors;
-}
-
-/***********
- * GetDoor *
- ***********/
-DoorState Room::getDoorState(Orientation orient) const{
-
-    auto found = doors.find(orient);
-
-    if(found != doors.end())
-        return found->second;
+    if(found == doors.end()) // We show if the door don't already existing
+        doors.emplace_back(new Door(orient, state, textureMgr));
     else
-        throw std::out_of_range("Room::getDoorState() : cette porte n'existe pas " + std::to_string(static_cast<int>(orient)));
+        throw std::invalid_argument("Room::addDoor() : the door already exist with this Orientation: " + std::to_string(static_cast<int>(orient)));
 }
 
 /*************
@@ -88,8 +56,8 @@ void Room::openDoors(){
 
     for(auto &d : doors){
 
-        if(d.second != DoorState::Key)
-            d.second = DoorState::Open;
+        if(d->getState() != Door::State::Key)
+            d->setState(Door::State::Open);
     }
 }
 
@@ -100,8 +68,8 @@ void Room::closeDoors(){
 
     for(auto &d : doors){
 
-        if(d.second != DoorState::Key)
-            d.second = DoorState::Closed;
+        if(d->getState() != Door::State::Key)
+            d->setState(Door::State::Closed);
     }
 }
 
@@ -110,10 +78,22 @@ void Room::closeDoors(){
  **************/
 void Room::affectType(unsigned seed){
 
-    bool north = (doors.find(Orientation::North) != doors.end());
-    bool east = (doors.find(Orientation::East) != doors.end());
-    bool south = (doors.find(Orientation::South) != doors.end());
-    bool west = (doors.find(Orientation::West) != doors.end());
+    bool north = false;
+    bool east = false;
+    bool south = false;
+    bool west = false;
+    for(auto &d : doors){
+
+        Orientation orient = d->getOrientation();
+        if(orient == Orientation::North)
+            north = true;
+        if(orient == Orientation::East)
+            east = true;
+        if(orient == Orientation::South)
+            south = true;
+        if(orient == Orientation::West)
+            west = true;
+    }
 
     switch(doors.size()){
 
@@ -242,6 +222,15 @@ void Room::makeRoomTiles(){
     file.close();
 }
 
+void Room::makeRoomDoor(){
+
+    for(auto &d : doors){
+
+
+        entities.push_back(std::move(d));
+    }
+}
+
 /*****************
  * TakeTilesPath *
  *****************/
@@ -273,9 +262,8 @@ std::string Room::takeTilesPath(int roomId){
 }
 
 /********
- * draw *
+ * Draw *
  ********/
-
 void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     
     target.draw(sprite, states);

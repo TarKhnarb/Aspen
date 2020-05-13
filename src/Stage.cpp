@@ -337,7 +337,7 @@ void Stage::placeDoors(){
                 if((i > 0) && (roomMap[i - 1][j])){ // Room above
 
                     if(roomMap[i - 1][j]->getType() == Room::Boost)
-                        roomMap[i][j]->addDoor(Orientation::North, DoorState::Key);
+                        roomMap[i][j]->addDoor(Orientation::North, Door::State::Key);
                     else
                         roomMap[i][j]->addDoor(Orientation::North);
                 }
@@ -345,7 +345,7 @@ void Stage::placeDoors(){
                 if ((j > 0) && (roomMap[i][j - 1])){ // Left Room
 
                     if(roomMap[i][j - 1]->getType() == Room::Boost)
-                        roomMap[i][j]->addDoor(Orientation::West, DoorState::Key);
+                        roomMap[i][j]->addDoor(Orientation::West, Door::State::Key);
                     else
                         roomMap[i][j]->addDoor(Orientation::West);
                 }
@@ -353,7 +353,7 @@ void Stage::placeDoors(){
                 if((i + 1 < stageSize) && (roomMap[i + 1][j])){ // Room below
 
                     if(roomMap[i + 1][j]->getType() == Room::Boost)
-                        roomMap[i][j]->addDoor(Orientation::South, DoorState::Key);
+                        roomMap[i][j]->addDoor(Orientation::South, Door::State::Key);
                     else
                         roomMap[i][j]->addDoor(Orientation::South);
                 }
@@ -361,7 +361,7 @@ void Stage::placeDoors(){
                 if((j + 1 < stageSize) && (roomMap[i][j + 1])){ // Right Room
 
                     if(roomMap[i][j + 1]->getType() == Room::Boost)
-                        roomMap[i][j]->addDoor(Orientation::East, DoorState::Key);
+                        roomMap[i][j]->addDoor(Orientation::East, Door::State::Key);
                     else
                         roomMap[i][j]->addDoor(Orientation::East);
                 }
@@ -382,6 +382,7 @@ void Stage::affectRoomsType(){
                 if(room->getType() == Room::Common)
                     room->affectType(stageSeed);
                 room->makeRoomTiles();
+                room->makeRoomDoor();
             }
         }
     }
