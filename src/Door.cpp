@@ -8,7 +8,7 @@ Door::Door(Orientation orient, State dState, TextureManager *textureMgr):
         state(dState),
         Entity(textureMgr, Type::Door){
 
-    textureName = state == State::Open ? "OpenDoor" : "ClosedDoor";
+    textureName = (state == State::Open) ? "OpenDoor" : "ClosedDoor";
 
     textureMgr->requireResource(textureName);
     spriteDoor.setTexture(*textureMgr->getResource(textureName));

@@ -225,15 +225,6 @@ void Room::makeRoomTiles(){
     file.close();
 }
 
-void Room::makeRoomDoor(){
-
-    for(auto &d : doors){
-
-
-        entities.push_back(std::move(d));
-    }
-}
-
 /*****************
  * TakeTilesPath *
  *****************/
@@ -270,6 +261,12 @@ std::string Room::takeTilesPath(int roomId){
 void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     
     target.draw(sprite, states);
+    
+    for (const auto& door : doors){
+        
+        target.draw(*door, states);
+    }
+    
     for (const auto& entity : entities){
         
         target.draw(*entity, states);

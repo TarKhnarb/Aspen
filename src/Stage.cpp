@@ -382,7 +382,6 @@ void Stage::affectRoomsType(){
                 if(room->getType() == Room::Common)
                     room->affectType(stageSeed);
                 room->makeRoomTiles();
-                room->makeRoomDoor();
             }
         }
     }

@@ -83,8 +83,6 @@ public: // Functions
     
     void makeRoomTiles();
 
-    void makeRoomDoor();
-
 private:
 
     std::string takeTilesPath(int roomId); // return Room path witch type corresponding
