@@ -49,8 +49,11 @@ $(O)/Dungeon.o: $(O)/Stage.o
 $(O)/Stage.o: $(O)/Room.o
 	g++ $(FLAGS) $(S)/Stage.cpp -o $(O)/Stage.o
 
-$(O)/Room.o: $(O)/Hole.o $(O)/Rock.o
+$(O)/Room.o: $(O)/Hole.o $(O)/Rock.o $(O)/Wall.o
 	g++ $(FLAGS) $(S)/Room.cpp -o $(O)/Room.o
+
+$(O)/Wall.o: $(O)/Entity.o
+	g++ $(FLAGS) $(S)/Wall.cpp -o $(O)/Wall.o
 
 $(O)/Rock.o: $(O)/Entity.o
 	g++ $(FLAGS) $(S)/Rock.cpp -o $(O)/Rock.o
