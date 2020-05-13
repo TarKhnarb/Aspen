@@ -42,10 +42,10 @@ private: // Variable
     sf::Clock clock;
 
     sf::Time elapsedTime;
-
-    StateManager stateManager;
     
     TextureManager textureManager;
+    
+    StateManager stateManager;
 
     SharedContext context;
 };
