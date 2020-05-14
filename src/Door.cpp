@@ -3,10 +3,10 @@
 /***************
  * Constructor *
  ***************/
-Door::Door(Orientation orient, State dState, TextureManager *textureMgr):
+Door::Door(Orientation orient, State dState, TextureManager *textureMgr, sf::Color color):
+        Entity(textureMgr, Type::Door),
         orientation(orient),
-        state(dState),
-        Entity(textureMgr, Type::Door){
+        state(dState){
 
     textureName = (state == State::Open) ? "OpenDoor" : "ClosedDoor";
 
@@ -18,6 +18,7 @@ Door::Door(Orientation orient, State dState, TextureManager *textureMgr):
 
     textureMgr->requireResource("Frame");
     spriteFrame.setTexture(*textureMgr->getResource("Frame"));
+    spriteFrame.setColor(color);
     spriteFrame.setOrigin(spriteFrame.getLocalBounds().width/2.f, spriteFrame.getLocalBounds().height/2.f);
 
     placeDoor();

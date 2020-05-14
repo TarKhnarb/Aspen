@@ -4,6 +4,7 @@
  * Constructor *
  ***************/
 Room::Room(TextureManager* textureMgr, Room::Type roomType):
+        color(sf::Color::White),
         textureMgr(textureMgr){
             
     setType(roomType);
@@ -27,8 +28,11 @@ void Room::setType(Room::Type roomType){
 
     type = roomType;
     
-    if (type == Boss)
-        sprite.setColor(sf::Color(80, 170, 255));
+    if (type == Boss){
+        color = sf::Color(80, 170, 255);
+    }
+    
+    sprite.setColor(color);
 }
 
 /***********
@@ -47,7 +51,7 @@ void Room::addDoor(const Orientation &orient, const Door::State &state){
     auto found = std::find_if(doors.begin(), doors.end(), [orient] (const auto& d) { return d->getOrientation() == orient; });
 
     if(found == doors.end()) // We show if the door don't already existing
-        doors.emplace_back(new Door(orient, state, textureMgr));
+        doors.emplace_back(new Door(orient, state, textureMgr, color));
     else
         throw std::invalid_argument("Room::addDoor() : the door already exist with this Orientation: " + std::to_string(static_cast<int>(orient)));
 }

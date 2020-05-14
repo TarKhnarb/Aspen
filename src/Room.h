@@ -98,6 +98,7 @@ private: // Variables
     Type type;
     
     sf::Sprite sprite;
+    sf::Color color;
     
     TextureManager* textureMgr;
 };
