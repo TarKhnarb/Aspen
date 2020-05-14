@@ -2,32 +2,39 @@
 #define GAME_CHARACTER_H
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/System/Time.hpp>
 
 #include "Entity.h"
 #include "CharacterStats.h"
 
 class Character : public Entity{
 
-    friend class
 public:
 
-    Character(CharacterType charType, std::string charName, TextureManager*);
-    ~Character();
+    Character(const std::string&, Type, TextureManager*);
+    virtual ~Character();
 
 public:
 
-    void update(float deltaT, characterType charType);
+    virtual void update(sf::Time) = 0;
+    
+    std::string getName() const;
+    sf::Vector2f getVelocity() const;
 
 private:
 
-    void draw(sf::RenderTarget&, sf::RenderStates) const override;
+    virtual void draw(sf::RenderTarget&, sf::RenderStates) const = 0;
 
+protected:
+    
+    sf::Vector2f velocity;
+    
 private:
 
-    CharacterType characterType;
-    std::string characterName;
+    std::string name;
 
-    CharactereStats stats;
+    //CharacterStats stats;
 };
 
 #endif

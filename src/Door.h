@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 #include <string>
 #include <fstream>
@@ -25,7 +26,7 @@ public:
 
 public:
 
-    Door(Orientation orient, State dState, TextureManager*);
+    Door(Orientation orient, State dState, TextureManager*, sf::Color = sf::Color::White);
 
     ~Door();
 
