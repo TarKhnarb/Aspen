@@ -12,7 +12,7 @@
 
 #include "TextureManager.h"
 
-class Entity : public sf::Drawable, public sf::Transformable{
+class Entity: public sf::Drawable, public sf::Transformable{
 
 public:
     
@@ -40,7 +40,11 @@ public:
     
     void setPosition(float x, float y);
 
-    void setPosition(const sf::Vector2f& position);
+    void setPosition(const sf::Vector2f &position);
+
+    void setCenterPosition(float x, float y, float sizeX, float sizeY);
+
+    void setCenterPosition(const sf::Vector2f &position, const sf::Vector2f &size);
 
     void move(float offsetX, float offsetY);
 

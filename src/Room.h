@@ -18,6 +18,7 @@
 #include "Hole.h"
 #include "Wall.h"
 #include "Door.h"
+#include "Chest.h"
 
 class Room : public sf::Drawable{
 
