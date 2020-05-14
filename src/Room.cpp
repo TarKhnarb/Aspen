@@ -207,6 +207,11 @@ void Room::makeRoomTiles(){
                         break;
                     
                     case 3: // chest
+                        {
+                            std::unique_ptr<Chest> chest(new Chest(textureMgr, Chest::Closed));
+                            chest->setPosition(205.f + 30.f * i, 135.f + 30.f * lineNb);
+                            entities.push_back(std::move(chest));
+                        }
                         break;
                     
                     case 4: // boost
