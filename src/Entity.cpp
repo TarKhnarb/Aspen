@@ -96,34 +96,6 @@ void Entity::setPosition(const sf::Vector2f& position){
     collisionBox.top += offset.y;
 }
 
-/*********************
- * SetCenterPosition *
- *********************/
-void Entity::setCenterPosition(float x, float y, float sizeX, float sizeY){
-
-    sf::Vector2f initialPos = getPosition();
-    sf::Transformable::setPosition(x + (sizeX*0.5f), y + (sizeY*0.5f));
-    sf::Vector2f finalPos = getPosition();
-
-    sf::Vector2f offset = finalPos - initialPos;
-    collisionBox.left += offset.x;
-    collisionBox.top += offset.y;
-}
-
-/*********************
- * SetCenterPosition *
- *********************/
-void Entity::setCenterPosition(const sf::Vector2f &position, const sf::Vector2f &size){
-
-    sf::Vector2f initialPos = getPosition();
-    sf::Transformable::setPosition(position + (size*0.5f));
-    sf::Vector2f finalPos = getPosition();
-
-    sf::Vector2f offset = finalPos - initialPos;
-    collisionBox.left += offset.x;
-    collisionBox.top += offset.y;
-}
-
 /********
  * Move *
  ********/

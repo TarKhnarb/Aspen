@@ -42,10 +42,6 @@ public:
 
     void setPosition(const sf::Vector2f &position);
 
-    void setCenterPosition(float x, float y, float sizeX, float sizeY);
-
-    void setCenterPosition(const sf::Vector2f &position, const sf::Vector2f &size);
-
     void move(float offsetX, float offsetY);
 
     void move(const sf::Vector2f& offset);

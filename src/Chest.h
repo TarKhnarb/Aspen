@@ -2,6 +2,7 @@
 #define GAME_CHEST_H
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <string>
 
 #include "Entity.h"
 
@@ -17,7 +18,7 @@ public:
 
 public:
 
-    Chest(TextureManager*, State stat = State::Closed);
+    Chest(TextureManager*, State = State::Closed);
     ~Chest();
 
 public:
@@ -31,6 +32,8 @@ private:
 private:
 
     sf::Sprite sprite;
+    
+    std::string textureName;
 
     State state;
 };
