@@ -24,7 +24,9 @@ public:
         Chest,
         Boost,
         Door,
-        Wall
+        Wall,
+        Player,
+        Monster
     };
     
 public:
