@@ -11,6 +11,8 @@ Room::Room(TextureManager* textureMgr, Room::Type roomType):
     
     textureMgr->requireResource("Room");
     sprite.setTexture(*textureMgr->getResource("Room"));
+
+    placeWalls();
 }
 
 /**************
@@ -173,10 +175,10 @@ void Room::affectType(unsigned seed){
     }
 }
 
-/*****************
- * MakeRoomTiles *
- *****************/
-void Room::makeRoomTiles(){
+/**************
+ * PlaceTiles *
+ **************/
+void Room::placeTiles(){
 
     std::ifstream file;
     std::string filename(takeTilesPath(static_cast<int>(type)));
@@ -265,6 +267,47 @@ std::string Room::takeTilesPath(int roomId){
     file.close();
 
     return path;
+}
+
+/**************
+ * placeWalls *
+ **************/
+void Room::placeWalls(){
+
+    std::string filePath = "Data/Files/Dungeon/WallCoordonates.cfg";
+    std::ifstream file;
+    file.open(filePath);
+
+    float x, y, Dx, Dy;
+
+    if(file.is_open()){
+
+        std::string csvItem;
+        while(!file.eof()) {
+
+            std::getline(file, csvItem);
+            std::istringstream iss(csvItem);
+
+            x = static_cast<float>(returnStoi(iss));
+            y = static_cast<float>(returnStoi(iss));
+            Dx = static_cast<float>(returnStoi(iss));
+            Dy = static_cast<float>(returnStoi(iss));
+
+            std::unique_ptr<Wall> wall(new Wall(x, y, Dx, Dy));
+            walls.push_back(std::move(wall));
+        }
+    }
+    else
+        throw std::runtime_error ("Failed to load " + filePath);
+
+    file.close();
+}
+
+int Room::returnStoi(std::istringstream &ss){
+
+    std::string result;
+    std::getline(ss, result, ',');
+    return std::stoi(result);
 }
 
 /********

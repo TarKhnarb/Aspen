@@ -82,17 +82,22 @@ public: // Functions
 
     void affectType(unsigned seed);
     
-    void makeRoomTiles();
+    void placeTiles();
 
 private:
 
     std::string takeTilesPath(int roomId); // return Room path witch type corresponding
+
+    void placeWalls();
+
+    int returnStoi(std::istringstream &ss);
 
     void draw(sf::RenderTarget&, sf::RenderStates) const override;
     
 private: // Variables
 
     std::vector<std::unique_ptr<Door>> doors;
+    std::vector<std::unique_ptr<Wall>> walls;
     std::vector<std::unique_ptr<Entity>> entities;
 
     Type type;
