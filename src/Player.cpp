@@ -83,6 +83,6 @@ void Player::animate(){
     }
     else{
         
-        aspen.setAnimation("Idle", true, false);
+        aspen.setAnimation("Idle", false, false);
     }
 }

@@ -3,7 +3,8 @@ Size 30 60
 Scale 1.0 1.0
 |Type|Name|StartFrame|EndFrame|Row|FrameTime|FrameActionStart|End|
 AnimationType Directional
-Animation Up 0 3 0 0.2 -1 -1
-Animation Right 0 3 1 0.2 -1 -1
-Animation Down 0 3 2 0.2 -1 -1
-Animation Left 0 3 0 0.2 -1 -1
+Animation Idle 0 0 0 1 0 0
+Animation Up 0 3 0 0.2 -1 0
+Animation Right 0 3 1 0.2 -1 0
+Animation Down 0 3 2 0.2 -1 0
+Animation Left 0 3 3 0.2 -1 0
