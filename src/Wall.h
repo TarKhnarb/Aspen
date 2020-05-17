@@ -7,7 +7,7 @@ class Wall : public Entity{
     
 public:
     
-    Wall();
+    Wall(float x, float y, float Dx, float Dy);
 
 public:
     

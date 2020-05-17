@@ -94,6 +94,10 @@ private:
 
     std::string getTilesPath(int roomId); // return Room path witch type corresponding
 
+    void placeWalls();
+
+    int returnStoi(std::istringstream &ss);
+
     void draw(sf::RenderTarget&, sf::RenderStates) const override;
     
 private: // Variables
