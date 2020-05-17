@@ -62,7 +62,7 @@ void State_Dungeon::deactivate(){}
 /*****************
  * MoveCharacter *
  *****************/
-void State_Dungeon::moveCharacter(EventDetails *details) {
+void State_Dungeon::movePlayer(EventDetails *details) {
 
     sf::Vector2u windowSize = stateMgr->getContext()->wind->getWindow()->getSize();
 
@@ -78,24 +78,7 @@ void State_Dungeon::moveCharacter(EventDetails *details) {
         increment.y = - increment.y;
     */
 
-    sf::Vector2f direction(0.f, 0.f);
 
-    if (details->name == "MoveUp") {
-
-        direction = sf::Vector2f(0.f, -increment.y);
-    }
-    if (details->name == "MoveRight") {
-
-        direction = sf::Vector2f(increment.x, 0.f);
-    }
-    if (details->name == "MoveDown") {
-
-        direction = sf::Vector2f(0.f, increment.y);
-    }
-    if (details->name == "MoveLeft") {
-
-        direction = sf::Vector2f(-increment.x, 0.f);
-    }
 
     //float secondElapsed = time.asSeconds();
 

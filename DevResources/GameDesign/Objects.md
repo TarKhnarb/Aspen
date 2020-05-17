@@ -19,10 +19,10 @@ Equipment :
 >    * Boots
 >    * Projectile
 >    * Amulet
-   
-Monster's Loots :
-   
+>  
 > All equipment had two different objects who each have three levels.
+
+Monster's Loots :
 
 > The game have 15 monster's Loot. 
   

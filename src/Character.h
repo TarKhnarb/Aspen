@@ -6,7 +6,15 @@
 #include <SFML/System/Time.hpp>
 
 #include "Entity.h"
-#include "CharacterStats.h"
+
+enum class EntityState{
+
+    Idle,
+    WalkingUp,
+    WalkingRight,
+    WalkingDown,
+    WalkingLeft
+};
 
 class Character : public Entity{
 
@@ -22,6 +30,9 @@ public:
     std::string getName() const;
     sf::Vector2f getVelocity() const;
 
+    EntityState getEntityState() const;
+    void setEntityState(EntityState state) const;
+
 private:
 
     virtual void draw(sf::RenderTarget&, sf::RenderStates) const = 0;
@@ -33,6 +44,8 @@ protected:
 private:
 
     std::string name;
+
+    EntityState entityState;
 
     //CharacterStats stats;
 };

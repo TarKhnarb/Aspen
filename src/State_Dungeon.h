@@ -24,7 +24,7 @@ public:
     void activate();
     void deactivate();
     
-    void moveCharacter(EventDetails *details);
+    void movePlayer(EventDetails *details);
     
     void update(const sf::Time &time);
     void draw();

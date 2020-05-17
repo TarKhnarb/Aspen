@@ -10,9 +10,9 @@ Chest::Chest(TextureManager *textureMgr, State state):
     textureName = (state == State::Closed) ? "ClosedChest" : "OpenChest";
     textureMgr->requireResource(textureName);
     sprite.setTexture(*textureMgr->getResource(textureName));
-    
+
     sf::FloatRect rect = sprite.getLocalBounds();
-    
+
     collisionBox = rect;
 }
 
@@ -21,7 +21,7 @@ Chest::Chest(TextureManager *textureMgr, State state):
  ***************/
 Chest::~Chest(){
 
-    textureMgr->releaseResource(textureName);
+    textureMgr->releaseResource("Chest");
 }
 
 /********
@@ -38,12 +38,12 @@ void Chest::draw(sf::RenderTarget &target, sf::RenderStates states) const{
  ***************/
 
 void Chest::toggleState(){
-    
+
     state = (state == State::Closed) ? State::Open : State::Closed;
-    
+
     textureMgr->releaseResource(textureName);
     textureName = (state == State::Closed) ? "ClosedChest" : "OpenChest";
     textureMgr->requireResource(textureName);
-    
+
     sprite.setTexture(*textureMgr->getResource(textureName));
 }
