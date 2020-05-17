@@ -41,35 +41,26 @@ void State_Dungeon::deactivate(){}
 /**********
  * Update *
  **********/
+#include <iostream>
 void State_Dungeon::update(const sf::Time &time){
     
     player.update(time);
     
-    dungeon.getCurrentRoom()->checkRoomCollisions(player);
+    auto info = dungeon.getCurrentRoom()->checkRoomCollisions(player);
     
-    
-    // TEMPORARY
-    sf::Vector2u windowSize = stateMgr->getContext()->wind->getWindow()->getSize();
-    
-    if(player.getPosition().x < 0){
-
-        player.setPosition(windowSize.x / 2.f, windowSize.y / 2.f);
-        dungeon.changeRoom(Orientation::North);
-    }
-    if(player.getPosition().y < 0){
-
-        player.setPosition(windowSize.x / 2.f, windowSize.y / 2.f);
-        dungeon.changeRoom(Orientation::West);
-    }
-    if(player.getPosition().x + 40.f > windowSize.x){
-
-        player.setPosition(windowSize.x / 2.f, windowSize.y / 2.f);
-        dungeon.changeRoom(Orientation::South);
-    }
-    if(player.getPosition().y + 80.f > windowSize.y){
-
-        player.setPosition(windowSize.x / 2.f, windowSize.y / 2.f);
-        dungeon.changeRoom(Orientation::East);
+    switch(info.first){
+        
+        case Entity::Door:
+            std::cout << static_cast<int>(info.second) << std::endl;
+            dungeon.changeRoom(info.second);
+            break;
+        
+        case Entity::Chest:
+            //stateMgr->switchTo(State::Inventory);
+            break;
+        
+        default:
+            break;
     }
 }
 

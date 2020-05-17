@@ -5,8 +5,8 @@
 
 #include <map>
 #include <vector>
-#include <utility>
-#include <cassert>
+//#include <utility>
+//#include <cassert>
 #include <stdexcept>
 #include <iostream>
 #include <fstream>
@@ -80,7 +80,7 @@ public: // Functions
     
     void placeTiles();
     
-    void checkRoomCollisions(Entity&);
+    std::pair<Entity::Type, Orientation> checkRoomCollisions(Entity&);
     
     void checkMonsterCollisions(Entity&);
     

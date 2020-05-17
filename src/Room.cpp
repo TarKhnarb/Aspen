@@ -215,13 +215,13 @@ void Room::placeTiles(){
     file.close();
 }
 
-void Room::checkRoomCollisions(Entity& entity){
+std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Entity& entity){
     
     for(const auto& door : doors){
         
         if(entity.collides(*door, 0.f) && entity.getType() == Entity::Player){
             
-            // TODO find a way to send information to update dungeon and changeRooms()
+            return std::make_pair(Entity::Door, door->getOrientation());
         }
     }
             
@@ -249,9 +249,11 @@ void Room::checkRoomCollisions(Entity& entity){
         
         if(entity.collides(*chest, 0.f)){
             
-            // TODO find a way to switchTo(StateType::Chest) (or StateType::Inventory with chest ?)
+            return std::make_pair(Entity::Chest, static_cast<Orientation>(0));
         }
     }
+    
+    return std::make_pair(Entity::None, static_cast<Orientation>(0));
 }
     
 void Room::checkMonsterCollisions(Entity&){}
