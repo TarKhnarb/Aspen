@@ -12,14 +12,14 @@ Door::Door(Orientation orient, State dState, TextureManager *textureMgr, sf::Col
 
     textureMgr->requireResource(textureName);
     spriteDoor.setTexture(*textureMgr->getResource(textureName));
+    
     sf::FloatRect rectDoor = spriteDoor.getLocalBounds();
-    spriteDoor.setOrigin(rectDoor.width/2.f, rectDoor.height/2.f);
     collisionBox = rectDoor;
+    setOrigin(rectDoor.width/2.f, rectDoor.height/2.f);
 
     textureMgr->requireResource("Frame");
     spriteFrame.setTexture(*textureMgr->getResource("Frame"));
     spriteFrame.setColor(color);
-    spriteFrame.setOrigin(spriteFrame.getLocalBounds().width/2.f, spriteFrame.getLocalBounds().height/2.f);
 
     placeDoor();
 }
@@ -53,9 +53,9 @@ void Door::setState(State dState){
 
     textureMgr->requireResource(textureName);
     spriteDoor.setTexture(*textureMgr->getResource(textureName));
-    sf::FloatRect rectDoor = spriteDoor.getLocalBounds();
-    spriteDoor.setOrigin(rectDoor.width/2.f, rectDoor.height/2.f);
-    collisionBox = rectDoor;
+    
+    collisionBox = spriteDoor.getLocalBounds();
+    
     placeDoor();
 }
 
@@ -75,6 +75,14 @@ void Door::draw(sf::RenderTarget &target, sf::RenderStates states) const{
     states.transform *= getTransform();
     target.draw(spriteDoor, states);
     target.draw(spriteFrame, states);
+    
+    sf::RectangleShape hitBox;
+    hitBox.setSize({collisionBox.width, collisionBox.height});
+    hitBox.setFillColor(sf::Color::Transparent);
+    hitBox.setOutlineThickness(-0.1f);
+    hitBox.setOutlineColor(sf::Color::Red);
+    
+    target.draw(hitBox, states);
 }
 
 /*************
@@ -104,23 +112,19 @@ void Door::placeDoor(){
 
     file.close();
 
-    spriteFrame.setPosition(x, y);
-    spriteDoor.setPosition(x, y);
+    setPosition(x, y);
 
     switch(orientation){
         case Orientation::East:
-            spriteFrame.setRotation(90.f);
-            spriteDoor.setRotation(90.f);
+            setRotation(90.f);
             break;
 
         case Orientation::South:
-            spriteFrame.setRotation(180.f);
-            spriteDoor.setRotation(180.f);
+            setRotation(180.f);
             break;
 
         case Orientation::West:
-            spriteFrame.setRotation(-90.f);
-            spriteDoor.setRotation(-90.f);
+            setRotation(-90.f);
             break;
 
         default:
