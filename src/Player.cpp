@@ -8,9 +8,12 @@ Player::Player(TextureManager *txtMng, EventManager* evtMgr):
 
     aspen.loadSheet("Data/Files/SpriteSheets/PlayerSheet.sprite");
 
-    speed = 50.f;
+    speed = 300.f;
     
-    // TODO set up collisionBox
+    sf::Vector2f size = aspen.getSpriteSize();
+    collisionBox.width = size.x;
+    collisionBox.top = 2/3.f * size.y;
+    collisionBox.height = 1/3.f * size.y;
     
     evtMgr->addCallback(StateType::Dungeon, "MoveUp", &Player::setVelocity, this);
     evtMgr->addCallback(StateType::Dungeon, "MoveRight", &Player::setVelocity, this);
@@ -28,13 +31,15 @@ Player::~Player(){
 
 void Player::update(sf::Time time){
 
+    move(velocity * time.asSeconds());
+    
     animate();
     aspen.update(time.asSeconds());
-    move(velocity * (speed/2.f));
+    
+    velocity = sf::Vector2f(0.f, 0.f); // reset velocity for the next update loop
 }
 
 void Player::setVelocity(EventDetails* details){
-    velocity = sf::Vector2f();
     
     if (details->name == "MoveUp"){
         
@@ -75,5 +80,9 @@ void Player::animate(){
 
         else if(velocity.x < 0.f && abs(velocity.x) >= abs(velocity.y))
             aspen.setAnimation("Left", true, true);
+    }
+    else{
+        
+        aspen.setAnimation("Idle", true, false);
     }
 }

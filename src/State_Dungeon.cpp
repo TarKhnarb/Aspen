@@ -17,7 +17,11 @@ State_Dungeon::~State_Dungeon(){}
 /************
  * OnCreate *
  ************/
-void State_Dungeon::onCreate(){}
+void State_Dungeon::onCreate(){
+    
+    sf::Vector2u windowSize = stateMgr->getContext()->wind->getWindow()->getSize();
+    player.setPosition(windowSize.x / 2.f, windowSize.y / 2.f);
+}
 
 /*************
  * OnDestroy *
