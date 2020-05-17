@@ -9,10 +9,10 @@ Anim_Base::Anim_Base():
         frameStart(0),
         frameEnd(0),
         frameRow(0),
-        frameTime(0.f),
-        elapsedTime(0.f),
         frameActionStart(-1),
         frameActionEnd(-1),
+        frameTime(0.f),
+        elapsedTime(0.f),
         loop(false),
         playing(false){}
 
@@ -61,7 +61,7 @@ bool Anim_Base::isInAction(){
     if(frameActionStart == -1 || frameActionEnd == -1)
         return true;
 
-    return (frameCurrent >= frameActionStart && frameCurrent <= frameActionEnd);
+    return (static_cast<int>(frameCurrent) >= frameActionStart && static_cast<int>(frameCurrent) <= frameActionEnd);
 }
 
 /********

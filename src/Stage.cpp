@@ -384,7 +384,7 @@ void Stage::affectRoomsType(){
             if(room){
                 if(room->getType() == Room::Common)
                     room->affectType(stageSeed);
-                room->makeRoomTiles();
+                room->placeTiles();
             }
         }
     }

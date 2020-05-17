@@ -10,7 +10,7 @@ Room::Room(TextureManager* textureMgr, Room::Type roomType):
     setType(roomType);
     
     textureMgr->requireResource("Room");
-    sprite.setTexture(*textureMgr->getResource("Room"));
+    background.setTexture(*textureMgr->getResource("Room"));
 }
 
 /**************
@@ -32,7 +32,7 @@ void Room::setType(Room::Type roomType){
         color = sf::Color(80, 170, 255);
     }
     
-    sprite.setColor(color);
+    background.setColor(color);
 }
 
 /***********
@@ -54,30 +54,6 @@ void Room::addDoor(const Orientation &orient, const Door::State &state){
         doors.emplace_back(new Door(orient, state, textureMgr, color));
     else
         throw std::invalid_argument("Room::addDoor() : the door already exist with this Orientation: " + std::to_string(static_cast<int>(orient)));
-}
-
-/*************
- * OpenDoors *
- *************/
-void Room::openDoors(){
-
-    for(auto &d : doors){
-
-        if(d->getState() != Door::State::Key)
-            d->setState(Door::State::Open);
-    }
-}
-
-/*************
- * CloseDoors *
- *************/
-void Room::closeDoors(){
-
-    for(auto &d : doors){
-
-        if(d->getState() != Door::State::Key)
-            d->setState(Door::State::Closed);
-    }
 }
 
 /**************
@@ -176,10 +152,10 @@ void Room::affectType(unsigned seed){
 /*****************
  * MakeRoomTiles *
  *****************/
-void Room::makeRoomTiles(){
+void Room::placeTiles(){
 
     std::ifstream file;
-    std::string filename(takeTilesPath(static_cast<int>(type)));
+    std::string filename(getTilesPath(static_cast<int>(type)));
     file.open(filename);
     
     std::string previousLine; // use to read the tile above
@@ -198,7 +174,7 @@ void Room::makeRoomTiles(){
                             bool border = (lineNb == 0 || std::stoi(previousLine.substr(i, 1)) != 1);
                             std::unique_ptr<Hole> hole (new Hole(border, textureMgr));
                             hole->setPosition(205.f + 30.f * i, 135.f + 30.f * lineNb);
-                            entities.push_back(std::move(hole));
+                            holes.push_back(std::move(hole));
                         }
                         break;
                     
@@ -206,7 +182,7 @@ void Room::makeRoomTiles(){
                         {
                             std::unique_ptr<Rock> rock (new Rock(10, textureMgr));
                             rock->setPosition(205.f + 30.f * i, 135.f + 30.f * lineNb);
-                            entities.push_back(std::move(rock));
+                            rocks.push_back(std::move(rock));
                         }
                         break;
                     
@@ -214,7 +190,7 @@ void Room::makeRoomTiles(){
                         {
                             std::unique_ptr<Chest> chest(new Chest(textureMgr, Chest::Closed));
                             chest->setPosition(205.f + 30.f * i, 135.f + 30.f * lineNb);
-                            entities.push_back(std::move(chest));
+                            chests.push_back(std::move(chest));
                         }
                         break;
                     
@@ -237,10 +213,77 @@ void Room::makeRoomTiles(){
     file.close();
 }
 
-/*****************
- * TakeTilesPath *
- *****************/
-std::string Room::takeTilesPath(int roomId){
+void Room::checkRoomCollisions(Entity& entity){
+    
+    for(const auto& door : doors){
+        
+        if(entity.collides(*door, 0.f) && entity.getType() == Entity::Player){
+            
+            // TODO find a way to send information to update dungeon and changeRooms()
+        }
+    }
+            
+    
+    for(const auto& wall : walls){
+        
+       entity.collides(*wall, 0.f);
+    }
+    
+    // TODO test CanFly, when statistics
+    for(const auto& hole : holes){
+        
+        entity.collides(*hole, 0.f);
+    }
+    
+    for(const auto& rock : rocks){
+        
+        if(entity.collides(*rock, 0.f) && entity.getType() == Entity::Projectile){
+            
+            rock->hit(1);
+        }
+    }
+    
+    for(const auto& chest : chests){
+        
+        if(entity.collides(*chest, 0.f)){
+            
+            // TODO find a way to switchTo(StateType::Chest) (or StateType::Inventory with chest ?)
+        }
+    }
+}
+    
+void Room::checkMonsterCollisions(Entity&){}
+    
+void Room::checkProjectileCollisions(Entity&){}
+
+/*************
+ * OpenDoors *
+ *************/
+void Room::openDoors(){
+
+    for(auto &d : doors){
+
+        if(d->getState() != Door::State::Key)
+            d->setState(Door::State::Open);
+    }
+}
+
+/*************
+ * CloseDoors *
+ *************/
+void Room::closeDoors(){
+
+    for(auto &d : doors){
+
+        if(d->getState() != Door::State::Key)
+            d->setState(Door::State::Closed);
+    }
+}
+
+/****************
+ * GetTilesPath *
+ ****************/
+std::string Room::getTilesPath(int roomId){
     
     std::string path;
     
@@ -272,15 +315,25 @@ std::string Room::takeTilesPath(int roomId){
  ********/
 void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     
-    target.draw(sprite, states);
+    target.draw(background, states);
     
-    for (const auto& door : doors){
+    for(const auto& door : doors){
         
         target.draw(*door, states);
     }
     
-    for (const auto& entity : entities){
+    for(const auto& hole : holes){
         
-        target.draw(*entity, states);
+        target.draw(*hole, states);
+    }
+    
+    for(const auto& rock : rocks){
+        
+        target.draw(*rock, states);
+    }
+    
+    for(const auto& chest : chests){
+        
+        target.draw(*chest, states);
     }
 }

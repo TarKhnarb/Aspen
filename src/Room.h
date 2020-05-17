@@ -69,36 +69,45 @@ public:
     ~Room();
 
 public: // Functions
-
+    
     void setType(Type roomType);
 
     Type getType() const;
 
     void addDoor(const Orientation &orient, const Door::State &state = Door::State::Closed);
 
+    void affectType(unsigned seed);
+    
+    void placeTiles();
+    
+    void checkRoomCollisions(Entity&);
+    
+    void checkMonsterCollisions(Entity&);
+    
+    void checkProjectileCollisions(Entity&);
+    
     void openDoors();
 
     void closeDoors();
 
-    void affectType(unsigned seed);
-    
-    void makeRoomTiles();
-
 private:
 
-    std::string takeTilesPath(int roomId); // return Room path witch type corresponding
+    std::string getTilesPath(int roomId); // return Room path witch type corresponding
 
     void draw(sf::RenderTarget&, sf::RenderStates) const override;
     
 private: // Variables
-
+    
+    sf::Sprite background;
+    sf::Color color;
+    
     std::vector<std::unique_ptr<Door>> doors;
-    std::vector<std::unique_ptr<Entity>> entities;
+    std::vector<std::unique_ptr<Wall>> walls;
+    std::vector<std::unique_ptr<Hole>> holes;
+    std::vector<std::unique_ptr<Rock>> rocks;
+    std::vector<std::unique_ptr<Chest>> chests;
 
     Type type;
-    
-    sf::Sprite sprite;
-    sf::Color color;
     
     TextureManager* textureMgr;
 };

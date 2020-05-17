@@ -26,7 +26,8 @@ public:
         Door,
         Wall,
         Player,
-        Monster
+        Monster,
+        Projectile
     };
     
 public:

@@ -45,14 +45,18 @@ void State_Dungeon::update(const sf::Time &time){
     
     player.update(time);
     
+    dungeon.getCurrentRoom()->checkRoomCollisions(player);
+    
+    
+    // TEMPORARY
     sf::Vector2u windowSize = stateMgr->getContext()->wind->getWindow()->getSize();
     
-    if (player.getPosition().x < 0) {
+    if(player.getPosition().x < 0){
 
         player.setPosition(windowSize.x / 2.f, windowSize.y / 2.f);
         dungeon.changeRoom(Orientation::North);
     }
-    if (player.getPosition().y < 0){
+    if(player.getPosition().y < 0){
 
         player.setPosition(windowSize.x / 2.f, windowSize.y / 2.f);
         dungeon.changeRoom(Orientation::West);

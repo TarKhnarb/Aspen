@@ -4,10 +4,10 @@
  * Constructor *
  ***************/
 SpriteSheet::SpriteSheet(TextureManager *textMgr):
-        textureManager(textMgr),
-        animationCurrent(nullptr),
         spriteScale(1.f, 1.f),
-        orientation(Orientation::North){}
+        orientation(Orientation::North),
+        animationCurrent(nullptr),
+        textureManager(textMgr){}
 
 /**************
  * Destructor *
@@ -37,7 +37,6 @@ void SpriteSheet::releaseSheet(){
 void SpriteSheet::setSpriteSize(const sf::Vector2f &size){
 
     spriteSize = size;
-    sprite.setOrigin(spriteSize.x / 2.f, spriteSize.y / 2.f);
 }
 
 /*****************

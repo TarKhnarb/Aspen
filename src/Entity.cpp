@@ -37,7 +37,7 @@ bool Entity::collides(Entity& other, float push){
     intersect.x = abs(delta.x) - (thisRadius.x + otherRadius.x);
     intersect.y = abs(delta.y) - (thisRadius.y + otherRadius.y);
     
-    if(intersect.x <= 0.f && intersect.y <= 0.f){
+    if(intersect.x < 0.f && intersect.y < 0.f){
         
         if(intersect.x > intersect.y){ // we move along the x-axis
             
