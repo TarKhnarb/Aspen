@@ -7,7 +7,7 @@ SpriteSheet::SpriteSheet(TextureManager *textMgr):
         textureManager(textMgr),
         animationCurrent(nullptr),
         spriteScale(1.f, 1.f),
-        orientation(Orientation::South){}
+        orientation(Orientation::North){}
 
 /**************
  * Destructor *
@@ -37,7 +37,7 @@ void SpriteSheet::releaseSheet(){
 void SpriteSheet::setSpriteSize(const sf::Vector2f &size){
 
     spriteSize = size;
-    sprite.setOrigin(spriteSize.x / 2.f, spriteSize.y);
+    sprite.setOrigin(spriteSize.x / 2.f, spriteSize.y / 2.f);
 }
 
 /*****************
@@ -198,6 +198,7 @@ bool SpriteSheet::setAnimation(const std::string &name, const bool &play, const 
     if(play)
         animationCurrent->play();
 
+    orientation = static_cast<Orientation>(0);
     animationCurrent->cropSprite();
     return true;
 }

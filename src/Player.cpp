@@ -69,20 +69,33 @@ void Player::animate(){
 
     if(velocity.x != 0.f || velocity.y != 0.f){
 
-        if(velocity.y < 0.f && abs(velocity.y) > abs(velocity.x))
-            aspen.setAnimation("Up", true, true);
+        if(velocity.y < 0.f && abs(velocity.y) > abs(velocity.x)){
+            
+            aspen.setAnimation("Moving", true, true);
+            aspen.setOrientation(Orientation::North);
+        }
 
-        else if(velocity.x > 0.f && abs(velocity.x) >= abs(velocity.y))
-            aspen.setAnimation("Right", true, true);
+        else if(velocity.x > 0.f && abs(velocity.x) >= abs(velocity.y)){
+            
+            aspen.setAnimation("Moving", true, true);
+            aspen.setOrientation(Orientation::East);
+        }
 
-        else if(velocity.y > 0.f && abs(velocity.y) > abs(velocity.x))
-            aspen.setAnimation("Down", true, true);
+        else if(velocity.y > 0.f && abs(velocity.y) > abs(velocity.x)){
+            
+            aspen.setAnimation("Moving", true, true);
+            aspen.setOrientation(Orientation::South);
+        }
 
-        else if(velocity.x < 0.f && abs(velocity.x) >= abs(velocity.y))
-            aspen.setAnimation("Left", true, true);
+        else if(velocity.x < 0.f && abs(velocity.x) >= abs(velocity.y)){
+            
+            aspen.setAnimation("Moving", true, true);
+            aspen.setOrientation(Orientation::West);
+        }
     }
     else{
         
         aspen.setAnimation("Idle", false, false);
+        aspen.setOrientation(Orientation::South);
     }
 }
