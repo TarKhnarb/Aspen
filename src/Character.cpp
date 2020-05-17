@@ -6,8 +6,7 @@
 Character::Character(const std::string& name, Type type, TextureManager* textureMgr):
         Entity(textureMgr, type),
         velocity(0.f, 0.f),
-        name(name),
-        entityState(EntityState::Idle){}
+        name(name){}
 
 /**************
  * Destructor *
@@ -28,20 +27,4 @@ std::string Character::getName() const{
 sf::Vector2f Character::getVelocity() const{
     
     return velocity;
-}
-
-/******************
- * GetEntityState *
- ******************/
-EntityState Character::getEntityState() const{
-
-    return entityState;
-}
-
-/******************
- * SetEntityState *
- ******************/
-void Character::setEntityState(EntityState state){
-
-    entityState = state;
 }

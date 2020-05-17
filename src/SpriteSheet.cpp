@@ -213,7 +213,7 @@ void SpriteSheet::update(const float &deltaT){
 /********
  * Draw *
  ********/
-void SpriteSheet::draw(sf::RenderWindow *wnd){
+void SpriteSheet::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 
-    wnd->draw(sprite);
+    target.draw(sprite, states);
 }

@@ -14,7 +14,7 @@
 
 using Animations = std::unordered_map<std::string, Anim_Base*>;
 
-class SpriteSheet{
+class SpriteSheet : public sf::Drawable{
 
 public:
 
@@ -46,7 +46,7 @@ public:
 
     void update(const float &deltaT);
 
-    void draw(sf::RenderWindow* wnd);
+    void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
 private:
 

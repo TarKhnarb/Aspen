@@ -9,6 +9,8 @@
 
 #include "Orientation.h"
 
+#include "Player.h"
+
 class State_Dungeon : public BaseState{
 
 public:
@@ -24,8 +26,6 @@ public:
     void activate();
     void deactivate();
     
-    void movePlayer(EventDetails *details);
-    
     void update(const sf::Time &time);
     void draw();
 
@@ -33,12 +33,9 @@ public:
 
 private:
 
-    sf::Sprite sBlacksmith;
-    sf::Texture tBlacksmith;
-
-    sf::Vector2f increment;
-
     Dungeon dungeon;
+    
+    Player player;
 };
 
 #endif

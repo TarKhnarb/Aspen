@@ -25,7 +25,7 @@ $(O)/StateManager.o: $(STAT_O)
 $(O)/State_Intro.o: $(O)/EventManager.o
 	g++ $(FLAGS) $(S)/State_Intro.cpp -o $(O)/State_Intro.o
 
-$(O)/State_Dungeon.o: $(O)/EventManager.o $(O)/Dungeon.o
+$(O)/State_Dungeon.o: $(O)/EventManager.o $(O)/Dungeon.o $(O)/Player.o
 	g++ $(FLAGS) $(S)/State_Dungeon.cpp -o $(O)/State_Dungeon.o
 
 $(O)/State_GamePause.o: $(O)/EventManager.o
@@ -52,6 +52,12 @@ $(O)/Stage.o: $(O)/Room.o
 $(O)/Room.o: $(O)/Hole.o $(O)/Rock.o $(O)/Wall.o $(O)/Door.o $(O)/Chest.o
 	g++ $(FLAGS) $(S)/Room.cpp -o $(O)/Room.o
 
+$(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o
+	g++ $(FLAGS) $(S)/Player.cpp -o $(O)/Player.o
+
+$(O)/Character.o: $(O)/Entity.o
+	g++ $(FLAGS) $(S)/Character.cpp -o $(O)/Character.o
+	
 $(O)/Door.o: $(O)/Entity.o
 	g++ $(FLAGS) $(S)/Door.cpp -o $(O)/Door.o
 

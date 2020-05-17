@@ -1,65 +1,79 @@
 #include "Player.h"
+#include "StateManager.h"
 
-Player::Player(TextureManager *txtMng):
+Player::Player(TextureManager *txtMng, EventManager* evtMgr):
         Character("Aspen", Type::Player, txtMng),
-        spriteSheet(txtMng){
+        aspen(txtMng),
+        evtMgr(evtMgr){
 
     aspen.loadSheet("Data/Files/SpriteSheets/PlayerSheet.sprite");
 
-    speed = 5.f;
-    velocity = {50.f, 50.f};
+    speed = 50.f;
+    
+    // TODO set up collisionBox
+    
+    evtMgr->addCallback(StateType::Dungeon, "MoveUp", &Player::setVelocity, this);
+    evtMgr->addCallback(StateType::Dungeon, "MoveRight", &Player::setVelocity, this);
+    evtMgr->addCallback(StateType::Dungeon, "MoveDown", &Player::setVelocity, this);
+    evtMgr->addCallback(StateType::Dungeon, "MoveLeft", &Player::setVelocity, this);
 }
 
 Player::~Player(){
-
+    
+    evtMgr->removeCallback(StateType::Dungeon, "MoveUp");
+    evtMgr->removeCallback(StateType::Dungeon, "MoveRight");
+    evtMgr->removeCallback(StateType::Dungeon, "MoveDown");
+    evtMgr->removeCallback(StateType::Dungeon, "MoveLeft");
 }
 
 void Player::update(sf::Time time){
 
-    sf::Vector2f vector(0.f, 0.f);
-
-    if (EventDetails::name == "MoveUp") {
-
-        vector = sf::Vector2f(0.f, -increment.y);
-    }
-    if (EventDetails::name == "MoveRight") {
-
-        vector = sf::Vector2f(increment.x, 0.f);
-    }
-    if (EventDetails::name == "MoveDown") {
-
-        vector = sf::Vector2f(0.f, increment.y);
-    }
-    if (EventDetails::name == "MoveLeft") {
-
-        vector = sf::Vector2f(-increment.x, 0.f);
-    }
-
-    animate(vector);
-    aspen.update(time);
-    aspen.setSpritePosition(vector * velocity * (speed/10.f));
+    animate();
+    aspen.update(time.asSeconds());
+    move(velocity * (speed/2.f));
 }
 
-void Player::draw(sf::RenderTarget &target, sf::RenderStates states){
+void Player::setVelocity(EventDetails* details){
+    velocity = sf::Vector2f();
+    
+    if (details->name == "MoveUp"){
+        
+        velocity.y -= speed;
+    }
+    if (details->name == "MoveRight"){
+        
+        velocity.x += speed;
+    }
+    if (details->name == "MoveDown"){
+        
+        velocity.y += speed;
+    }
+    if (details->name == "MoveLeft"){
+        
+        velocity.x -= speed;
+    }
+}
+
+void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const{
 
     states.transform *= getTransform();
     target.draw(aspen, states);
 }
 
-void Party::animate(sf::Vector2f vector){
+void Player::animate(){
 
-    if(vector != {0.f, 0.f}){
+    if(velocity.x != 0.f || velocity.y != 0.f){
 
-        if(vector == {0.f, -increment.y})
+        if(velocity.y < 0.f && abs(velocity.y) > abs(velocity.x))
             aspen.setAnimation("Up", true, true);
 
-        else if(vector == {increment.x, 0.f})
+        else if(velocity.x > 0.f && abs(velocity.x) >= abs(velocity.y))
             aspen.setAnimation("Right", true, true);
 
-        else if(vector == {0.f, increment.y})
+        else if(velocity.y > 0.f && abs(velocity.y) > abs(velocity.x))
             aspen.setAnimation("Down", true, true);
 
-        else if(vector == {-increment.x, 0.f})
+        else if(velocity.x < 0.f && abs(velocity.x) >= abs(velocity.y))
             aspen.setAnimation("Left", true, true);
     }
 }

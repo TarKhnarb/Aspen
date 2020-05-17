@@ -1,35 +1,38 @@
 #ifndef GAME_PLAYER_H
 #define GAME_PLAYER_H
 
-//#include "EventManager.h"
+#include <cmath>
 
-class Player: public Character, public EventDetails{
+#include "EventManager.h"
+#include "Character.h"
+#include "SpriteSheet.h"
+
+class Player: public Character{
 
 public:
 
-    Player(TextureManager*);
+    Player(TextureManager*, EventManager*);
     ~Player();
 
 public:
 
     void update(sf::Time time);
 
-
 private:
-
-    void draw(sf::RenderTarget&, sf::RenderStates);
+    
+    void setVelocity(EventDetails*);
+    
+    void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
     void animate();
-
 
 private:
 
     SpriteSheet aspen;
-    sf::FloatRect;
 
     float speed;
-
-    sf::Vector2f velocity;
+    
+    EventManager* evtMgr;
 };
 
 #endif
