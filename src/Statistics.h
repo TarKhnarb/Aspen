@@ -3,14 +3,12 @@
 
 #include <vector>
 #include <array>
+#include <string>
+#include <algorithm>
 
 #include "Bonus.h"
 
 class Statistics{
-    
-public:
-    
-    friend class Bonus;
     
 public:
     

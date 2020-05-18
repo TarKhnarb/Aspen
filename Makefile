@@ -52,8 +52,14 @@ $(O)/Stage.o: $(O)/Room.o
 $(O)/Room.o: $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o
 	g++ $(FLAGS) $(S)/Room.cpp -o $(O)/Room.o
 
-$(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o
+$(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Statistics.o
 	g++ $(FLAGS) $(S)/Player.cpp -o $(O)/Player.o
+
+$(O)/Statistics.o: $(O)/Bonus.o
+	g++ $(FLAGS) $(S)/Statistics.cpp -o $(O)/Statistics.o
+
+$(O)/Bonus.o:
+	g++ $(FLAGS) $(S)/Bonus.cpp -o $(O)/Bonus.o
 
 $(O)/Character.o: $(O)/Entity.o
 	g++ $(FLAGS) $(S)/Character.cpp -o $(O)/Character.o

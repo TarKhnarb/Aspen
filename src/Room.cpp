@@ -42,6 +42,7 @@ void Room::setType(Room::Type roomType){
             break;
         
         case Start:
+        case CommonStart:
             color = sf::Color(255, 244, 66);
             break;
             
