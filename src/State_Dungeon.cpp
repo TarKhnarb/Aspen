@@ -20,7 +20,7 @@ State_Dungeon::~State_Dungeon(){}
 void State_Dungeon::onCreate(){
     
     sf::Vector2u windowSize = stateMgr->getContext()->wind->getWindow()->getSize();
-    player.setPosition(windowSize.x / 2.f, windowSize.y / 2.f);
+    player.setPosition((windowSize.x / 2.f) - 15.f, (windowSize.y / 2.f) - 30.f);
 }
 
 /*************
@@ -59,6 +59,12 @@ void State_Dungeon::update(const sf::Time &time){
         case Entity::Chest:
             //stateMgr->switchTo(State::Inventory);
             break;
+
+        case Entity::Hatch:
+            std::cout << "Hatch" << std::endl;
+            dungeon.nextStage();
+            centerPlayer();
+            break;
         
         default:
             break;
@@ -82,4 +88,10 @@ void State_Dungeon::draw(){
 void State_Dungeon::pause(EventDetails *details){
 
     stateMgr->switchTo(StateType::GamePause);
+}
+
+void State_Dungeon::centerPlayer(){
+
+    sf::Vector2u windowSize = stateMgr->getContext()->wind->getWindow()->getSize();
+    player.setPosition((windowSize.x / 2.f) - 15.f, (windowSize.y / 2.f) - 30.f);
 }

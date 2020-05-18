@@ -33,6 +33,10 @@ public:
 
 private:
 
+    void centerPlayer();
+
+private:
+
     Dungeon dungeon;
     
     Player player;

@@ -16,9 +16,10 @@
 #include "Orientation.h"
 #include "Rock.h"
 #include "Hole.h"
+#include "Chest.h"
 #include "Wall.h"
 #include "Door.h"
-#include "Chest.h"
+#include "Hatch.h"
 
 class Room : public sf::Drawable{
 
@@ -110,6 +111,7 @@ private: // Variables
     std::vector<std::unique_ptr<Hole>> holes;
     std::vector<std::unique_ptr<Rock>> rocks;
     std::vector<std::unique_ptr<Chest>> chests;
+    std::vector<std::unique_ptr<Hatch>> hatchs;
 
     Type type;
     

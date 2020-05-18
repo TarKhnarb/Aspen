@@ -30,8 +30,11 @@ void Room::setType(Room::Type roomType){
 
     type = roomType;
     
-    if (type == Boss){
+    if(type == Boss){
+
         color = sf::Color(80, 170, 255);
+        std::unique_ptr<Hatch> hatch(new Hatch(textureMgr));
+        hatchs.push_back(std::move(hatch));
     }
     
     background.setColor(color);
@@ -217,7 +220,7 @@ void Room::placeTiles(){
 
 std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Entity& entity){
     
-    for(const auto& door : doors){
+    for(const auto &door : doors){
         
         if(entity.collides(*door, 0.f) && entity.getType() == Entity::Player){
 
@@ -226,18 +229,18 @@ std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Entity& entity){
     }
             
     
-    for(const auto& wall : walls){
+    for(const auto &wall : walls){
         
        entity.collides(*wall, 0.f);
     }
     
     // TODO test CanFly, when statistics
-    for(const auto& hole : holes){
+    for(const auto &hole : holes){
         
         entity.collides(*hole, 0.f);
     }
     
-    for(const auto& rock : rocks){
+    for(const auto &rock : rocks){
         
         if(entity.collides(*rock, 0.f) && entity.getType() == Entity::Projectile){
             
@@ -245,12 +248,18 @@ std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Entity& entity){
         }
     }
     
-    for(const auto& chest : chests){
+    for(const auto &chest : chests){
         
         if(entity.collides(*chest, 0.f)){
             
             return std::make_pair(Entity::Chest, static_cast<Orientation>(0));
         }
+    }
+
+    for(const auto &hatch : hatchs){
+
+        if(entity.collides(*hatch, 0.f))
+            return std::make_pair(Entity::Hatch, static_cast<Orientation>(0));
     }
     
     return std::make_pair(Entity::None, static_cast<Orientation>(0));
@@ -362,23 +371,31 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     
     target.draw(background, states);
     
-    for(const auto& door : doors){
+    for(const auto &door : doors){
         
         target.draw(*door, states);
     }
     
-    for(const auto& hole : holes){
+    for(const auto &hole : holes){
         
         target.draw(*hole, states);
     }
     
-    for(const auto& rock : rocks){
+    for(const auto &rock : rocks){
         
         target.draw(*rock, states);
     }
     
-    for(const auto& chest : chests){
+    for(const auto &chest : chests){
         
         target.draw(*chest, states);
+    }
+
+    if(type == Boss){
+
+        for(const auto &hatch : hatchs){
+
+            target.draw(*hatch, states);
+        }
     }
 }
