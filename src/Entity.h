@@ -39,13 +39,17 @@ public:
 
     bool collides(Entity&, float);
     
-    void setPosition(float x, float y);
-
-    void setPosition(const sf::Vector2f &position);
-
     void move(float offsetX, float offsetY);
 
     void move(const sf::Vector2f& offset);
+    
+    void setPosition(float x, float y);
+
+    void setPosition(const sf::Vector2f &position);
+    
+    void setOrigin(float x, float y);
+ 
+    void setOrigin(const sf::Vector2f &origin);
     
     Type getType() const;
     

@@ -11,6 +11,7 @@ Player::Player(TextureManager *txtMng, EventManager* evtMgr):
     speed = 300.f;
     
     sf::Vector2f size = aspen.getSpriteSize();
+    
     collisionBox.width = size.x;
     collisionBox.top = 5/6.f * size.y;
     collisionBox.height = 1/3.f * size.y;

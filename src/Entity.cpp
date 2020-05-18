@@ -34,29 +34,29 @@ bool Entity::collides(Entity& other, float push){
     
     sf::Vector2f delta = otherCenter - thisCenter;
     sf::Vector2f intersect;
-    intersect.x = abs(delta.x) - (thisRadius.x + otherRadius.x);
-    intersect.y = abs(delta.y) - (thisRadius.y + otherRadius.y);
+    intersect.x = fabs(delta.x) - (thisRadius.x + otherRadius.x);
+    intersect.y = fabs(delta.y) - (thisRadius.y + otherRadius.y);
     
     if(intersect.x < 0.f && intersect.y < 0.f){
         
         if(intersect.x > intersect.y){ // we move along the x-axis
             
-            if(delta.x > 0.f){ // this is over other
+            if(delta.x > 0.f){ // this is on the left side of other
                 move(intersect.x * (1 - push), 0.f);
                 other.move(-intersect.x * push, 0.f);
             }
-            else{ // this is under other
+            else{ // this is on the right side of other
                 move(-intersect.x * (1 - push), 0.f);
                 other.move(intersect.x * push, 0.f);
             }
         }
         else{ // along y-axis
             
-            if(delta.y > 0.f){ // this is on the left side of other
+            if(delta.y > 0.f){ // this is over other
                 move(0.f, intersect.y * (1 - push));
                 other.move(0.f, -intersect.y * push);
             }
-            else{ // this is on the right side of other
+            else{ // this is under other
                 move(0.f, -intersect.y * (1 - push));
                 other.move(0.f, intersect.y * push);
             }
@@ -66,34 +66,6 @@ bool Entity::collides(Entity& other, float push){
     }
     
     return false;
-}
-
-/***************
- * SetPosition *
- ***************/
-void Entity::setPosition(float x, float y){
-    
-    sf::Vector2f initialPos = getPosition();
-    sf::Transformable::setPosition(x, y);
-    sf::Vector2f finalPos = getPosition();
-    
-    sf::Vector2f offset = finalPos - initialPos;
-    collisionBox.left += offset.x;
-    collisionBox.top += offset.y;
-}
-
-/***************
- * SetPosition *
- ***************/
-void Entity::setPosition(const sf::Vector2f& position){
-    
-    sf::Vector2f initialPos = getPosition();
-    sf::Transformable::setPosition(position);
-    sf::Vector2f finalPos = getPosition();
-    
-    sf::Vector2f offset = finalPos - initialPos;
-    collisionBox.left += offset.x;
-    collisionBox.top += offset.y;
 }
 
 /********
@@ -107,15 +79,41 @@ void Entity::move(float offsetX, float offsetY){
     collisionBox.top += offsetY;
 }
 
-/********
- * Move *
- ********/
 void Entity::move(const sf::Vector2f& offset){
     
-    sf::Transformable::move(offset);
+    move(offset.x, offset.y);
+}
+
+/***************
+ * SetPosition *
+ ***************/
+void Entity::setPosition(float x, float y){
     
-    collisionBox.left += offset.x;
-    collisionBox.top += offset.y;
+    move(sf::Vector2f(x, y) - getPosition());
+}
+
+void Entity::setPosition(const sf::Vector2f& position){
+    
+    setPosition(position.x, position.y);
+}
+
+/*************
+ * SetOrigin *
+ *************/
+void Entity::setOrigin(float x, float y){
+    
+    sf::Vector2f initialOrigin = getOrigin();
+    sf::Transformable::setOrigin(x, y);
+    sf::Vector2f finalOrigin = getOrigin();
+    
+    sf::Vector2f movement = initialOrigin - finalOrigin;
+    collisionBox.left += movement.x;
+    collisionBox.top += movement.y;
+}
+ 
+void Entity::setOrigin(const sf::Vector2f &origin){
+    
+    setOrigin(origin.x, origin.y);
 }
 
 /***********
