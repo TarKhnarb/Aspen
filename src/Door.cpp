@@ -73,15 +73,6 @@ void Door::draw(sf::RenderTarget &target, sf::RenderStates states) const{
     states.transform *= getTransform();
     target.draw(spriteDoor, states);
     target.draw(spriteFrame, states);
-    
-   /* sf::RectangleShape hitBox;
-    hitBox.setPosition({collisionBox.left, collisionBox.top});
-    hitBox.setSize({collisionBox.width, collisionBox.height});
-    hitBox.setFillColor(sf::Color::Transparent);
-    hitBox.setOutlineThickness(1.f);
-    hitBox.setOutlineColor(sf::Color::Red);
-    
-    target.draw(hitBox, states);*/
 }
 
 /*************

@@ -30,8 +30,22 @@ void Room::setType(Room::Type roomType){
 
     type = roomType;
     
-    if (type == Boss){
-        color = sf::Color(80, 170, 255);
+    switch(type){ // colorize the room
+        
+        case Boss:
+            color = sf::Color(80, 170, 255);
+            break;
+        
+        case Start:
+            color = sf::Color(255, 244, 66);
+            break;
+            
+        case Boost:
+            color = sf::Color(80, 255, 220);
+            break;
+        
+        default:
+            break;
     }
     
     background.setColor(color);

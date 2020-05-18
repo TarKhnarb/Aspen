@@ -41,7 +41,6 @@ void State_Dungeon::deactivate(){}
 /**********
  * Update *
  **********/
-#include <iostream>
 void State_Dungeon::update(const sf::Time &time){
     
     player.update(time);
@@ -51,7 +50,6 @@ void State_Dungeon::update(const sf::Time &time){
     switch(info.first){
         
         case Entity::Door:
-            std::cout << static_cast<int>(info.second) << std::endl;
             dungeon.changeRoom(info.second);
             player.changeRoom(info.second);
             break;
