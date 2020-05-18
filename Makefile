@@ -49,7 +49,7 @@ $(O)/Dungeon.o: $(O)/Stage.o
 $(O)/Stage.o: $(O)/Room.o
 	g++ $(FLAGS) $(S)/Stage.cpp -o $(O)/Stage.o
 
-$(O)/Room.o: $(O)/Hole.o $(O)/Rock.o $(O)/Wall.o $(O)/Door.o $(O)/Chest.o
+$(O)/Room.o: $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o
 	g++ $(FLAGS) $(S)/Room.cpp -o $(O)/Room.o
 
 $(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o
@@ -57,7 +57,10 @@ $(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o
 
 $(O)/Character.o: $(O)/Entity.o
 	g++ $(FLAGS) $(S)/Character.cpp -o $(O)/Character.o
-	
+
+$(O)/Hatch.o: $(O)/Entity.o
+	g++ $(FLAGS) $(S)/Hatch.cpp -o $(O)/Hatch.o
+
 $(O)/Door.o: $(O)/Entity.o
 	g++ $(FLAGS) $(S)/Door.cpp -o $(O)/Door.o
 

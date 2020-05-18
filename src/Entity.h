@@ -24,6 +24,7 @@ public:
         Chest,
         Boost,
         Door,
+        Hatch,
         Wall,
         Player,
         Monster,
