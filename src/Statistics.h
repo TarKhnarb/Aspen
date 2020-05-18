@@ -5,6 +5,9 @@
 #include <array>
 #include <string>
 #include <algorithm>
+#include <fstream>
+#include <stdexcept>
+#include <sstream>
 
 #include "Bonus.h"
 

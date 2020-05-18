@@ -4,11 +4,11 @@
 Player::Player(TextureManager *txtMng, EventManager* evtMgr):
         Character("Aspen", Type::Player, txtMng),
         aspen(txtMng),
+        stats("Data/Files/Characters/Aspen.cfg"),
         evtMgr(evtMgr){
 
     aspen.loadSheet("Data/Files/SpriteSheets/PlayerSheet.sprite");
-
-    speed = 300.f;
+    
     
     sf::Vector2f size = aspen.getSpriteSize();
     
@@ -81,21 +81,23 @@ int Player::returnStoi(std::istringstream &ss){
 
 void Player::setVelocity(EventDetails* details){
     
+    float pxMove = 150.f * (1.f + stats.getFinalValue(Speed)/100.f);
+    
     if (details->name == "MoveUp"){
         
-        velocity.y -= speed;
+        velocity.y -= pxMove;
     }
     if (details->name == "MoveRight"){
         
-        velocity.x += speed;
+        velocity.x += pxMove;
     }
     if (details->name == "MoveDown"){
         
-        velocity.y += speed;
+        velocity.y += pxMove;
     }
     if (details->name == "MoveLeft"){
         
-        velocity.x -= speed;
+        velocity.x -= pxMove;
     }
 }
 

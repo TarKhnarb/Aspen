@@ -10,6 +10,7 @@
 #include "EventManager.h"
 #include "Character.h"
 #include "SpriteSheet.h"
+#include "Statistics.h"
 
 class Player: public Character{
 
@@ -37,6 +38,8 @@ private:
 private:
 
     SpriteSheet aspen;
+    
+    Statistics stats;
 
     float speed;
     

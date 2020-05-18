@@ -12,7 +12,26 @@ Statistics::Statistics(const std::string& filename){
 
 void Statistics::loadFromFile(const std::string& filename){
     
-    // TODO
+    std::ifstream file(filename);
+    
+    if(!file.is_open()){
+        throw std::runtime_error("Statistics::loadFromFile() - Failed to load " + filename);
+    }
+    
+    std::size_t statNum = 0;
+    while(!file.eof()){
+        
+        std::string line;
+        std::getline(file, line);
+        std::stringstream sLine(line);
+        
+        std::string statName;
+        sLine >> statName >> values[statNum];
+            
+        ++statNum;
+    }
+    
+    file.close();
 }
 
 float Statistics::getBaseValue(StatName stat) const{
