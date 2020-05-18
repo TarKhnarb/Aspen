@@ -220,7 +220,7 @@ std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Entity& entity){
     for(const auto& door : doors){
         
         if(entity.collides(*door, 0.f) && entity.getType() == Entity::Player){
-            
+
             return std::make_pair(Entity::Door, door->getOrientation());
         }
     }

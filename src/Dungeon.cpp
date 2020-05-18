@@ -60,26 +60,26 @@ void Dungeon::changeRoom(Orientation orient){
 
     switch(orient){
         case Orientation::North:
-            if (getRoomType(posDungeon.x, posDungeon.y - 1) != Room::None){
-                posDungeon.y -= 1;
+            if (getRoomType(posDungeon.x - 1, posDungeon.y) != Room::None){
+                posDungeon.x -= 1;
             }
             break;
 
         case Orientation::East:
-            if (getRoomType(posDungeon.x + 1, posDungeon.y) != Room::None){
-                posDungeon.x += 1;
-            }
-            break;
-
-        case Orientation::South:
             if (getRoomType(posDungeon.x, posDungeon.y + 1) != Room::None){
                 posDungeon.y += 1;
             }
             break;
 
+        case Orientation::South:
+            if (getRoomType(posDungeon.x + 1, posDungeon.y) != Room::None){
+                posDungeon.x += 1;
+            }
+            break;
+
         case Orientation::West:
-            if (getRoomType(posDungeon.x - 1, posDungeon.y) != Room::None){
-                posDungeon.x -= 1;
+            if (getRoomType(posDungeon.x, posDungeon.y - 1) != Room::None){
+                posDungeon.y -= 1;
             }
             break;
 

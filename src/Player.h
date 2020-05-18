@@ -2,6 +2,10 @@
 #define GAME_PLAYER_H
 
 #include <cmath>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iostream>
 
 #include "EventManager.h"
 #include "Character.h"
@@ -18,7 +22,11 @@ public:
 
     void update(sf::Time time);
 
+    void changeRoom(Orientation orient);
+
 private:
+
+    int returnStoi(std::istringstream &ss);
     
     void setVelocity(EventDetails*);
     

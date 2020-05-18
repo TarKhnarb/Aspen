@@ -44,7 +44,7 @@ private:
 
     void placeDoor();
 
-    unsigned returnCsvItemSTOF(std::istringstream &ss);
+    unsigned returnStoi(std::istringstream &ss);
 
 private:
 

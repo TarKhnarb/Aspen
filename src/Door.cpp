@@ -54,8 +54,6 @@ void Door::setState(State dState){
     textureMgr->requireResource(textureName);
     spriteDoor.setTexture(*textureMgr->getResource(textureName));
     
-    collisionBox = spriteDoor.getLocalBounds();
-    
     placeDoor();
 }
 
@@ -76,13 +74,14 @@ void Door::draw(sf::RenderTarget &target, sf::RenderStates states) const{
     target.draw(spriteDoor, states);
     target.draw(spriteFrame, states);
     
-    sf::RectangleShape hitBox;
+   /* sf::RectangleShape hitBox;
+    hitBox.setPosition({collisionBox.left, collisionBox.top});
     hitBox.setSize({collisionBox.width, collisionBox.height});
     hitBox.setFillColor(sf::Color::Transparent);
-    hitBox.setOutlineThickness(-0.1f);
+    hitBox.setOutlineThickness(1.f);
     hitBox.setOutlineColor(sf::Color::Red);
     
-    target.draw(hitBox, states);
+    target.draw(hitBox, states);*/
 }
 
 /*************
@@ -104,8 +103,8 @@ void Door::placeDoor(){
             getline(file, csvItem);
         }
         std::istringstream iss(csvItem);
-        x = static_cast<float>(returnCsvItemSTOF(iss));
-        y = static_cast<float>(returnCsvItemSTOF(iss));
+        x = static_cast<float>(returnStoi(iss));
+        y = static_cast<float>(returnStoi(iss));
     }
     else
         throw std::runtime_error ("Failed to load " + filePath);
@@ -115,16 +114,38 @@ void Door::placeDoor(){
     setPosition(x, y);
 
     switch(orientation){
+
+        case Orientation::North:
+            collisionBox.left = x - 135.f/2.f;
+            collisionBox.top = y - 45.f;
+            collisionBox.width = 135.f;
+            collisionBox.height = 90.f;
+
+            break;
+
         case Orientation::East:
             setRotation(90.f);
+            collisionBox.left = x - 45.f;
+            collisionBox.top = y - 135.f/2.f;
+            collisionBox.width = 90.f;
+            collisionBox.height = 135.f;
+
             break;
 
         case Orientation::South:
             setRotation(180.f);
+            collisionBox.left = x - 135.f/2.f;
+            collisionBox.top = y - 45.f;
+            collisionBox.width = 135.f;
+            collisionBox.height = 90.f;
             break;
 
         case Orientation::West:
             setRotation(-90.f);
+            collisionBox.left = x - 45.f;
+            collisionBox.top = y - 135.f/2.f;
+            collisionBox.width = 90.f;
+            collisionBox.height = 135.f;
             break;
 
         default:
@@ -135,7 +156,8 @@ void Door::placeDoor(){
 /*********************
  * ReturnCsvItemSTOI *
  *********************/
-unsigned Door::returnCsvItemSTOF(std::istringstream &ss){
+unsigned Door::returnStoi(std::istringstream &ss){
+
     std::string result;
     std::getline(ss, result, ',');
     return std::stoi(result);

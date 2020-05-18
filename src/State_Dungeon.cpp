@@ -53,6 +53,7 @@ void State_Dungeon::update(const sf::Time &time){
         case Entity::Door:
             std::cout << static_cast<int>(info.second) << std::endl;
             dungeon.changeRoom(info.second);
+            player.changeRoom(info.second);
             break;
         
         case Entity::Chest:
