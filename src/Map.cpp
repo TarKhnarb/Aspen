@@ -2,6 +2,7 @@
 
 Map::Map(TextureManager *txtMng):
         txtMng(txtMng),
+        dungeonDoor(Wall(sf::FloatRect(1682.f, 518.f, 32.f, 32.f))),
         spawnPoint(1220.f, 520.f){
 
     background.setSize({2560.f, 1440.f});
@@ -26,7 +27,12 @@ Entity::Type Map::checkMapCollisions(Entity &entity){
 
         entity.collides(*wall, 0.f);
     }
-    
+
+    if(entity.collides(dungeonDoor, 0.f)){
+
+        return Entity::Wall;
+    }
+
     return Entity::None;
 }
 
@@ -65,7 +71,6 @@ void Map::placeWalls(){
 
     file.close();
 }
-
 
 void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const{
 

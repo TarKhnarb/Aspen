@@ -8,9 +8,6 @@ State_Map::State_Map(StateManager *stateMgr):
         BaseState(stateMgr),
         map(stateMgr->getContext()->textureManager),
         Aspen(*stateMgr->getContext()->aspen){
-
-    Aspen.scale(0.5f, 0.5f);
-    Aspen.setBaseSpeed(75.f);
     
     spawnPointPlayer();
 }
@@ -39,7 +36,11 @@ void State_Map::onDestroy(){}
 /************
  * Activate *
  ************/
-void State_Map::activate(){}
+void State_Map::activate(){
+    
+    Aspen.setScale(0.5f, 0.5f);
+    Aspen.setBaseSpeed(75.f);
+}
 
 /**************
  * Deactivate *
@@ -49,13 +50,18 @@ void State_Map::deactivate(){}
 /**********
  * Update *
  **********/
-
 void State_Map::update(const sf::Time &time){
+
 
     Aspen.update(time);
     map.checkMapCollisions(Aspen);
-    setViewOnPlayer(); 
-    stateMgr->switchTo(StateType::Dungeon);
+    if(map.checkMapCollisions(player) == Entity::Wall){
+
+        stateMgr->switchTo(StateType::Dungeon);
+        stateMgr->remove(StateType::Map);
+    }
+    setViewOnPlayer();
+
 }
 
 /********

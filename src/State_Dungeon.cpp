@@ -30,7 +30,11 @@ void State_Dungeon::onDestroy(){}
 /************
  * Activate *
  ************/
-void State_Dungeon::activate(){}
+void State_Dungeon::activate(){
+    
+    Aspen.setScale(1.f, 1.f);
+    Aspen.setBaseSpeed(150.f);
+}
 
 /**************
  * Deactivate *
@@ -58,8 +62,16 @@ void State_Dungeon::update(const sf::Time &time){
             break;
 
         case Entity::Hatch:
-            dungeon.nextStage();
-            centerPlayer();
+            if(!dungeon.end()){
+
+                dungeon.nextStage();
+                centerPlayer();
+            }
+            else{
+
+                stateMgr->switchTo(StateType::Map);
+                stateMgr->remove(StateType::Dungeon);
+            }
             break;
         
         default:
