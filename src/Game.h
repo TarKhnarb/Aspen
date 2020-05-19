@@ -28,8 +28,6 @@ private: // Functions
 
     void render();
 
-    sf::Time getElapsedTime() const;
-
     void restartClock();
 
     void moveBlacksmith(EventDetails *details);
