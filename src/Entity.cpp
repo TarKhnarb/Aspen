@@ -140,7 +140,7 @@ void Entity::scale(sf::Vector2f zoom){
 
 void Entity::setScale(sf::Vector2f zoom){
     
-    scale(zoom / getScale());
+    scale(zoom.x / getScale().x, zoom.y / getScale().y);
 }
 
 void Entity::setScale(float xZoom, float yZoom){

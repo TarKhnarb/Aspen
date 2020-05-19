@@ -13,7 +13,7 @@ Game::Game():
     context.textureManager = &textureManager;
     context.aspen = &aspen;
     
-    stateManager.switchTo(StateType::Dungeon);
+    stateManager.switchTo(StateType::Map);
 }
 
 /**************
