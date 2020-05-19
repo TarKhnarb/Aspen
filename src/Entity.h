@@ -28,6 +28,9 @@ public:
         Wall,
         Player,
         Monster,
+        Object,
+        Stuff,
+        StackObject,
         Projectile
     };
     
@@ -53,6 +56,10 @@ public:
     void setOrigin(const sf::Vector2f &origin);
     
     Type getType() const;
+    
+protected:
+    
+    void setType(Type);
     
 private:
     

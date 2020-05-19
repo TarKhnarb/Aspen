@@ -4,9 +4,8 @@
  * Constructor *
  ***************/
 Hatch::Hatch(TextureManager *txtMng):
-        Entity(txtMng, Type::Hatch){
-
-    isOpen = true;
+        Entity(txtMng, Type::Hatch),
+        isOpen(true){
 
     selectHatch();
 }
@@ -19,6 +18,7 @@ Hatch::~Hatch(){
 void Hatch::openHatch(){
 
     isOpen = true;
+    textureMgr->releaseResource(textureName);
     selectHatch();
 }
 
@@ -50,6 +50,9 @@ void Hatch::selectHatch(){
 
         textureMgr->requireResource(textureName);
         sprite.setTexture(*textureMgr->getResource(textureName));
+        
+        collisionBox.width = 0.f;
+        collisionBox.height = 0.f;
 
         setPosition(610.f, 330.f);
     }
