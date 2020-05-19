@@ -27,17 +27,15 @@ void Game::run(){
 
     while(!window.isClose()){
 
-        float gameTick = 1.f/60.f;
+        sf::Time gameTick = sf::seconds(1.f/60.f);
         processEvent();
 
-        while(elapsedTime.asSeconds() >= gameTick){
+        if(elapsedTime >= gameTick){
 
-            processEvent();
-            update();
+            update(gameTick);
             lateUpdate();
-
-            elapsedTime -= sf::seconds(gameTick);
         }
+        
         render();
         restartClock();
     }
@@ -46,10 +44,10 @@ void Game::run(){
 /**********
  * Update *
  **********/
-void Game::update(){
+void Game::update(sf::Time dt){
     
     window.update(); // Update window events.
-    stateManager.update(elapsedTime);
+    stateManager.update(dt);
 }
 
 /****************
@@ -70,14 +68,6 @@ void Game::render(){
     window.endDraw();
 }
 
-/******************
- * getElapsedTime *
- ******************/
-sf::Time Game::getElapsedTime() const{
-
-    return elapsedTime;
-}
-
 /****************
  * RestartClock *
  ****************/
@@ -91,5 +81,7 @@ void Game::restartClock(){
  **************/
 void Game::lateUpdate(){
     stateManager.processRequests();
+    
+    elapsedTime = sf::Time::Zero;
     restartClock();
 }

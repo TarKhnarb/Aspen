@@ -15,7 +15,10 @@ Map::Map(TextureManager *txtMng):
     placeWalls();
 }
 
-Map::~Map(){}
+Map::~Map(){
+    
+    txtMng->releaseResource("Map");
+}
 
 Entity::Type Map::checkMapCollisions(Entity &entity){
 

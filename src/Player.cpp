@@ -5,6 +5,7 @@ Player::Player(TextureManager *txtMng, EventManager* evtMgr):
         Character("Aspen", Type::Player, txtMng),
         aspen(txtMng),
         stats("Data/Files/Characters/Aspen.cfg"),
+        baseSpeed (150.f),
         evtMgr(evtMgr){
 
     aspen.loadSheet("Data/Files/SpriteSheets/PlayerSheet.sprite");
@@ -33,6 +34,11 @@ Player::~Player(){
     evtMgr->removeCallback(StateType::Dungeon, "MoveRight");
     evtMgr->removeCallback(StateType::Dungeon, "MoveDown");
     evtMgr->removeCallback(StateType::Dungeon, "MoveLeft");
+    
+    evtMgr->removeCallback(StateType::Map, "MoveUp");
+    evtMgr->removeCallback(StateType::Map, "MoveRight");
+    evtMgr->removeCallback(StateType::Map, "MoveDown");
+    evtMgr->removeCallback(StateType::Map, "MoveLeft");
 }
 
 void Player::update(sf::Time time){
@@ -77,6 +83,14 @@ void Player::changeRoom(Orientation orient){
     setPosition(x, y);
 }
 
+void Player::setBaseSpeed(float newSpeed){
+    
+    if(newSpeed > 0.f){
+        
+        baseSpeed = newSpeed;
+    }
+}
+
 int Player::returnStoi(std::istringstream &ss){
 
     std::string result;
@@ -86,7 +100,7 @@ int Player::returnStoi(std::istringstream &ss){
 
 void Player::setVelocity(EventDetails* details){
     
-    float pxMove = 150.f * (1.f + stats.getFinalValue(Speed)/100.f);
+    float pxMove = baseSpeed * (1.f + stats.getFinalValue(Speed)/100.f);
     
     if (details->name == "MoveUp"){
         

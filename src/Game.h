@@ -24,7 +24,7 @@ private: // Functions
 
     void processEvent();
 
-    void update();
+    void update(sf::Time);
 
     void render();
 

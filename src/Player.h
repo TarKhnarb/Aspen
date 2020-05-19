@@ -24,6 +24,10 @@ public:
     void update(sf::Time time);
 
     void changeRoom(Orientation orient);
+    
+    void setBaseSpeed(float);
+    
+    void clear();
 
 private:
 
@@ -40,8 +44,8 @@ private:
     SpriteSheet aspen;
     
     Statistics stats;
-
-    float speed;
+    
+    float baseSpeed;
     
     EventManager* evtMgr;
 };

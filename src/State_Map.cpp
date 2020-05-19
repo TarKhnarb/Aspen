@@ -10,6 +10,8 @@ State_Map::State_Map(StateManager *stateMgr):
         player(stateMgr->getContext()->textureManager, stateMgr->getContext()->eventManager){
 
     player.scale(0.5f, 0.5f);
+    player.setBaseSpeed(75.f);
+    
     spawnPointPlayer();
 }
 
@@ -47,6 +49,7 @@ void State_Map::deactivate(){}
 /**********
  * Update *
  **********/
+
 void State_Map::update(const sf::Time &time){
 
     player.update(time);
