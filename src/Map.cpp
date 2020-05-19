@@ -12,7 +12,7 @@ Map::Map(TextureManager *txtMng):
     map.setScale({1280.f/4000.f, 720.f/2250.f});
     map.setPosition(640.f, 360.f);
 
-    setWall();
+    placeWalls();
 }
 
 Map::~Map(){}
@@ -23,6 +23,8 @@ Entity::Type Map::checkMapCollisions(Entity &entity){
 
         entity.collides(*wall, 0.f);
     }
+    
+    return Entity::None;
 }
 
 sf::Vector2f Map::getSpawnPoint() const{
@@ -30,7 +32,7 @@ sf::Vector2f Map::getSpawnPoint() const{
     return spawnPoint;
 }
 
-void Map::setWall(){
+void Map::placeWalls(){
 
     std::ifstream file;
     std::string filename("Data/Files/Map/Wall.cfg");

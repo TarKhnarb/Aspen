@@ -47,6 +47,11 @@ StackObject& StackObject::operator+=(std::size_t &toAdd){
 
 StackObject& StackObject::operator+=(StackObject &otherStk){
     
+    if(name != otherStk.name){
+        
+        return *this;
+    }
+    
     return operator+=(otherStk.number);
 }
 
@@ -66,6 +71,11 @@ StackObject& StackObject::operator-=(std::size_t &toRemove){
 }
 
 StackObject& StackObject::operator-=(StackObject &otherStk){
+    
+    if(name != otherStk.name){
+        
+        return *this;
+    }
     
     return operator-=(otherStk.number);
 }

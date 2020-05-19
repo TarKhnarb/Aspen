@@ -61,6 +61,8 @@ void State_Map::draw(){
 
     Window* window = stateMgr->getContext()->wind;
 
+    window->getWindow()->setView(getView());
+    
     window->draw(map);
     window->draw(player);
 }

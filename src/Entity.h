@@ -55,6 +55,14 @@ public:
  
     void setOrigin(const sf::Vector2f &origin);
     
+    void scale(float, float);
+    
+    void scale(sf::Vector2f);
+    
+    void setScale(sf::Vector2f);
+    
+    void setScale(float, float);
+    
     Type getType() const;
     
 protected:

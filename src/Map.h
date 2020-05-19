@@ -32,11 +32,11 @@ public:
 
 private:
 
-    void setWall(); // TODO change to a better algorithm which made the biggest rectangle of walls for a lighten code
+    void placeWalls(); // TODO change to a better algorithm which made the biggest rectangle of walls for a lighten code
 
-    void setNpc(); // TODO place different Npc with their house
+    void placeNpcs(); // TODO place different Npc with their house
 
-    void setBase(); // TODO place the house of Aspen to access at his Base
+    void placeBase(); // TODO place the house of Aspen to access at his Base
 
     int returnStoi(std::istringstream ss);
 

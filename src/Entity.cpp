@@ -116,6 +116,38 @@ void Entity::setOrigin(const sf::Vector2f &origin){
     setOrigin(origin.x, origin.y);
 }
 
+/************
+ * SetScale *
+ ************/
+
+void Entity::scale(float xZoom, float yZoom){
+    
+    sf::Vector2f pos = getPosition();
+    
+    sf::Transformable::scale(xZoom, yZoom);
+    
+    collisionBox.width *= xZoom;
+    collisionBox.height *= yZoom;
+    
+    collisionBox.left = pos.x + (collisionBox.left - pos.x) * xZoom;
+    collisionBox.top = pos.y + (collisionBox.top - pos.y) * yZoom;
+}
+
+void Entity::scale(sf::Vector2f zoom){
+    
+    scale(zoom.x, zoom.y);
+}
+
+void Entity::setScale(sf::Vector2f zoom){
+    
+    scale(zoom - getScale());
+}
+
+void Entity::setScale(float xZoom, float yZoom){
+    
+    setScale(sf::Vector2f(xZoom, yZoom));
+}
+
 /***********
  * GetType *
  ***********/

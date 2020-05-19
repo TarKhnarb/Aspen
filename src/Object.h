@@ -27,11 +27,11 @@ protected:
     
 private:
     
-    std::string name;
-    
     sf::Sprite sprite;
     
-protected: // private ? (cf StackObject::+=)
+protected:
+    
+    std::string name;
     
     int buyPrice;
     int sellPrice;
