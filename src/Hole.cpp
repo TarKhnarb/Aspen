@@ -3,13 +3,15 @@
 /***************
  * Constructor *
  ***************/
-Hole::Hole(bool border, TextureManager* textureMgr):
-        Entity(textureMgr, Type::Hole){
+Hole::Hole(bool border, TextureManager* textureMgr, sf::Color color):
+        Entity(textureMgr, Type::Hole),
+        color(color){
     
     textureName = border ? "BorderHole" : "Hole";
     
     textureMgr->requireResource(textureName);
     sprite.setTexture(*textureMgr->getResource(textureName));
+    sprite.setColor(color);
     
     collisionBox = sprite.getLocalBounds();
 }

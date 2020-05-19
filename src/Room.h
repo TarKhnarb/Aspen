@@ -64,9 +64,9 @@ public:
 
 public:
 
-    Room(const Room&) = delete;
-
+    Room() = delete;
     Room(TextureManager*, Type roomType = Type::Common);
+    Room(const Room&) = delete;
     ~Room();
 
 public: // Functions

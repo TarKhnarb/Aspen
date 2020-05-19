@@ -3,9 +3,10 @@
 /***************
  * Constructor *
  ***************/
-Hatch::Hatch(TextureManager *txtMng):
+Hatch::Hatch(TextureManager *txtMng, sf::Color color):
         Entity(txtMng, Type::Hatch),
-        isOpen(true){
+        isOpen(true),
+        color(color){
 
     selectHatch();
 }
@@ -35,6 +36,8 @@ void Hatch::selectHatch(){
 
         textureMgr->requireResource(textureName);
         sprite.setTexture(*textureMgr->getResource(textureName));
+        
+        // TODO find a way to colorize just the bottom part (use 2 sprites ?)
 
         sf::FloatRect spriteBox = sprite.getLocalBounds();
         collisionBox.left = spriteBox.left;
@@ -56,8 +59,6 @@ void Hatch::selectHatch(){
 
         setPosition(610.f, 330.f);
     }
-
-
 }
 
 void Hatch::draw(sf::RenderTarget& target, sf::RenderStates states) const{
