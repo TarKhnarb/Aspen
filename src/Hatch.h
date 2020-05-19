@@ -2,6 +2,7 @@
 #define GAME_HATCH_H
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 #include <string>
 
@@ -11,7 +12,8 @@ class Hatch: public Entity{
 
 public:
 
-    Hatch(TextureManager*); // TODO while monsters used in Room, set hatch closed with no collisionBox
+    Hatch() = delete;
+    Hatch(TextureManager*, sf::Color = sf::Color::White);
     ~Hatch();
 
 public:
@@ -31,6 +33,7 @@ private:
     bool isOpen;
 
     sf::Sprite sprite;
+    sf::Color color;
     std::string textureName;
 };
 

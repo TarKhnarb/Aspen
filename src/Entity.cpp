@@ -123,3 +123,11 @@ Entity::Type Entity::getType() const{
     
     return type;
 }
+
+/***********
+ * setType *
+ ***********/
+void Entity::setType(Type newType){
+    
+    type = newType;
+}

@@ -11,6 +11,7 @@ enum StatName{
     MaxLife,
     Attack,
     AttackSpeed,
+    ProjectileSpeed,
     Defence,
     Speed,
     CanFly,

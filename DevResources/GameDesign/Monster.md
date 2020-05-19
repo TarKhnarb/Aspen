@@ -7,7 +7,7 @@
 ---
 ## Monsters :
 ### Monstres :
->    * Gripe espagnole   
+>    * Gripe espagnole
 >    * Peste noire
 >    * Tenia
 >    * Listéria
@@ -28,7 +28,7 @@
 >> Flying monster, infighting.
 >
 > IA:
->> The monster alternates between a pause time (2s) and two consecutive dash of  ~100px
+>> The monster alternates between a pause time (2s) and two consecutive dash in direction of the player of  ~100px
 
 * Peste noire:
 > Type:
@@ -49,14 +49,14 @@
 >> Walking monster, range fighting.
 >
 > IA: Dash and shoot the player.
->> The monster alternate between line up with the player + shoot him and pause time (2s), if the player position is in a radius of 50px around the monster, he flees to be at 100px of the player.
+>> The monster alternate between line up with the player (with no obstacles between them) + shoot him and pause time (2s), if the player position is in a radius of 50px around the monster, he flees to be at 100px of the player.
 
 * Blob:
 >Type:
 >> Walking monster, infighting.
 >
 > IA: Jump to hit the player.
->> The monster alternate between a pause time (3/4s may be a random time) and jump on the position of the player.
+>> The monster alternate between a pause time (3/4s may be a random time) and jump (in some time) on the position of the player.
 ---
 * Cymothoa exigua:
 > Type:
@@ -70,7 +70,7 @@
 >> Flying monster, infighting.
 >
 > IA:
->> The monster alternate between pause time (0.5/1s) shoot the player and if the projectile exceeds a certain distance (200/250px) it was split in 4 smallest projectile in 4 directions.
+>> The monster alternate between pause time (0.5/1s), try to align with the player and then, shoot the player and if the projectile exceeds a certain distance (200/250px) it was split in 4 smallest projectile in 4 directions.
 
 * VIH:
 > Type:
@@ -84,7 +84,7 @@
 >> Flying monster, range fighting.
 >
 > IA:
->> Teleports to align with the player, shooting him and teleports randomly into the room immediately after and wait 1 to 3 second. If the player shooting them if the player shoots him twice he teleport elsewhere and starts his attacks again after a pause time of 0.5 / 1s
+>> Teleports to align with the player, shooting him and teleports randomly into the room immediately after and wait 1 to 3 second. If the player shoots him twice he teleport elsewhere and starts his attacks again after a pause time of 0.5 / 1s
 
 ---
 ---

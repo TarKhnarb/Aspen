@@ -3,6 +3,7 @@
 
 #include <string>
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 #include "Entity.h"
 
@@ -10,7 +11,8 @@ class Hole : public Entity{
     
 public:
     
-    Hole(bool border, TextureManager*);
+    Hole() = delete;
+    Hole(bool border, TextureManager*, sf::Color = sf::Color::White);
     ~Hole();
 
 private:
@@ -20,6 +22,7 @@ private:
 private:
     
     sf::Sprite sprite;
+    sf::Color color;
     std::string textureName;
 };
     

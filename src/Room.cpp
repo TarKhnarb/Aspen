@@ -36,7 +36,7 @@ void Room::setType(Room::Type roomType){
             {
                 color = sf::Color(80, 170, 255);
                 
-                std::unique_ptr<Hatch> hatch(new Hatch(textureMgr)); // add a trapdoor to the room
+                std::unique_ptr<Hatch> hatch(new Hatch(textureMgr, color)); // add a trapdoor to the room
                 hatchs.push_back(std::move(hatch));
             }
             break;
@@ -194,7 +194,7 @@ void Room::placeTiles(){
                     case 1: // hole
                         {
                             bool border = (lineNb == 0 || std::stoi(previousLine.substr(i, 1)) != 1);
-                            std::unique_ptr<Hole> hole (new Hole(border, textureMgr));
+                            std::unique_ptr<Hole> hole (new Hole(border, textureMgr, color));
                             hole->setPosition(205.f + 30.f * i, 135.f + 30.f * lineNb);
                             holes.push_back(std::move(hole));
                         }
