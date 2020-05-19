@@ -49,11 +49,14 @@ void State_Map::deactivate(){}
 /**********
  * Update *
  **********/
-
 void State_Map::update(const sf::Time &time){
 
     player.update(time);
-    map.checkMapCollisions(player);
+    if(map.checkMapCollisions(player) == Entity::Wall){
+
+        stateMgr->switchTo(StateType::Dungeon);
+        stateMgr->remove(StateType::Map);
+    }
     setViewOnPlayer();
 }
 

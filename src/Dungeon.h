@@ -33,6 +33,8 @@ public:
 
     sf::Vector2u getPosDungeon() const;
 
+    bool end() const;
+
 private:
 
     void fillInformation();

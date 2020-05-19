@@ -50,6 +50,7 @@ private:
     sf::Sprite map;
 
     std::vector<std::unique_ptr<Wall>> walls;
+    Wall dungeonDoor;
 
     sf::Vector2f spawnPoint;
 };

@@ -60,8 +60,16 @@ void State_Dungeon::update(const sf::Time &time){
 
         case Entity::Hatch:
             std::cout << "Hatch" << std::endl;
-            dungeon.nextStage();
-            centerPlayer();
+            if(!dungeon.end()){
+
+                dungeon.nextStage();
+                centerPlayer();
+            }
+            else{
+
+                stateMgr->switchTo(StateType::Map);
+                stateMgr->remove(StateType::Dungeon);
+            }
             break;
         
         default:

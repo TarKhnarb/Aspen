@@ -9,6 +9,7 @@ public:
     
     Wall();
     Wall(float x, float y, float Dx, float Dy);
+    Wall(sf::FloatRect hitBox);
 
 public:
     

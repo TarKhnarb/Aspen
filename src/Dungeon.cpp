@@ -21,8 +21,6 @@ void Dungeon::nextStage(){
 
     if(actualStage < maxStageNumber)
         setStage();
-    else
-        throw std::out_of_range("Dungeon::nextStage() : Vous avez atteint la fin du donjon, etage " + std::to_string(actualStage));
 }
 
 /***********
@@ -115,6 +113,11 @@ void Dungeon::setPosDungeon(unsigned i, unsigned j){
 sf::Vector2u Dungeon::getPosDungeon() const{
 
     return posDungeon;
+}
+
+bool Dungeon::end() const{
+
+    return actualStage == maxStageNumber - 1;
 }
 
 /*******************
