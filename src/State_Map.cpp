@@ -54,7 +54,6 @@ void State_Map::update(const sf::Time &time){
 
 
     Aspen.update(time);
-    map.checkMapCollisions(Aspen);
     if(map.checkMapCollisions(Aspen) == Entity::Wall){
 
         stateMgr->switchTo(StateType::Dungeon);
