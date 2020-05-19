@@ -21,7 +21,7 @@ public:
     int getBuyPrice() const;
     int getSellPrice() const;
     
-private:
+protected:
     
     void draw(sf::RenderTarget&, sf::RenderStates) const override;
     
@@ -31,7 +31,7 @@ private:
     
     sf::Sprite sprite;
     
-protected:
+protected: // private ? (cf StackObject::+=)
     
     int buyPrice;
     int sellPrice;

@@ -12,29 +12,25 @@ public:
     
 public:
     
-    void loadFromFile(const std::string&);
-    
     std::size_t getNumber() const;
     std::size_t getStackSize() const;
     bool empty() const;
     
-    StackObject& operator+=(std::size_t& number);
-    StackObject& operator+=(const StackObject&);
-    StackObject& operator-=(std::size_t& number);
-    StackObject& operator-=(const StackObject&);
+    StackObject& operator+=(std::size_t&);
+    StackObject& operator+=(StackObject&);
+    StackObject& operator-=(std::size_t&);
+    StackObject& operator-=(StackObject&);
     StackObject& operator++();
     StackObject& operator--();
     
 private:
     
-    void draw(sf::RenderTarget&, sf::RenderStates) const override; // TODO add number in left bot corner
+    void draw(sf::RenderTarget&, sf::RenderStates) const override;
     
 private:
     
     std::size_t number;
     std::size_t stackSize;
 };
-
-StackObject& operator+(const StackObject&, const StackObject&);
 
 #endif

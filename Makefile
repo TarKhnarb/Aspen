@@ -3,8 +3,7 @@ O = obj
 S = src
 FLAGS = -c -Wall
 STAT_O = $(O)/State_Intro.o $(O)/State_Dungeon.o $(O)/State_GamePause.o
-ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Stuff.o 
-# to add: $(O)/StackObject.o
+ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Stuff.o $(O)/StackObject.o
 
 all: $(O) $(B) $(O)/Aspen.o
 	g++ -ggdb $(O)/*.o -o $(B)/Aspen -lsfml-graphics -lsfml-window -lsfml-system
@@ -68,7 +67,8 @@ $(O)/Stuff.o: $(O)/Object.o $(O)/Bonus.o
 $(O)/Bonus.o:
 	g++ $(FLAGS) $(S)/Bonus.cpp -o $(O)/Bonus.o
 
-#(O)/StackObject.o: $(O)/Object.o
+$(O)/StackObject.o: $(O)/Object.o
+	g++ $(FLAGS) $(S)/StackObject.cpp -o $(O)/StackObject.o
 
 $(O)/Object.o: $(O)/Entity.o
 	g++ $(FLAGS) $(S)/Object.cpp -o $(O)/Object.o

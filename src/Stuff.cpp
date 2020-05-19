@@ -1,12 +1,12 @@
 #include "Stuff.h"
 
-Stuff::Stuff(const std::string& name, TextureManager* txtMgr):
+Stuff::Stuff(const std::string &name, TextureManager* txtMgr):
         Object(name, txtMgr){
             
             loadFromFile(name);
 }
 
-void Stuff::loadFromFile(const std::string& name){
+void Stuff::loadFromFile(const std::string &name){
     
     Object::loadFromFile(name);
     
