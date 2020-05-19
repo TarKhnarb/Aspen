@@ -6,7 +6,7 @@
 #include "StateManager.h"
 #include "TextureManager.h"
 #include "SharedContext.h"
-#include "ResourceManager.h"
+#include "Player.h"
 
 class Game{
 
@@ -47,6 +47,8 @@ private: // Variable
     StateManager stateManager;
 
     SharedContext context;
+    
+    Player aspen;
 };
 
 #endif

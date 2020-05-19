@@ -37,7 +37,7 @@ private:
 
     Dungeon dungeon;
     
-    Player player;
+    Player &Aspen;
 };
 
 #endif

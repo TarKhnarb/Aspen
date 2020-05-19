@@ -5,11 +5,13 @@
  ***************/
 Game::Game():
         window("Aspen's Adventure", sf::Vector2u(1280,720)),
-        stateManager(&context){
+        stateManager(&context),
+        aspen(&textureManager, window.getEventManager()){
 
     context.wind = &window;
     context.eventManager = window.getEventManager();
     context.textureManager = &textureManager;
+    context.aspen = &aspen;
     
     stateManager.switchTo(StateType::Map);
 }
@@ -18,7 +20,6 @@ Game::Game():
  * Destructor *
  **************/
 Game::~Game(){}
-
 
 /*******
  * run *

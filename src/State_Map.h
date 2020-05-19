@@ -35,7 +35,8 @@ private:
 private:
 
     Map map;
-    Player player;
+    
+    Player &Aspen;
 
 };
 

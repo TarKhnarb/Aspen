@@ -7,10 +7,10 @@
 State_Map::State_Map(StateManager *stateMgr):
         BaseState(stateMgr),
         map(stateMgr->getContext()->textureManager),
-        player(stateMgr->getContext()->textureManager, stateMgr->getContext()->eventManager){
+        Aspen(*stateMgr->getContext()->aspen){
 
-    player.scale(0.5f, 0.5f);
-    player.setBaseSpeed(75.f);
+    Aspen.scale(0.5f, 0.5f);
+    Aspen.setBaseSpeed(75.f);
     
     spawnPointPlayer();
 }
@@ -52,9 +52,10 @@ void State_Map::deactivate(){}
 
 void State_Map::update(const sf::Time &time){
 
-    player.update(time);
-    map.checkMapCollisions(player);
-    setViewOnPlayer();
+    Aspen.update(time);
+    map.checkMapCollisions(Aspen);
+    setViewOnPlayer(); 
+    stateMgr->switchTo(StateType::Dungeon);
 }
 
 /********
@@ -67,15 +68,15 @@ void State_Map::draw(){
     window->getWindow()->setView(getView());
     
     window->draw(map);
-    window->draw(player);
+    window->draw(Aspen);
 }
 
 void State_Map::spawnPointPlayer(){
 
-    player.setPosition(map.getSpawnPoint());
+    Aspen.setPosition(map.getSpawnPoint());
 }
 
 void State_Map::setViewOnPlayer(){
 
-    getView().setCenter(player.getPosition().x + 15/2.f, player.getPosition().y + 15.f);
+    getView().setCenter(Aspen.getPosition().x + 15/2.f, Aspen.getPosition().y + 15.f);
 }

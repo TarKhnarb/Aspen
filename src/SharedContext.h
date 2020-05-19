@@ -4,19 +4,23 @@
 #include "Window.h"
 #include "EventManager.h"
 #include "TextureManager.h"
+#include "Player.h"
 
 struct SharedContext{
 
     SharedContext():
             wind(nullptr),
             eventManager(nullptr),
-            textureManager(nullptr){}
+            textureManager(nullptr),
+            aspen(nullptr){}
 
     Window *wind;
 
     EventManager *eventManager;
     
     TextureManager *textureManager;
+    
+    Player* aspen;
 };
 
 #endif

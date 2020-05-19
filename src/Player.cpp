@@ -3,15 +3,15 @@
 
 Player::Player(TextureManager *txtMng, EventManager* evtMgr):
         Character("Aspen", Type::Player, txtMng),
-        aspen(txtMng),
+        spritesheet(txtMng),
         stats("Data/Files/Characters/Aspen.cfg"),
         baseSpeed (150.f),
         evtMgr(evtMgr){
 
-    aspen.loadSheet("Data/Files/SpriteSheets/PlayerSheet.sprite");
+    spritesheet.loadSheet("Data/Files/SpriteSheets/PlayerSheet.sprite");
     
     
-    sf::Vector2f size = aspen.getSpriteSize();
+    sf::Vector2f size = spritesheet.getSpriteSize();
     
     collisionBox.width = size.x;
     collisionBox.top = 5/6.f * size.y;
@@ -46,7 +46,7 @@ void Player::update(sf::Time time){
     move(velocity * time.asSeconds());
     
     animate();
-    aspen.update(time.asSeconds());
+    spritesheet.update(time.asSeconds());
     
     velocity = sf::Vector2f(0.f, 0.f); // reset velocity for the next update loop
 }
@@ -123,7 +123,7 @@ void Player::setVelocity(EventDetails* details){
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const{
 
     states.transform *= getTransform();
-    target.draw(aspen, states);
+    target.draw(spritesheet, states);
 }
 
 void Player::animate(){
@@ -132,31 +132,31 @@ void Player::animate(){
 
         if(velocity.y < 0.f && abs(velocity.y) > abs(velocity.x)){
             
-            aspen.setAnimation("Moving", true, true);
-            aspen.setOrientation(Orientation::North);
+            spritesheet.setAnimation("Moving", true, true);
+            spritesheet.setOrientation(Orientation::North);
         }
 
         else if(velocity.x > 0.f && abs(velocity.x) >= abs(velocity.y)){
             
-            aspen.setAnimation("Moving", true, true);
-            aspen.setOrientation(Orientation::East);
+            spritesheet.setAnimation("Moving", true, true);
+            spritesheet.setOrientation(Orientation::East);
         }
 
         else if(velocity.y > 0.f && abs(velocity.y) > abs(velocity.x)){
             
-            aspen.setAnimation("Moving", true, true);
-            aspen.setOrientation(Orientation::South);
+            spritesheet.setAnimation("Moving", true, true);
+            spritesheet.setOrientation(Orientation::South);
         }
 
         else if(velocity.x < 0.f && abs(velocity.x) >= abs(velocity.y)){
             
-            aspen.setAnimation("Moving", true, true);
-            aspen.setOrientation(Orientation::West);
+            spritesheet.setAnimation("Moving", true, true);
+            spritesheet.setOrientation(Orientation::West);
         }
     }
     else{
         
-        aspen.setAnimation("Idle", false, false);
-        aspen.setOrientation(Orientation::South);
+        spritesheet.setAnimation("Idle", false, false);
+        spritesheet.setOrientation(Orientation::South);
     }
 }

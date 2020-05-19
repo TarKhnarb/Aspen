@@ -7,7 +7,7 @@
 State_Dungeon::State_Dungeon(StateManager* stateMgr):
         BaseState(stateMgr),
         dungeon(stateMgr->getContext()->textureManager),
-        player(stateMgr->getContext()->textureManager, stateMgr->getContext()->eventManager){}
+        Aspen(*stateMgr->getContext()->aspen){}
 
 /**************
  * Destructor *
@@ -19,8 +19,7 @@ State_Dungeon::~State_Dungeon(){}
  ************/
 void State_Dungeon::onCreate(){
     
-    sf::Vector2u windowSize = stateMgr->getContext()->wind->getWindow()->getSize();
-    player.setPosition((windowSize.x / 2.f) - 15.f, (windowSize.y / 2.f) - 30.f);
+    centerPlayer();
 }
 
 /*************
@@ -43,15 +42,15 @@ void State_Dungeon::deactivate(){}
  **********/
 void State_Dungeon::update(const sf::Time &time){
     
-    player.update(time);
+    Aspen.update(time);
     
-    auto info = dungeon.getCurrentRoom()->checkRoomCollisions(player);
+    auto info = dungeon.getCurrentRoom()->checkRoomCollisions(Aspen);
     
     switch(info.first){
         
         case Entity::Door:
             dungeon.changeRoom(info.second);
-            player.changeRoom(info.second);
+            Aspen.changeRoom(info.second);
             break;
         
         case Entity::Chest:
@@ -59,7 +58,6 @@ void State_Dungeon::update(const sf::Time &time){
             break;
 
         case Entity::Hatch:
-            std::cout << "Hatch" << std::endl;
             dungeon.nextStage();
             centerPlayer();
             break;
@@ -77,7 +75,7 @@ void State_Dungeon::draw(){
     Window* window = stateMgr->getContext()->wind;
     
     window->draw(*dungeon.getCurrentRoom());
-    window->draw(player);
+    window->draw(Aspen);
 }
 
 /*********
@@ -91,5 +89,5 @@ void State_Dungeon::pause(EventDetails *details){
 void State_Dungeon::centerPlayer(){
 
     sf::Vector2u windowSize = stateMgr->getContext()->wind->getWindow()->getSize();
-    player.setPosition((windowSize.x / 2.f) - 15.f, (windowSize.y / 2.f) - 30.f);
+    Aspen.setPosition((windowSize.x / 2.f) - 15.f, (windowSize.y / 2.f) - 30.f);
 }

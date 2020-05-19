@@ -27,8 +27,6 @@ public:
     
     void setBaseSpeed(float);
     
-    void clear();
-
 private:
 
     int returnStoi(std::istringstream &ss);
@@ -41,7 +39,7 @@ private:
 
 private:
 
-    SpriteSheet aspen;
+    SpriteSheet spritesheet;
     
     Statistics stats;
     

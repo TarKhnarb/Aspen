@@ -67,8 +67,8 @@ void Map::placeWalls(){
 }
 
 
-void Map::draw(sf::RenderTarget &target, sf::RenderStates state) const{
+void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const{
 
-    target.draw(background, state);
-    target.draw(map, state);
+    target.draw(background, states);
+    target.draw(map, states);
 }
