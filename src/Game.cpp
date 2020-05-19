@@ -11,7 +11,7 @@ Game::Game():
     context.eventManager = window.getEventManager();
     context.textureManager = &textureManager;
     
-    stateManager.switchTo(StateType::Dungeon);
+    stateManager.switchTo(StateType::Map);
 }
 
 /**************

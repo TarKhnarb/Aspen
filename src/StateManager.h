@@ -11,6 +11,7 @@
 #include "State_Intro.h"
 #include "State_Dungeon.h"
 #include "State_GamePause.h"
+#include "State_Map.h"
 
 enum class StateType{
 

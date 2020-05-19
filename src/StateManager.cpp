@@ -9,8 +9,8 @@ StateManager::StateManager(SharedContext *shared):
     //registerState<State_Intro>(StateType::Intro);
     //registerState<State_MainMenu>(StateType::MainMenu);
     //registerState<State_KeyboardMenu>(StateType::KeyboardMenu);
-    registerState<State_Dungeon>(StateType::Dungeon);
-    //registerState<State_Map>(StateType::Map);
+    //registerState<State_Dungeon>(StateType::Dungeon);
+    registerState<State_Map>(StateType::Map);
     //registerState<State_Base>(StateType::Base);
     //registerState<State_Statistics>(StateType::Statistics);
     //registerState<State_Inventory>(StateType::Inventory);

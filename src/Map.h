@@ -4,8 +4,18 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/System.hpp>
+
+#include <string>
+#include <vector>
+#include <stdexcept>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <memory>
 
 #include "TextureManager.h"
+#include "Wall.h"
 
 class Map: public sf::Drawable{
 
@@ -16,11 +26,13 @@ public:
 
 public:
 
-    //std::pair<Entity::Type, Orientation> checkMapCollisions(Entity&); // TODO when we have added entities
+    Entity::Type checkMapCollisions(Entity&); // TODO when we have added entities
+
+    sf::Vector2f getSpawnPoint() const;
 
 private:
 
-    void setWall(); // TODO place walls to block player front of the sea
+    void setWall(); // TODO change to a better algorithm which made the biggest rectangle of walls for a lighten code
 
     void setNpc(); // TODO place different Npc with their house
 
@@ -32,10 +44,14 @@ private:
 
 private:
 
+    TextureManager *txtMng;
+
     sf::RectangleShape background;
     sf::Sprite map;
 
+    std::vector<std::unique_ptr<Wall>> walls;
 
+    sf::Vector2f spawnPoint;
 };
 
 #endif

@@ -6,9 +6,7 @@
 #include "BaseState.h"
 #include "EventManager.h"
 #include "Dungeon.h"
-
 #include "Orientation.h"
-
 #include "Player.h"
 
 class State_Dungeon : public BaseState{

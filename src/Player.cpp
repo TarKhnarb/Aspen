@@ -20,6 +20,11 @@ Player::Player(TextureManager *txtMng, EventManager* evtMgr):
     evtMgr->addCallback(StateType::Dungeon, "MoveRight", &Player::setVelocity, this);
     evtMgr->addCallback(StateType::Dungeon, "MoveDown", &Player::setVelocity, this);
     evtMgr->addCallback(StateType::Dungeon, "MoveLeft", &Player::setVelocity, this);
+
+    evtMgr->addCallback(StateType::Map, "MoveUp", &Player::setVelocity, this);
+    evtMgr->addCallback(StateType::Map, "MoveRight", &Player::setVelocity, this);
+    evtMgr->addCallback(StateType::Map, "MoveDown", &Player::setVelocity, this);
+    evtMgr->addCallback(StateType::Map, "MoveLeft", &Player::setVelocity, this);
 }
 
 Player::~Player(){

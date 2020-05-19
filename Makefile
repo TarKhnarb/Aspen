@@ -2,7 +2,7 @@ B = bin
 O = obj
 S = src
 FLAGS = -c -Wall
-STAT_O = $(O)/State_Intro.o $(O)/State_Dungeon.o $(O)/State_GamePause.o
+STAT_O = $(O)/State_Intro.o $(O)/State_Dungeon.o $(O)/State_GamePause.o $(O)/State_Map.o
 
 all: $(O) $(B) $(O)/Aspen.o
 	g++ -ggdb $(O)/*.o -o $(B)/Aspen -lsfml-graphics -lsfml-window -lsfml-system
@@ -28,6 +28,9 @@ $(O)/State_Intro.o: $(O)/EventManager.o
 $(O)/State_Dungeon.o: $(O)/EventManager.o $(O)/Dungeon.o $(O)/Player.o
 	g++ $(FLAGS) $(S)/State_Dungeon.cpp -o $(O)/State_Dungeon.o
 
+$(O)/State_Map.o: $(O)/EventManager.o $(O)/Player.o $(O)/Map.o
+	g++ $(FLAGS) $(S)/State_Map.cpp -o $(O)/State_Map.o
+
 $(O)/State_GamePause.o: $(O)/EventManager.o
 	g++ $(FLAGS) $(S)/State_GamePause.cpp -o $(O)/State_GamePause.o
 
@@ -42,6 +45,9 @@ $(O)/Anim_Base.o:
 
 $(O)/Anim_Directional.o:
 	g++ $(FLAGS) $(S)/Anim_Directional.cpp -o $(O)/Anim_Directional.o
+
+$(O)/Map.o: $(O)/Wall.o
+	g++ $(FLAGS) $(S)/Map.cpp -o $(O)/Map.o
 
 $(O)/Dungeon.o: $(O)/Stage.o
 	g++ $(FLAGS) $(S)/Dungeon.cpp -o $(O)/Dungeon.o
