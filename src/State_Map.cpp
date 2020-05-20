@@ -52,7 +52,6 @@ void State_Map::deactivate(){}
  **********/
 void State_Map::update(const sf::Time &time){
 
-
     Aspen.update(time);
     if(map.checkMapCollisions(Aspen) == Entity::Wall){
 

@@ -16,6 +16,7 @@ public:
         ChestPlate,
         Leggings,
         Boots,
+        StuffCount
     };
     
 public:

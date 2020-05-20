@@ -55,7 +55,10 @@ float Statistics::getFinalValue(StatName stat) const{
 
 void Statistics::addBonus(Bonus *bonus){
     
-    bonuses.push_back(bonus);
+    if(bonus){
+        
+        bonuses.push_back(bonus);
+    }
 }
 
 void Statistics::removeBonus(Bonus *bonus){

@@ -62,7 +62,8 @@ $(O)/Room.o: $(ENTITY)
 $(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Statistics.o #$(O)/Inventory.o
 	g++ $(FLAGS) $(S)/Player.cpp -o $(O)/Player.o
 
-#$(O)/Inventory.o: $(O)/Stuff.o $(O)/StackObject.o
+$(O)/Inventory.o: $(O)/Stuff.o $(O)/StackObject.o
+	g++ $(FLAGS) $(S)/Inventory.cpp -o $(O)/Inventory.o
 
 $(O)/Statistics.o: $(O)/Bonus.o
 	g++ $(FLAGS) $(S)/Statistics.cpp -o $(O)/Statistics.o
