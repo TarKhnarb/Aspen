@@ -46,7 +46,7 @@ void Player::update(sf::Time time){
     move(velocity * time.asSeconds());
     
     animate();
-    spritesheet.update(time.asSeconds());
+    spritesheet.update(time.asSeconds() * (1.f + stats.getFinalValue(Speed)/100.f)); // accelerates anim
     
     velocity = sf::Vector2f(0.f, 0.f); // reset velocity for the next update loop
 }
@@ -117,6 +117,11 @@ void Player::setVelocity(EventDetails* details){
     if (details->name == "MoveLeft"){
         
         velocity.x -= pxMove;
+    }
+    
+    if(velocity.x != 0.f && velocity.y != 0.f){ // diagonal movement
+        
+        velocity /= static_cast<float>(sqrt(2.)); // normalize vector
     }
 }
 

@@ -39,7 +39,7 @@ void State_Map::onDestroy(){}
 void State_Map::activate(){
     
     Aspen.setScale(0.5f, 0.5f);
-    Aspen.setBaseSpeed(75.f);
+    Aspen.setBaseSpeed(100.f);
 }
 
 /**************
