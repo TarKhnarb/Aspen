@@ -69,7 +69,7 @@ void State_Dungeon::update(const sf::Time &time){
             }
             else{
 
-                stateMgr->switchTo(StateType::Map);
+                stateMgr->switchTo(StateType::GameOver);
                 stateMgr->remove(StateType::Dungeon);
             }
             break;

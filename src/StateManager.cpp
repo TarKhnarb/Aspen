@@ -17,7 +17,7 @@ StateManager::StateManager(SharedContext *shared):
     //registerState<State_Npc>(StateType::Npc);
     //registerState<State_MiniMap>(StateType::MiniMap);
     registerState<State_GamePause>(StateType::GamePause);
-    //registerState<State_GameOver>(StateType::GameOver);
+    registerState<State_GameOver>(StateType::GameOver);
 }
 
 /**************

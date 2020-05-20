@@ -26,6 +26,8 @@ public:
     void changeRoom(Orientation orient);
     
     void setBaseSpeed(float);
+
+    Statistics* getStats();
     
 private:
 

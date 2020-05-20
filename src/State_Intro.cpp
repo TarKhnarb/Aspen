@@ -34,7 +34,7 @@ void State_Intro::onCreate(){
     text.setPosition(windowSize.x / 2.0f, windowSize.y / 2.0f);
 
     EventManager *evMgr = stateMgr->getContext()->eventManager;
-    evMgr->addCallback(StateType::Intro, "Intro_Continue", &State_Intro::continu,this);
+    evMgr->addCallback(StateType::Intro, "Valid", &State_Intro::continu,this);
 }
 
 /*************

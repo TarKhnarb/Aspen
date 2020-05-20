@@ -12,6 +12,7 @@
 #include "State_Dungeon.h"
 #include "State_GamePause.h"
 #include "State_Map.h"
+#include "State_GameOver.h"
 
 enum class StateType{
 
@@ -25,8 +26,8 @@ enum class StateType{
     Statistics,
     Inventory,
     Npc,
-    MiniMap,
-    GameOver
+    GameOver,
+    MiniMap
 };
 
 using StateContainer = std::vector<std::pair<StateType, BaseState*>>;

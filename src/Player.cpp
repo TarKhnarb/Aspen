@@ -91,6 +91,11 @@ void Player::setBaseSpeed(float newSpeed){
     }
 }
 
+Statistics* Player::getStats(){
+
+    return &stats;
+}
+
 int Player::returnStoi(std::istringstream &ss){
 
     std::string result;
