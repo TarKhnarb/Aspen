@@ -3,7 +3,7 @@ O = obj
 S = src
 FLAGS = -c -Wall
 STAT_O = $(O)/State_Intro.o $(O)/State_Dungeon.o $(O)/State_GamePause.o $(O)/State_Map.o $(O)/State_GameOver.o
-ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Stuff.o $(O)/StackObject.o
+ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Stuff.o $(O)/Potion.o
 
 all: $(O) $(B) $(O)/Aspen.o
 	g++ -ggdb $(O)/*.o -o $(B)/Aspen -lsfml-graphics -lsfml-window -lsfml-system
@@ -65,7 +65,7 @@ $(O)/Room.o: $(ENTITY)
 $(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Statistics.o #$(O)/Inventory.o
 	g++ $(FLAGS) $(S)/Player.cpp -o $(O)/Player.o
 
-$(O)/Inventory.o: $(O)/Stuff.o $(O)/StackObject.o
+$(O)/Inventory.o: $(O)/Stuff.o $(O)/Potion.o
 	g++ $(FLAGS) $(S)/Inventory.cpp -o $(O)/Inventory.o
 
 $(O)/Statistics.o: $(O)/Bonus.o
@@ -76,6 +76,9 @@ $(O)/Stuff.o: $(O)/Object.o $(O)/Bonus.o
 
 $(O)/Bonus.o:
 	g++ $(FLAGS) $(S)/Bonus.cpp -o $(O)/Bonus.o
+
+$(O)/Potion.o:
+	g++ $(FLAGS) $(S)/Potion.cpp -o $(O)/Potion.o
 
 $(O)/StackObject.o: $(O)/Object.o
 	g++ $(FLAGS) $(S)/StackObject.cpp -o $(O)/StackObject.o

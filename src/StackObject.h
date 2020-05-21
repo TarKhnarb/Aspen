@@ -1,6 +1,11 @@
 #ifndef GAME_STACKOBJECT_H
 #define GAME_STACKOBJECT_H
 
+#include <fstream>
+#include <sstream>
+#include <stdexcept>
+#include <cmath>
+
 #include "Object.h"
 
 class StackObject : public Object{
@@ -25,6 +30,8 @@ public:
     
 private:
     
+    void loadFromFile();
+    
     void draw(sf::RenderTarget&, sf::RenderStates) const override;
     
 private:
@@ -34,3 +41,4 @@ private:
 };
 
 #endif
+p
