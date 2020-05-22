@@ -12,7 +12,7 @@
 #include "SpriteSheet.h"
 #include "Statistics.h"
 #include "Dungeon.h"
-//#include "Projectile.h"
+#include "Projectile.h"
 
 class Player: public Character{
 

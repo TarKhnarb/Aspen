@@ -61,6 +61,7 @@ public:
     void setScale(float, float);
     
     Type getType() const;
+    sf::FloatRect getBox() const;
     
 protected:
     

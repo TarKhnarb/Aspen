@@ -167,6 +167,11 @@ Entity::Type Entity::getType() const{
     return type;
 }
 
+sf::FloatRect Entity::getBox() const{
+    
+    return collisionBox;
+}
+
 /***********
  * setType *
  ***********/

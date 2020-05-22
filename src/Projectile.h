@@ -1,11 +1,13 @@
 #ifndef GAME_PROJECTILE_H
 #define GAME_PROJECTILE_H
 
+#include <SFML/Graphics/Sprite.hpp>
+
 #include "Entity.h"
 #include "Character.h"
 #include "Orientation.h"
 
-class Projectile: public Entity{
+class Projectile : public Entity{
 
 public:
 
@@ -14,7 +16,9 @@ public:
 
 public:
 
-    Character* getOwner() const;
+    Character* getOwner();
+    
+    void update(sf::Time);
 
 private:
 

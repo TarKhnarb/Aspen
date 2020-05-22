@@ -9,7 +9,9 @@ Player::Player(TextureManager *txtMng, EventManager* evtMgr):
         spriteSheet(txtMng),
         stats("Data/Files/Characters/Aspen.cfg"),
         baseSpeed (150.f),
-        evtMgr(evtMgr){
+        evtMgr(evtMgr),
+        projectile(nullptr),
+        dungeon(nullptr){
 
     spriteSheet.loadSheet("Data/Files/SpriteSheets/PlayerSheet.sprite");
     
