@@ -1,17 +1,20 @@
 #include "Player.h"
 #include "StateManager.h"
 
+/***************
+ * Constructor *
+ ***************/
 Player::Player(TextureManager *txtMng, EventManager* evtMgr):
         Character("Aspen", Type::Player, txtMng),
-        spritesheet(txtMng),
+        spriteSheet(txtMng),
         stats("Data/Files/Characters/Aspen.cfg"),
         baseSpeed (150.f),
         evtMgr(evtMgr){
 
-    spritesheet.loadSheet("Data/Files/SpriteSheets/PlayerSheet.sprite");
+    spriteSheet.loadSheet("Data/Files/SpriteSheets/PlayerSheet.sprite");
     
     
-    sf::Vector2f size = spritesheet.getSpriteSize();
+    sf::Vector2f size = spriteSheet.getSpriteSize();
     
     collisionBox.width = size.x;
     collisionBox.top = 5/6.f * size.y;
@@ -28,6 +31,9 @@ Player::Player(TextureManager *txtMng, EventManager* evtMgr):
     evtMgr->addCallback(StateType::Map, "MoveLeft", &Player::setVelocity, this);
 }
 
+/**************
+ * Destructor *
+ **************/
 Player::~Player(){
     
     evtMgr->removeCallback(StateType::Dungeon, "MoveUp");
@@ -41,16 +47,22 @@ Player::~Player(){
     evtMgr->removeCallback(StateType::Map, "MoveLeft");
 }
 
+/**********
+ * Update *
+ **********/
 void Player::update(sf::Time time){
 
     move(velocity * time.asSeconds());
     
     animate();
-    spritesheet.update(time.asSeconds() * (1.f + stats.getFinalValue(Speed)/100.f)); // accelerates anim
+    spriteSheet.update(time.asSeconds() * (1.f + stats.getFinalValue(Speed)/100.f)); // accelerates anim
     
     velocity = sf::Vector2f(0.f, 0.f); // reset velocity for the next update loop
 }
 
+/**************
+ * ChangeRoom *
+ **************/
 void Player::changeRoom(Orientation orient){
 
     std::string filePath = "Data/Files/Dungeon/PlayerCoordonates.cfg";
@@ -83,6 +95,9 @@ void Player::changeRoom(Orientation orient){
     setPosition(x, y);
 }
 
+/****************
+ * SetBaseSpeed *
+ ****************/
 void Player::setBaseSpeed(float newSpeed){
     
     if(newSpeed > 0.f){
@@ -91,11 +106,25 @@ void Player::setBaseSpeed(float newSpeed){
     }
 }
 
+/************
+ * GetStats *
+ ************/
 Statistics* Player::getStats(){
 
     return &stats;
 }
 
+/**************
+ * SetDungeon *
+ **************/
+void Player::setDungeon(Dungeon *dunge){
+
+    dungeon = dunge;
+}
+
+/**************
+ * ReturnStoi *
+ **************/
 int Player::returnStoi(std::istringstream &ss){
 
     std::string result;
@@ -103,6 +132,9 @@ int Player::returnStoi(std::istringstream &ss){
     return std::stoi(result);
 }
 
+/***************
+ * SetVelocity *
+ ***************/
 void Player::setVelocity(EventDetails* details){
     
     float pxMove = baseSpeed * (1.f + stats.getFinalValue(Speed)/100.f);
@@ -126,47 +158,68 @@ void Player::setVelocity(EventDetails* details){
     
     if(velocity.x != 0.f && velocity.y != 0.f){ // diagonal movement
         
-        velocity /= static_cast<float>(sqrt(2.)); // normalize vector
+        velocity /= static_cast<float>(sqrt(2.f)); // normalize vector
     }
 }
 
+/*****************
+ * SetProjectile *
+ *****************/
+void Player::setProjectile(EventDetails *details){
+
+    if (details->name == "ShootUp")
+        dungeon->addProjectile(new Projectile(this, getType(), Orientation::North, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
+    if (details->name == "ShootRight")
+        dungeon->addProjectile(new Projectile(this, getType(), Orientation::East, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
+    if (details->name == "ShootDown")
+        dungeon->addProjectile(new Projectile(this, getType(), Orientation::Down, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
+    if (details->name == "ShootLeft")
+        dungeon->addProjectile(new Projectile(this, getType(), Orientation::West, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
+}
+
+/********
+ * Draw *
+ ********/
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const{
 
     states.transform *= getTransform();
-    target.draw(spritesheet, states);
+    target.draw(spriteSheet, states);
 }
 
+/***********
+ * Animate *
+ ***********/
 void Player::animate(){
 
     if(velocity.x != 0.f || velocity.y != 0.f){
 
         if(velocity.y < 0.f && abs(velocity.y) > abs(velocity.x)){
             
-            spritesheet.setAnimation("Moving", true, true);
-            spritesheet.setOrientation(Orientation::North);
+            spriteSheet.setAnimation("Moving", true, true);
+            spriteSheet.setOrientation(Orientation::North);
         }
 
         else if(velocity.x > 0.f && abs(velocity.x) >= abs(velocity.y)){
             
-            spritesheet.setAnimation("Moving", true, true);
-            spritesheet.setOrientation(Orientation::East);
+            spriteSheet.setAnimation("Moving", true, true);
+            spriteSheet.setOrientation(Orientation::East);
         }
 
         else if(velocity.y > 0.f && abs(velocity.y) > abs(velocity.x)){
             
-            spritesheet.setAnimation("Moving", true, true);
-            spritesheet.setOrientation(Orientation::South);
+            spriteSheet.setAnimation("Moving", true, true);
+            spriteSheet.setOrientation(Orientation::South);
         }
 
         else if(velocity.x < 0.f && abs(velocity.x) >= abs(velocity.y)){
             
-            spritesheet.setAnimation("Moving", true, true);
-            spritesheet.setOrientation(Orientation::West);
+            spriteSheet.setAnimation("Moving", true, true);
+            spriteSheet.setOrientation(Orientation::West);
         }
     }
     else{
         
-        spritesheet.setAnimation("Idle", false, false);
-        spritesheet.setOrientation(Orientation::South);
+        spriteSheet.setAnimation("Idle", false, false);
+        spriteSheet.setOrientation(Orientation::South);
     }
 }

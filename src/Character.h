@@ -32,8 +32,6 @@ protected:
 private:
 
     std::string name;
-
-    //CharacterStats stats;
 };
 
 #endif

@@ -235,6 +235,9 @@ void Room::placeTiles(){
     file.close();
 }
 
+/***********************
+ * CheckRoomCollisions *
+ ***********************/
 std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Entity& entity){
     
     for(const auto &door : doors){
@@ -281,10 +284,32 @@ std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Entity& entity){
     
     return std::make_pair(Entity::None, static_cast<Orientation>(0));
 }
-    
+
+/**************************
+ * CheckMonsterCollisions *
+ **************************/
 void Room::checkMonsterCollisions(Entity&){}
-    
-void Room::checkProjectileCollisions(Entity&){}
+
+/*****************************
+ * CheckProjectileCollisions *
+ *****************************/
+void Room::checkProjectileCollisions(Entity &entity){
+
+    /*for(auto itr = projectiles.begin(); itr != projectiles.end(); ++itr){
+
+        Character *owner = itr->getOwner();
+        if(owner->getType() == Type::Monster && entity.getType() == Type::Player){
+
+
+        }
+    }*/
+
+    for(auto &proj : projectiles){
+
+        if(entity.collides(*proj, 0.f))
+            proj.release();
+    }
+}
 
 /*************
  * OpenDoors *
@@ -308,6 +333,14 @@ void Room::closeDoors(){
         if(d->getState() != Door::State::Key)
             d->setState(Door::State::Closed);
     }
+}
+
+/*****************
+ * AddProjectile *
+ *****************/
+void Room::addProjectile(Projectile *proj){
+
+    projectiles.push_back(proj);
 }
 
 /****************
@@ -341,7 +374,7 @@ std::string Room::getTilesPath(int roomId){
 }
 
 /**************
- * placeWalls *
+ * PlaceWalls *
  **************/
 void Room::placeWalls(){
 
@@ -374,6 +407,9 @@ void Room::placeWalls(){
     file.close();
 }
 
+/**************
+ * ReturnStoi *
+ **************/
 int Room::returnStoi(std::istringstream &ss){
 
     std::string result;

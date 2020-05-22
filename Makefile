@@ -3,7 +3,7 @@ O = obj
 S = src
 FLAGS = -c -Wall
 STAT_O = $(O)/State_Intro.o $(O)/State_Dungeon.o $(O)/State_GamePause.o $(O)/State_Map.o $(O)/State_GameOver.o
-ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Stuff.o $(O)/StackObject.o
+ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Projectile.o $(O)/Stuff.o $(O)/StackObject.o
 
 all: $(O) $(B) $(O)/Aspen.o
 	g++ -ggdb $(O)/*.o -o $(B)/Aspen -lsfml-graphics -lsfml-window -lsfml-system
@@ -62,7 +62,7 @@ $(O)/Stage.o: $(O)/Room.o
 $(O)/Room.o: $(ENTITY)
 	g++ $(FLAGS) $(S)/Room.cpp -o $(O)/Room.o
 
-$(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Statistics.o #$(O)/Inventory.o
+$(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Statistics.o $(O)/Dungeon.o $(O)/Projectile.o #$(O)/Inventory.o
 	g++ $(FLAGS) $(S)/Player.cpp -o $(O)/Player.o
 
 $(O)/Inventory.o: $(O)/Stuff.o $(O)/StackObject.o
@@ -85,6 +85,9 @@ $(O)/Object.o: $(O)/Entity.o
 
 $(O)/Character.o: $(O)/Entity.o
 	g++ $(FLAGS) $(S)/Character.cpp -o $(O)/Character.o
+
+$(O)/Projectile.o: $(O)/Entity.o $(O)/Character.o
+	g++ $(FLAGS) $(S)/Projectile.cpp -o $(O)/Projectile.o
 
 $(O)/Hatch.o: $(O)/Entity.o
 	g++ $(FLAGS) $(S)/Hatch.cpp -o $(O)/Hatch.o

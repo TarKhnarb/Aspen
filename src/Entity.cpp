@@ -110,16 +110,18 @@ void Entity::setOrigin(float x, float y){
     collisionBox.left += movement.x;
     collisionBox.top += movement.y;
 }
- 
+
+/*************
+ * SetOrigin *
+ *************/
 void Entity::setOrigin(const sf::Vector2f &origin){
     
     setOrigin(origin.x, origin.y);
 }
 
-/************
- * SetScale *
- ************/
-
+/*********
+ * Scale *
+ *********/
 void Entity::scale(float xZoom, float yZoom){
     
     sf::Vector2f pos = getPosition();
@@ -133,16 +135,25 @@ void Entity::scale(float xZoom, float yZoom){
     collisionBox.top = pos.y + (collisionBox.top - pos.y) * yZoom;
 }
 
+/*********
+ * Scale *
+ *********/
 void Entity::scale(sf::Vector2f zoom){
     
     scale(zoom.x, zoom.y);
 }
 
+/************
+ * SetScale *
+ ************/
 void Entity::setScale(sf::Vector2f zoom){
     
     scale(zoom.x / getScale().x, zoom.y / getScale().y);
 }
 
+/************
+ * SetScale *
+ ************/
 void Entity::setScale(float xZoom, float yZoom){
     
     setScale(sf::Vector2f(xZoom, yZoom));

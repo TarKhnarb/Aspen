@@ -18,6 +18,7 @@
 #include "Wall.h"
 #include "Door.h"
 #include "Hatch.h"
+#include "Projectile.h"
 
 class Room : public sf::Drawable{
 
@@ -89,6 +90,8 @@ public: // Functions
 
     void closeDoors();
 
+    void addProjectile(Projectile *proj);
+
 private:
 
     std::string getTilesPath(int roomId); // return Room path witch type corresponding
@@ -110,6 +113,7 @@ private: // Variables
     std::vector<std::unique_ptr<Rock>> rocks;
     std::vector<std::unique_ptr<Chest>> chests;
     std::vector<std::unique_ptr<Hatch>> hatchs;
+    std::vector<std::unique_ptr<Projectile>> projectiles;
 
     Type type;
     

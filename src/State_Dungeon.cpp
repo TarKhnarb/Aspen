@@ -7,7 +7,15 @@
 State_Dungeon::State_Dungeon(StateManager* stateMgr):
         BaseState(stateMgr),
         dungeon(stateMgr->getContext()->textureManager),
-        Aspen(*stateMgr->getContext()->aspen){}
+        Aspen(*stateMgr->getContext()->aspen){
+
+    Aspen.setDungeon(&dungeon);
+
+    addCallback(StateType::Dungeon, "ShootUp", &Player::setProjectile, this);
+    addCallback(StateType::Dungeon, "ShootRight", &Player::setProjectile, this);
+    addCallback(StateType::Dungeon, "ShootDown", &Player::setProjectile, this);
+    addCallback(StateType::Dungeon, "ShootLeft", &Player::setProjectile, this);
+}
 
 /**************
  * Destructor *
@@ -47,9 +55,13 @@ void State_Dungeon::deactivate(){}
 void State_Dungeon::update(const sf::Time &time){
     
     Aspen.update(time);
-    
+
+    dungeon.getCurrentRoom()->
+
+    dungeon.getCurrentRoom()->checkProjectileCollisions(Aspen);
+
     auto info = dungeon.getCurrentRoom()->checkRoomCollisions(Aspen);
-    
+
     switch(info.first){
         
         case Entity::Door:
@@ -73,7 +85,7 @@ void State_Dungeon::update(const sf::Time &time){
                 stateMgr->remove(StateType::Dungeon);
             }
             break;
-        
+
         default:
             break;
     }
@@ -98,8 +110,16 @@ void State_Dungeon::pause(EventDetails *details){
     stateMgr->switchTo(StateType::GamePause);
 }
 
+/****************
+ * CenterPlayer *
+ ****************/
 void State_Dungeon::centerPlayer(){
 
     sf::Vector2u windowSize = stateMgr->getContext()->wind->getWindow()->getSize();
     Aspen.setPosition((windowSize.x / 2.f) - 15.f, (windowSize.y / 2.f) - 30.f);
+}
+
+void State_Dungeon::setProjectile(){
+
+
 }

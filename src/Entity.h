@@ -7,6 +7,7 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
+
 #include <cstdlib>
 #include <cmath>
 

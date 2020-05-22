@@ -33,6 +33,8 @@ private:
 
     void centerPlayer();
 
+    void setProjectile();
+
 private:
 
     Dungeon dungeon;
