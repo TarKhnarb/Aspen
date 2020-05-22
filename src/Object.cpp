@@ -4,13 +4,20 @@ Object::Object(const std::string &name, TextureManager *txtMgr):
         Entity(txtMgr, Entity::Object),
         name(name){
     
-    loadFromFile(name); 
+    setSprite(); 
 }
 
-void Object::loadFromFile(const std::string &name){
+Object::~Object(){
     
-    // TODO convert name into filename
-    // TODO read texture bound to the name, and load the texture
+    textureMgr->releaseResource(name);
+}
+
+void Object::setSprite(){
+    
+    textureMgr->requireResource(name);
+    sprite.setTexture(*textureMgr->getResource(name));
+    
+    collisionBox = sprite.getGlobalBounds();
 }
 
 std::string Object::getName() const{

@@ -12,16 +12,17 @@ public:
     
     Object() = delete;
     Object(const std::string&, TextureManager*);
+    ~Object();
     
 public:
-    
-    void loadFromFile(const std::string&);
     
     std::string getName() const;
     int getBuyPrice() const;
     int getSellPrice() const;
     
-protected:
+private:
+    
+    void setSprite();
     
     void draw(sf::RenderTarget&, sf::RenderStates) const override;
     

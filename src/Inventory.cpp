@@ -84,7 +84,7 @@ bool Inventory::removeObject(Object &toRemove){
     }
 }
 
-bool Inventory::removeObject(const std::string &toRemove, std::size_t nb = 1){
+bool Inventory::removeObject(const std::string &toRemove, std::size_t &nb = 1){
     
     for(auto &objet : bag){
         
@@ -105,7 +105,7 @@ bool Inventory::removeObject(const std::string &toRemove, std::size_t nb = 1){
     return (nb == 0);
 }
 
-bool Inventory::removeObject(std::size_t index, std::size_t nb){
+bool Inventory::removeObject(std::size_t index, std::size_t &nb){
     
     if(index >= bag.size()){
         
@@ -114,7 +114,15 @@ bool Inventory::removeObject(std::size_t index, std::size_t nb){
     
     if(bag[index]){
         
-        *bag[index] -= nb;
+        if(bag[index]->getType() == Entity::StackObject){
+            
+            *bag[index] -= nb;
+        }
+        else if(nb >= 1){
+            
+            bag[index].release();
+            --nb;
+        }
     }
     
     return (nb == 0);
@@ -234,6 +242,9 @@ Object* newObject(const Object &object){
         
         case Entity::StackObject:
             return new StackObject(object);
+        
+        case Entity::Potion:
+            return new Potion(object);
         
         default:
             return new Object(object);

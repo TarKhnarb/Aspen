@@ -4,7 +4,7 @@ StackObject::StackObject(const std::string &name, TextureManager *txtMgr, std::s
         Object(name, txtMgr),
         number(number){
     
-    loadFromFile(name);
+    loadFromFile();
     
     if(number > stackSize){
         
@@ -90,6 +90,42 @@ StackObject& StackObject::operator--(){
     
     std::size_t toRemove = 1;
     return operator-=(toRemove);
+}
+
+void StackObject::loadFromFile(){
+    
+    std::string filename = "Data/Files/Objects/" + name + ".cfg";
+    
+    std::ifstream file(filename);
+    if(!file.is_open()){
+        
+        throw std::runtime_error("Failed to load " + filename);
+    }
+    
+    while(!file.eof()){
+        
+        std::string line;
+        std::getline(file, line);
+        std::istringstream sLine(line);
+        
+        std::string statName;
+        int statVal;
+        
+        sLine >> statName >> statVal;
+        
+        if(statName == "StackSize"){
+            
+            stackSize = abs(statVal);
+        }
+        else if(statName == "BuyPrice"){
+            
+            buyPrice = statVal;
+        }
+        else if(statName == "SellPrice"){
+            
+            sellPrice = statVal;
+        }
+    }
 }
 
 void StackObject::draw(sf::RenderTarget &target, sf::RenderStates states) const{
