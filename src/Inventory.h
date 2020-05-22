@@ -5,6 +5,7 @@
 
 #include "Stuff.h"
 #include "StackObject.h"
+#include "Potion.h"
 
 class Inventory{
     
@@ -14,8 +15,8 @@ public:
     
     bool addObject(Object&);
     bool removeObject(Object&);
-    bool removeObject(const std::string&, std::size_t nb = 1);
-    bool removeObject(std::size_t, std::size_t nb = 1);
+    bool removeObject(const std::string&, std::size_t &nb = 1);
+    bool removeObject(std::size_t, std::size_t &nb = 1);
     void clearObject(std::size_t);
     std::size_t numberOf(const std::string&) const;
     

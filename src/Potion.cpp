@@ -3,6 +3,8 @@
 Potion::Potion(const std::string &name, TextureManager *txtMgr, std::size_t number):
         StackObject(name, txtMgr, number){
     
+    setType(Entity::Potion);
+    
     loadFromFile();
 }
 

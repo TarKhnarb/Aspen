@@ -31,6 +31,7 @@ public:
         Object,
         Stuff,
         StackObject,
+        Potion,
         Projectile
     };
     
@@ -38,29 +39,24 @@ public:
     
     Entity(TextureManager*, Type = None);
     virtual ~Entity() {}
-
+    
 public:
 
     bool collides(Entity&, float);
     
     void move(float offsetX, float offsetY);
-
     void move(const sf::Vector2f& offset);
     
     void setPosition(float x, float y);
-
     void setPosition(const sf::Vector2f &position);
     
     void setOrigin(float x, float y);
- 
     void setOrigin(const sf::Vector2f &origin);
     
     void scale(float, float);
-    
     void scale(sf::Vector2f);
     
     void setScale(sf::Vector2f);
-    
     void setScale(float, float);
     
     Type getType() const;
