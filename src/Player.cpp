@@ -31,6 +31,12 @@ Player::Player(TextureManager *txtMng, EventManager* evtMgr):
     evtMgr->addCallback(StateType::Map, "MoveRight", &Player::setVelocity, this);
     evtMgr->addCallback(StateType::Map, "MoveDown", &Player::setVelocity, this);
     evtMgr->addCallback(StateType::Map, "MoveLeft", &Player::setVelocity, this);
+
+
+    evtMgr->addCallback(StateType::Dungeon, "ShootUp", &Player::setProjectile, this);
+    evtMgr->addCallback(StateType::Dungeon, "ShootRight", &Player::setProjectile, this);
+    evtMgr->addCallback(StateType::Dungeon, "ShootDown", &Player::setProjectile, this);
+    evtMgr->addCallback(StateType::Dungeon, "ShootLeft", &Player::setProjectile, this);
 }
 
 /**************
@@ -124,6 +130,21 @@ void Player::setDungeon(Dungeon *dunge){
     dungeon = dunge;
 }
 
+/*****************
+ * SetProjectile *
+ *****************/
+void Player::setProjectile(EventDetails *details){
+
+    if (details->name == "ShootUp")
+        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, getType(), Orientation::North, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
+    if (details->name == "ShootRight")
+        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, getType(), Orientation::East, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
+    if (details->name == "ShootDown")
+        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, getType(), Orientation::South, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
+    if (details->name == "ShootLeft")
+        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, getType(), Orientation::West, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
+}
+
 /**************
  * ReturnStoi *
  **************/
@@ -162,21 +183,6 @@ void Player::setVelocity(EventDetails* details){
         
         velocity /= static_cast<float>(sqrt(2.f)); // normalize vector
     }
-}
-
-/*****************
- * SetProjectile *
- *****************/
-void Player::setProjectile(EventDetails *details){
-
-    if (details->name == "ShootUp")
-        dungeon->addProjectile(new Projectile(this, getType(), Orientation::North, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
-    if (details->name == "ShootRight")
-        dungeon->addProjectile(new Projectile(this, getType(), Orientation::East, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
-    if (details->name == "ShootDown")
-        dungeon->addProjectile(new Projectile(this, getType(), Orientation::Down, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
-    if (details->name == "ShootLeft")
-        dungeon->addProjectile(new Projectile(this, getType(), Orientation::West, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
 }
 
 /********

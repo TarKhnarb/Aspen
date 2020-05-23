@@ -83,14 +83,18 @@ public: // Functions
     std::pair<Entity::Type, Orientation> checkRoomCollisions(Entity&);
     
     void checkMonsterCollisions(Entity&);
-    
-    void checkProjectileCollisions(Entity&);
+
+    Entity::Type checkProjectileCollisions(Entity&);
+
+    void update(sf::Time);
     
     void openDoors();
 
     void closeDoors();
 
     void addProjectile(Projectile *proj);
+
+    void deleteProjectiles();
 
 private:
 

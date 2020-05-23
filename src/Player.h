@@ -8,11 +8,14 @@
 #include <iostream>
 
 #include "EventManager.h"
+#include "Projectile.h"
 #include "Character.h"
 #include "SpriteSheet.h"
 #include "Statistics.h"
-#include "Dungeon.h"
-#include "Projectile.h"
+//#include "Dungeon.h"
+
+class Dungeon;
+class Projectile;
 
 class Player: public Character{
 
@@ -32,14 +35,14 @@ public:
     Statistics* getStats();
 
     void setDungeon(Dungeon *dunge);
+
+    void setProjectile(EventDetails*);
     
 private:
 
     int returnStoi(std::istringstream &ss);
     
     void setVelocity(EventDetails*);
-
-    void setProjectile(EventDetails*);
     
     void draw(sf::RenderTarget&, sf::RenderStates) const override;
 

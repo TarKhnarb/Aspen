@@ -8,7 +8,7 @@ Stuff::Stuff(const std::string &name, TextureManager* txtMgr):
 
 void Stuff::loadFromFile(const std::string &name){
     
-    Object::loadFromFile(name);
+    //Object::loadFromFile(name); // TODO create the function
     
     // TODO convert name into filename
     // TODO load type and bonus

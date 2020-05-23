@@ -6,7 +6,7 @@
 StateManager::StateManager(SharedContext *shared):
         shared(shared){
 
-    registerState<State_Intro>(StateType::Intro);
+    //registerState<State_Intro>(StateType::Intro);
     //registerState<State_MainMenu>(StateType::MainMenu);
     //registerState<State_KeyboardMenu>(StateType::KeyboardMenu);
     registerState<State_Dungeon>(StateType::Dungeon);

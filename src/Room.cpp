@@ -247,7 +247,6 @@ std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Entity& entity){
             return std::make_pair(Entity::Door, door->getOrientation());
         }
     }
-            
     
     for(const auto &wall : walls){
         
@@ -262,7 +261,7 @@ std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Entity& entity){
     
     for(const auto &rock : rocks){
         
-        if(entity.collides(*rock, 0.f) && entity.getType() == Entity::Projectile){
+        if(entity.collides(*rock, 0.f) && entity.getType() == Entity::Project){
             
             rock->hit(1);
         }
@@ -293,21 +292,48 @@ void Room::checkMonsterCollisions(Entity&){}
 /*****************************
  * CheckProjectileCollisions *
  *****************************/
-void Room::checkProjectileCollisions(Entity &entity){
+Entity::Type Room::checkProjectileCollisions(Entity &entity){
 
     /*for(auto itr = projectiles.begin(); itr != projectiles.end(); ++itr){
 
         Character *owner = itr->getOwner();
-        if(owner->getType() == Type::Monster && entity.getType() == Type::Player){
+        if(owner->getType() != entity.getType()){
+
+            if(entity.collides(*proj, 0.f)){
+
+                switch(entity.getType()){
+
+                    case Entity::Player: Entity::Monster:
+                        proj.release();
+                        // on elève de la vie à l'entity
+                        break;
+
+                    case Entity::Rock:
+                        proj.release()
+                }
+            }
+        }
+    }
+
+    for(auto &proj : projectiles){
+
+        if(proj){
 
 
         }
     }*/
+}
+
+/**********
+ * Update *
+ **********/
+void Room::update(sf::Time time){
 
     for(auto &proj : projectiles){
 
-        if(entity.collides(*proj, 0.f))
-            proj.release();
+        if(proj){
+            proj->update(time);
+        }
     }
 }
 
@@ -340,7 +366,15 @@ void Room::closeDoors(){
  *****************/
 void Room::addProjectile(Projectile *proj){
 
-    projectiles.push_back(proj);
+    projectiles.emplace_back(proj);
+}
+
+void Room::deleteProjectiles(){
+
+    for(auto itr = projectiles.begin(); itr != projectiles.end(); ++itr){
+
+        itr->release();
+    }
 }
 
 /****************
@@ -447,5 +481,12 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     for(const auto &hatch : hatchs){
 
         target.draw(*hatch, states);
+    }
+
+    for(const auto &proj : projectiles){
+
+        if(proj){
+            target.draw(*proj, states);
+        }
     }
 }

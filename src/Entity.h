@@ -33,7 +33,7 @@ public:
         Stuff,
         StackObject,
         Potion,
-        Projectile
+        Project
     };
     
 public:

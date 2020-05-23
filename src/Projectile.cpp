@@ -27,6 +27,9 @@ Character* Projectile::getOwner(){
     return owner;
 }
 
+/**********
+ * Update *
+ **********/
 void Projectile::update(sf::Time time){
 
     move(velocity * time.asSeconds());
@@ -87,14 +90,14 @@ void Projectile::selectProjectile(){
                     spriteProj.scale(0.5f, 0.5f);
                     spriteProj.setPosition(
                             ownerBox.left + ((ownerBox.width - projBox.width)/2.f),
-                            ownerBox.top + projBox.height);
+                            ownerBox.top - (projBox.height + 2.f * ownerBox.height));
                     collisionBox = projBox;
                 }
                 else{
 
                     spriteProj.setPosition(
                             ownerBox.left + ((ownerBox.width - projBox.width)/2.f),
-                            ownerBox.top + projBox.height);
+                            ownerBox.top - (projBox.height + 2.f * ownerBox.height));
                     collisionBox = projBox;
                     collisionBox.height /= 3.f;
                 }
@@ -111,14 +114,14 @@ void Projectile::selectProjectile(){
                     spriteProj.scale(0.5f, 0.5f);
                     spriteProj.setPosition(
                             ownerBox.left + ownerBox.width + projBox.width,
-                            ownerBox.top + ((projBox.height + projBox.height)/2.f));
+                            ownerBox.top + ((projBox.height - projBox.height)/2.f));
                     collisionBox = projBox;
                 }
                 else{
 
                     spriteProj.setPosition(
                             ownerBox.left + ownerBox.width + projBox.width,
-                            ownerBox.top + ((projBox.height + projBox.height)/2.f));
+                            ownerBox.top + ((projBox.height - projBox.height)/2.f));
                     collisionBox = projBox;
                     collisionBox.width /= 3.f;
                     collisionBox.left += 2.f * collisionBox.width;
@@ -135,15 +138,15 @@ void Projectile::selectProjectile(){
 
                     spriteProj.scale(0.5f, 0.5f);
                     spriteProj.setPosition(
-                            ownerBox.left + ((ownerBox.width - projBox.width)/2.f),
-                            ownerBox.top + projBox.height);
+                            ownerBox.left + ((ownerBox.width + projBox.width)/2.f),
+                            ownerBox.top + projBox.height + ownerBox.height);
                     collisionBox = projBox;
                 }
                 else{
 
                     spriteProj.setPosition(
-                            ownerBox.left + ((ownerBox.width - projBox.width)/2.f),
-                            ownerBox.top + projBox.height);
+                            ownerBox.left + ((ownerBox.width + projBox.width)/2.f),
+                            ownerBox.top + projBox.height + ownerBox.height);
                     collisionBox = projBox;
                     collisionBox.height /= 3.f;
                     collisionBox.top += 2.f * collisionBox.height;
@@ -160,14 +163,14 @@ void Projectile::selectProjectile(){
 
                     spriteProj.scale(0.5f, 0.5f);
                     spriteProj.setPosition(
-                            ownerBox.left + ownerBox.width + projBox.width,
+                            ownerBox.left - projBox.width,
                             ownerBox.top + ((projBox.height + projBox.height)/2.f));
                     collisionBox = projBox;
                 }
                 else{
 
                     spriteProj.setPosition(
-                            ownerBox.left + ownerBox.width + projBox.width,
+                            ownerBox.left - projBox.width,
                             ownerBox.top + ((projBox.height + projBox.height)/2.f));
                     collisionBox = projBox;
                     collisionBox.width /= 3.f;

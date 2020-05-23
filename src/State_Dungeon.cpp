@@ -10,11 +10,6 @@ State_Dungeon::State_Dungeon(StateManager* stateMgr):
         Aspen(*stateMgr->getContext()->aspen){
 
     Aspen.setDungeon(&dungeon);
-
-    addCallback(StateType::Dungeon, "ShootUp", &Player::setProjectile, this);
-    addCallback(StateType::Dungeon, "ShootRight", &Player::setProjectile, this);
-    addCallback(StateType::Dungeon, "ShootDown", &Player::setProjectile, this);
-    addCallback(StateType::Dungeon, "ShootLeft", &Player::setProjectile, this);
 }
 
 /**************
@@ -56,7 +51,7 @@ void State_Dungeon::update(const sf::Time &time){
     
     Aspen.update(time);
 
-    dungeon.getCurrentRoom()->
+    dungeon.getCurrentRoom()->update(time);
 
     dungeon.getCurrentRoom()->checkProjectileCollisions(Aspen);
 

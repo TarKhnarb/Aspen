@@ -56,6 +56,8 @@ Room* Dungeon::getCurrentRoom() const{
  **************/
 void Dungeon::changeRoom(Orientation orient){
 
+    getCurrentRoom()->deleteProjectiles();
+
     switch(orient){
         case Orientation::North:
             if (getRoomType(posDungeon.x - 1, posDungeon.y) != Room::None){

@@ -2,8 +2,8 @@ B = bin
 O = obj
 S = src
 FLAGS = -c -Wall
-STAT_O = $(O)/State_Intro.o $(O)/State_Dungeon.o $(O)/State_GamePause.o $(O)/State_Map.o $(O)/State_GameOver.o
-ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Projectile.o $(O)/Stuff.o $(O)/StackObject.o $(O)/Potion.o
+STAT_O = $(O)/State_Dungeon.o $(O)/State_GamePause.o $(O)/State_Map.o $(O)/State_GameOver.o
+ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Projectile.o $(O)/Stuff.o #$(O)/Potion.o #$(O)/StackObject.o
 
 all: $(O) $(B) $(O)/Aspen.o
 	g++ -ggdb $(O)/*.o -o $(B)/Aspen -lsfml-graphics -lsfml-window -lsfml-system
@@ -20,11 +20,11 @@ $(O)/Game.o: $(O)/Window.o $(O)/StateManager.o
 $(O)/Window.o: $(O)/EventManager.o
 	g++ $(FLAGS) $(S)/Window.cpp -o $(O)/Window.o
 
-$(O)/StateManager.o: $(STAT_O)
+$(O)/StateManager.o: $(STAT_O) $(O)/Projectile.o
 	g++ $(FLAGS) $(S)/StateManager.cpp -o $(O)/StateManager.o
 
-$(O)/State_Intro.o: $(O)/EventManager.o
-	g++ $(FLAGS) $(S)/State_Intro.cpp -o $(O)/State_Intro.o
+#$(O)/State_Intro.o: $(O)/EventManager.o
+#	g++ $(FLAGS) $(S)/State_Intro.cpp -o $(O)/State_Intro.o
 
 $(O)/State_Dungeon.o: $(O)/EventManager.o $(O)/Dungeon.o $(O)/Player.o
 	g++ $(FLAGS) $(S)/State_Dungeon.cpp -o $(O)/State_Dungeon.o
@@ -62,11 +62,14 @@ $(O)/Stage.o: $(O)/Room.o
 $(O)/Room.o: $(ENTITY)
 	g++ $(FLAGS) $(S)/Room.cpp -o $(O)/Room.o
 
-$(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Statistics.o $(O)/Dungeon.o $(O)/Projectile.o #$(O)/Inventory.o
+$(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Statistics.o $(O)/Projectile.o
 	g++ $(FLAGS) $(S)/Player.cpp -o $(O)/Player.o
 
 $(O)/Inventory.o: $(O)/Stuff.o $(O)/Potion.o
 	g++ $(FLAGS) $(S)/Inventory.cpp -o $(O)/Inventory.o
+
+#$(O)/Potion.o: $(O)/StackObject.o
+#	g++ $(FLAGS) $(S)/Potion.cpp -o $(O)/Potion.o
 
 $(O)/Statistics.o: $(O)/Bonus.o
 	g++ $(FLAGS) $(S)/Statistics.cpp -o $(O)/Statistics.o
@@ -77,11 +80,11 @@ $(O)/Stuff.o: $(O)/Object.o $(O)/Bonus.o
 $(O)/Bonus.o:
 	g++ $(FLAGS) $(S)/Bonus.cpp -o $(O)/Bonus.o
 
-$(O)/Potion.o:
-	g++ $(FLAGS) $(S)/Potion.cpp -o $(O)/Potion.o
-
 $(O)/StackObject.o: $(O)/Object.o
 	g++ $(FLAGS) $(S)/StackObject.cpp -o $(O)/StackObject.o
+
+$(O)/Entity.o:
+	g++ $(FLAGS) $(S)/Entity.cpp -o $(O)/Entity.o
 
 $(O)/Object.o: $(O)/Entity.o
 	g++ $(FLAGS) $(S)/Object.cpp -o $(O)/Object.o
@@ -109,9 +112,6 @@ $(O)/Rock.o: $(O)/Entity.o
 
 $(O)/Hole.o: $(O)/Entity.o
 	g++ $(FLAGS) $(S)/Hole.cpp -o $(O)/Hole.o
-
-$(O)/Entity.o:
-	g++ $(FLAGS) $(S)/Entity.cpp -o $(O)/Entity.o
 
 $(O):
 	mkdir $(O)
