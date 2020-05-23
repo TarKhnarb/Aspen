@@ -3,9 +3,9 @@
 /***************
  * Constructor *
  ***************/
-Dungeon::Dungeon(TextureManager* textureMgr):
+Dungeon::Dungeon(TextureManager *textureMgr):
         actualStage(0),
-        filePath("Data/Files/Dungeon/DungeonInformations.csv"),
+        filePath("Data/Files/Dungeon/DungeonInformation.csv"),
         textureMgr(textureMgr){
 
     fillInformation();
@@ -32,18 +32,14 @@ Room::Type Dungeon::getRoomType(unsigned i, unsigned j) const{
         
         Room* room = currentStage->getRoom(i, j);
         
-        if (room){
-            
+        if(room)
             return room->getType();
-        }
-        else{
-            
+
+        else
             return Room::None;
-        }
     }
-    else{
+    else
         throw std::runtime_error("Dungon::getRoomType() : Unaccessible stage");
-    }
 }
 
 Room* Dungeon::getCurrentRoom() const{
@@ -102,7 +98,9 @@ unsigned Dungeon::getDungeonSize() const{
 void Dungeon::setPosDungeon(unsigned i, unsigned j){
 
     if((j >= 0 && i >= 0) && (j < information[0].at(0) && i < information[0].at(0))){
+
         if (getRoomType(i, j) != Room::None){
+
             posDungeon.x = i;
             posDungeon.y = j;
         }
@@ -131,8 +129,8 @@ void Dungeon::fillInformation(){
     file.open(filePath);
 
     if(file.is_open()){
-        std::string csvItem;
 
+        std::string csvItem;
         while(std::getline(file, csvItem)){
 
             std::vector<unsigned> vect;
@@ -155,6 +153,7 @@ void Dungeon::fillInformation(){
  * ReturnCsvItemSTOI *
  *********************/
 unsigned Dungeon::returnCsvItemSTOI(std::istringstream &ss){
+
     std::string result;
     std::getline(ss, result, ',');
     return std::stoi(result);

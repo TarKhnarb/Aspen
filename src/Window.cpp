@@ -135,7 +135,7 @@ sf::FloatRect Window::getViewSpace(){
 void Window::processEvents(){
 
     sf::Event event;
-    while (window.pollEvent(event)){
+    while(window.pollEvent(event)){
 
         eventManager.handleEvent(event);
     }

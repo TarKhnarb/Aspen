@@ -136,13 +136,13 @@ void Player::setDungeon(Dungeon *dunge){
 void Player::setProjectile(EventDetails *details){
 
     if (details->name == "ShootUp")
-        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, getType(), Orientation::North, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
+        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, Orientation::North, textureMgr));
     if (details->name == "ShootRight")
-        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, getType(), Orientation::East, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
+        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, Orientation::East, textureMgr));
     if (details->name == "ShootDown")
-        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, getType(), Orientation::South, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
+        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, Orientation::South, textureMgr));
     if (details->name == "ShootLeft")
-        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, getType(), Orientation::West, this->getStats()->getFinalValue(ProjectileSpeed), textureMgr));
+        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, Orientation::West, textureMgr));
 }
 
 /**************

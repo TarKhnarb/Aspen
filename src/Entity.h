@@ -37,16 +37,18 @@ public:
     };
     
 public:
-    
+
+    Entity() = delete;
+
     Entity(TextureManager*, Type = None);
-    virtual ~Entity() {}
+    virtual ~Entity(){}
     
 public:
 
     bool collides(Entity&, float);
     
     void move(float offsetX, float offsetY);
-    void move(const sf::Vector2f& offset);
+    void move(const sf::Vector2f &offset);
     
     void setPosition(float x, float y);
     void setPosition(const sf::Vector2f &position);
@@ -75,7 +77,7 @@ protected:
     
     sf::FloatRect collisionBox;
     
-    TextureManager* textureMgr;
+    TextureManager *textureMgr;
     
     Type type;
 };

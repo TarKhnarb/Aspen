@@ -11,7 +11,6 @@
 #include <sstream>
 #include <algorithm>
 
-#include "Orientation.h"
 #include "Rock.h"
 #include "Hole.h"
 #include "Chest.h"
@@ -121,7 +120,7 @@ private: // Variables
 
     Type type;
     
-    TextureManager* textureMgr;
+    TextureManager *textureMgr;
 };
 
 #endif

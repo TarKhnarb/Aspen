@@ -3,7 +3,7 @@
 /***************
  * Constructor *
  ***************/
-Room::Room(TextureManager* textureMgr, Room::Type roomType):
+Room::Room(TextureManager *textureMgr, Room::Type roomType):
         color(sf::Color::White),
         textureMgr(textureMgr){
             
@@ -70,10 +70,12 @@ Room::Type Room::getType() const{
  ***********/
 void Room::addDoor(const Orientation &orient, const Door::State &state){
 
-    auto found = std::find_if(doors.begin(), doors.end(), [orient] (const auto& d) { return d->getOrientation() == orient; });
+    auto hasOrient = [orient] (const auto& door) { return door->getOrientation() == orient; };
+    auto found = std::find_if(doors.begin(), doors.end(), hasOrient);
 
     if(found == doors.end()) // We show if the door don't already existing
         doors.emplace_back(new Door(orient, state, textureMgr, color));
+
     else
         throw std::invalid_argument("Room::addDoor() : the door already exist with this Orientation: " + std::to_string(static_cast<int>(orient)));
 }
@@ -87,6 +89,7 @@ void Room::affectType(unsigned seed){
     bool east = false;
     bool south = false;
     bool west = false;
+
     for(auto &d : doors){
 
         Orientation orient = d->getOrientation();
@@ -131,20 +134,15 @@ void Room::affectType(unsigned seed){
                 else
                     setType(Type::WE2);
             }
-            else if(north && east){
+            else if(north && east)
                 setType(Type::NE);
-            }
-            else if(east && south){
+            else if(east && south)
                 setType(Type::ES);
-            }
-            else if(south && west){
+            else if(south && west)
                 setType(Type::SW);
-            }
-            else if(west && north){
+            else if(west && north)
                 setType(Type::NW);
-            }
             break;
-
 
         case 3:
 
@@ -412,7 +410,7 @@ std::string Room::getTilesPath(int roomId){
  **************/
 void Room::placeWalls(){
 
-    std::string filePath = "Data/Files/Dungeon/WallCoordonates.cfg";
+    std::string filePath = "Data/Files/Dungeon/WallCoordinates.cfg";
     std::ifstream file;
     file.open(filePath);
 

@@ -16,12 +16,12 @@ Chest::Chest(TextureManager *textureMgr, State state):
     collisionBox = rect;
 }
 
-/***************
- * Constructor *
- ***************/
+/**************
+ * Destructor *
+ **************/
 Chest::~Chest(){
 
-    textureMgr->releaseResource("Chest");
+    textureMgr->releaseResource(textureName);
 }
 
 /********
@@ -36,7 +36,6 @@ void Chest::draw(sf::RenderTarget &target, sf::RenderStates states) const{
 /***************
  * ToggleState *
  ***************/
-
 void Chest::toggleState(){
 
     state = (state == State::Closed) ? State::Open : State::Closed;

@@ -20,7 +20,7 @@ public:
 
     void openHatch();
 
-    bool getIsOpen() const;
+    bool isOpen() const;
 
 private:
 
@@ -30,7 +30,7 @@ private:
 
 private:
 
-    bool isOpen;
+    bool open;
 
     sf::Sprite sprite;
     sf::Color color;

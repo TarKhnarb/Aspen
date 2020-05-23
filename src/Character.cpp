@@ -3,7 +3,7 @@
 /***************
  * Constructor *
  ***************/
-Character::Character(const std::string& name, Type type, TextureManager* textureMgr):
+Character::Character(const std::string &name, Type type, TextureManager *textureMgr):
         Entity(textureMgr, type),
         velocity(0.f, 0.f),
         name(name){}

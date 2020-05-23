@@ -5,32 +5,44 @@
  ***************/
 Hatch::Hatch(TextureManager *txtMng, sf::Color color):
         Entity(txtMng, Type::Hatch),
-        isOpen(true),
+        open(true),
         color(color){
 
     selectHatch();
 }
 
+/**************
+ * Destructor *
+ **************/
 Hatch::~Hatch(){
 
     textureMgr->releaseResource(textureName);
 }
 
+/*************
+ * OpenHatch *
+ *************/
 void Hatch::openHatch(){
 
-    isOpen = true;
+    open = true;
     textureMgr->releaseResource(textureName);
     selectHatch();
 }
 
-bool Hatch::getIsOpen() const{
+/**********
+ * IsOpen *
+ **********/
+bool Hatch::isOpen() const{
 
-    return isOpen;
+    return open;
 }
 
+/***************
+ * SelectHatch *
+ ***************/
 void Hatch::selectHatch(){
 
-    if(isOpen){
+    if(open){
 
         textureName = "HatchOpen";
 
@@ -61,6 +73,9 @@ void Hatch::selectHatch(){
     }
 }
 
+/********
+ * Draw *
+ ********/
 void Hatch::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 
     states.transform *= getTransform();

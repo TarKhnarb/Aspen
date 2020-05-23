@@ -26,7 +26,7 @@ Stage::Stage(unsigned size, unsigned minRoom, unsigned maxRoom, TextureManager* 
 }
 
 /************
- * Generate *
+ * Generate * //TODO changer l'utilisation du seed pour que ca soit le donjon qui donne un seed global pour la généraion des étages qui le compose
  ************/
 void Stage::generate(unsigned &stageNumber, unsigned seed){
 

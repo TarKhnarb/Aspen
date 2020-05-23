@@ -18,6 +18,7 @@ public:
 
 public:
 
+    Chest() = delete;
     Chest(TextureManager*, State = State::Closed);
     ~Chest();
 

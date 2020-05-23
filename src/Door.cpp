@@ -44,12 +44,12 @@ Door::State Door::getState() const{
 /************
  * SetState *
  ************/
-void Door::setState(State dState){
+void Door::setState(State state){
 
     textureMgr->releaseResource(textureName);
-    state = dState;
+    this->state = state;
 
-    textureName = state == State::Open ? "OpenDoor" : "ClosedDoor";
+    textureName = this->state == State::Open ? "OpenDoor" : "ClosedDoor";
 
     textureMgr->requireResource(textureName);
     spriteDoor.setTexture(*textureMgr->getResource(textureName));
@@ -65,22 +65,12 @@ Orientation Door::getOrientation() const{
     return orientation;
 }
 
-/********
- * Draw *
- ********/
-void Door::draw(sf::RenderTarget &target, sf::RenderStates states) const{
-
-    states.transform *= getTransform();
-    target.draw(spriteDoor, states);
-    target.draw(spriteFrame, states);
-}
-
 /*************
  * PlaceDoor *
  *************/
 void Door::placeDoor(){
 
-    std::string filePath = "Data/Files/Dungeon/DoorCoordonates.cfg";
+    std::string filePath = "Data/Files/Dungeon/DoorCoordinates.cfg";
     std::ifstream file;
     file.open(filePath);
 
@@ -111,7 +101,6 @@ void Door::placeDoor(){
             collisionBox.top = y - 45.f;
             collisionBox.width = 135.f;
             collisionBox.height = 90.f;
-
             break;
 
         case Orientation::East:
@@ -120,7 +109,6 @@ void Door::placeDoor(){
             collisionBox.top = y - 135.f/2.f;
             collisionBox.width = 90.f;
             collisionBox.height = 135.f;
-
             break;
 
         case Orientation::South:
@@ -152,4 +140,14 @@ unsigned Door::returnStoi(std::istringstream &ss){
     std::string result;
     std::getline(ss, result, ',');
     return std::stoi(result);
+}
+
+/********
+ * Draw *
+ ********/
+void Door::draw(sf::RenderTarget &target, sf::RenderStates states) const{
+
+    states.transform *= getTransform();
+    target.draw(spriteDoor, states);
+    target.draw(spriteFrame, states);
 }

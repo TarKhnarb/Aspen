@@ -13,11 +13,11 @@ class Stage{
 
 public:
 
-    Stage(const Stage&) = delete;
+    Stage() = delete;
 
     Stage(unsigned size, unsigned minRoom, unsigned maxRoom, TextureManager*);
 
-public: /** Functions */
+public:
 
     void generate(unsigned &stageNumber, unsigned seed = 1);
 
@@ -25,7 +25,7 @@ public: /** Functions */
 
     unsigned getSize() const;
 
-private: /** Functions */
+private:
 
     void setSeed(unsigned seed);
 
@@ -37,7 +37,7 @@ private: /** Functions */
 
     void affectRoomsType(); // affects types and fills rooms
 
-private: /** Variables */
+private:
 
     unsigned stageSize;
 

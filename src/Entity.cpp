@@ -3,14 +3,14 @@
 /***************
  * Constructor *
  ***************/
-Entity::Entity(TextureManager* textureMgr, Type type):
+Entity::Entity(TextureManager *textureMgr, Type type):
         textureMgr(textureMgr),
         type(type){}
 
 /************
  * Collides *
  ************/
-bool Entity::collides(Entity& other, float push){
+bool Entity::collides(Entity &other, float push){
     
     push = std::max(0.f, std::min(1.f, push)); // must be in [0, 1]
     
@@ -46,6 +46,7 @@ bool Entity::collides(Entity& other, float push){
                 other.move(-intersect.x * push, 0.f);
             }
             else{ // this is on the right side of other
+
                 move(-intersect.x * (1 - push), 0.f);
                 other.move(intersect.x * push, 0.f);
             }
@@ -53,10 +54,12 @@ bool Entity::collides(Entity& other, float push){
         else{ // along y-axis
             
             if(delta.y > 0.f){ // this is over other
+
                 move(0.f, intersect.y * (1 - push));
                 other.move(0.f, -intersect.y * push);
             }
             else{ // this is under other
+
                 move(0.f, -intersect.y * (1 - push));
                 other.move(0.f, intersect.y * push);
             }
@@ -79,7 +82,10 @@ void Entity::move(float offsetX, float offsetY){
     collisionBox.top += offsetY;
 }
 
-void Entity::move(const sf::Vector2f& offset){
+/********
+ * Move *
+ ********/
+void Entity::move(const sf::Vector2f &offset){
     
     move(offset.x, offset.y);
 }
@@ -92,6 +98,9 @@ void Entity::setPosition(float x, float y){
     move(sf::Vector2f(x, y) - getPosition());
 }
 
+/***************
+ * SetPosition *
+ ***************/
 void Entity::setPosition(const sf::Vector2f& position){
     
     setPosition(position.x, position.y);
@@ -167,6 +176,9 @@ Entity::Type Entity::getType() const{
     return type;
 }
 
+/**********
+ * GetBox *
+ **********/
 sf::FloatRect Entity::getBox() const{
     
     return collisionBox;

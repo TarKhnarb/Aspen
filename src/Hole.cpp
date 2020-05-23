@@ -3,7 +3,7 @@
 /***************
  * Constructor *
  ***************/
-Hole::Hole(bool border, TextureManager* textureMgr, sf::Color color):
+Hole::Hole(bool border, TextureManager *textureMgr, sf::Color color):
         Entity(textureMgr, Type::Hole),
         color(color){
     

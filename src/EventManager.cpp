@@ -5,6 +5,7 @@
  ***************/
 EventManager::EventManager():
         hasFocus(true){
+
     loadBindings();
 }
 
@@ -36,7 +37,7 @@ bool EventManager::addBinding(Binding *binding){
 bool EventManager::removeBinding(std::string name){
 
     auto itr = bindings.find(name);
-    if (itr == bindings.end()){
+    if(itr == bindings.end()){
         return false;
     }
     delete itr->second;
@@ -78,7 +79,7 @@ void EventManager::handleEvent(sf::Event &event){
 
                 if(e_itr.second.code == event.key.code){
 
-                    if (bind->details.keyCode != -1)
+                    if(bind->details.keyCode != -1)
                         bind->details.keyCode = e_itr.second.code;
 
                     ++(bind->count);
@@ -129,19 +130,18 @@ void EventManager::update(){
             if(stateCallbacks != callbacks.end()){
 
                 auto callItr = stateCallbacks->second.find(bind->name);
-                if (callItr != stateCallbacks->second.end())
+                if(callItr != stateCallbacks->second.end())
                     callItr->second(&bind->details);
             }
 
             auto otherCallbacks = callbacks.find(StateType(0));
-            if (otherCallbacks != callbacks.end()){
+            if(otherCallbacks != callbacks.end()){
 
                 auto callItr = otherCallbacks->second.find(bind->name);
-                if (callItr != otherCallbacks->second.end())
+                if(callItr != otherCallbacks->second.end())
                     callItr->second(&bind->details);
             }
         }
-
         bind->count = 0;
         bind->details.clear();
     }
@@ -177,7 +177,7 @@ void EventManager::loadBindings(){
             int start = 0;
             std::size_t end = keyval.find(delimiter);
 
-            if (end == std::string::npos){
+            if(end == std::string::npos){
 
                 delete bind;
                 bind = nullptr;
@@ -190,7 +190,7 @@ void EventManager::loadBindings(){
             eventInfo.code = code;
             bind->bindEvent(type, eventInfo);
         }
-        if (!addBinding(bind))
+        if(!addBinding(bind))
             delete bind;
 
         bind = nullptr;

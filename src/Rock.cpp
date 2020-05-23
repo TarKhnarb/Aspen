@@ -3,7 +3,7 @@
 /***************
  * Constructor *
  ***************/
-Rock::Rock(unsigned life, TextureManager* textureMgr):
+Rock::Rock(unsigned life, TextureManager *textureMgr):
         Entity(textureMgr, Type::Rock),
         life (life){
 
@@ -14,7 +14,7 @@ Rock::Rock(unsigned life, TextureManager* textureMgr):
  * Destructor *
  **************/
 Rock::~Rock(){
-    
+
     textureMgr->releaseResource(textureName);
 }
 
@@ -26,6 +26,7 @@ void Rock::hit(unsigned damage){
     if(life > damage)
         life -= damage;
     else{
+
         life = 0;
         
         textureMgr->requireResource("BrokenRock");
@@ -70,7 +71,7 @@ void Rock::selectForm(){
  * draw *
  ********/
 
-void Rock::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+void Rock::draw(sf::RenderTarget &target, sf::RenderStates states) const{
     
     states.transform *= getTransform();
     target.draw(sprite, states);

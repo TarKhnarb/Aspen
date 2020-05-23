@@ -8,15 +8,15 @@ class Wall : public Entity{
 public:
     
     Wall();
-    Wall(float x, float y, float Dx, float Dy);
+    Wall(float x, float y, float dx, float dy);
     Wall(sf::FloatRect);
 
 public:
     
-    float& left;
-    float& top;
-    float& width;
-    float& height;
+    float &left;
+    float &top;
+    float &width;
+    float &height;
     
 private:
     
