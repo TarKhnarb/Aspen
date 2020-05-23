@@ -13,8 +13,7 @@ class Stage{
 
 public:
 
-    Stage(const Stage&) = delete;
-
+    Stage() = delete;
     Stage(unsigned size, unsigned minRoom, unsigned maxRoom, TextureManager*);
 
 public: /** Functions */
@@ -50,6 +49,8 @@ private: /** Variables */
     unsigned maxRoomCount;
     
     TextureManager* textureMgr;
+    
+    // TODO visited rooms (for minimap)
 };
 
 std::ostream& operator<<(std::ostream& stream, Stage &s);

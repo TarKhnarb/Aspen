@@ -4,14 +4,14 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include "Character.h"
-//include "Entity.h"
 #include "Orientation.h"
 
 class Projectile : public Entity{
 
 public:
 
-    Projectile(Character *owner, Type type, Orientation orient, float speed, TextureManager*);
+    Projectile() = delete;
+    Projectile(Character *owner, Orientation orient, TextureManager*);
     ~Projectile();
 
 public:

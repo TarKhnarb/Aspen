@@ -3,12 +3,10 @@
 /***************
  * Constructor *
  ***************/
-Projectile::Projectile(Character *owner, Type type, Orientation orient, float speed, TextureManager* txtMng):
-        Entity(txtMng, type),
+Projectile::Projectile(Character *owner, Orientation orient, TextureManager* txtMng):
+        Entity(txtMng, Entity::Projectile),
         owner(owner),
-        orientation(orient),
-        speed(speed),
-        baseSpeed(200.f){
+        orientation(orient),{
 
     setVelocity();
     selectProjectile();
@@ -17,7 +15,10 @@ Projectile::Projectile(Character *owner, Type type, Orientation orient, float sp
 /***************
  * Constructor *
  ***************/
-Projectile::~Projectile(){}
+Projectile::~Projectile(){
+    
+    textureMgr->releaseResource(textureName);
+}
 
 /************
  * GetOwner *
@@ -33,7 +34,6 @@ Character* Projectile::getOwner(){
 void Projectile::update(sf::Time time){
 
     move(velocity * time.asSeconds());
-    velocity = sf::Vector2f(0.f, 0.f); // reset velocity for the next update loop
 }
 
 /***************
@@ -41,7 +41,7 @@ void Projectile::update(sf::Time time){
  ***************/
 void Projectile::setVelocity(){
 
-    float pxMove = baseSpeed * (1.f + speed/60.f);
+    float pxMove = 200.f * (1.f + speed/60.f);
 
     switch(orientation){
         case Orientation::North:

@@ -10,7 +10,8 @@
 class Character : public Entity{
 
 public:
-
+    
+    Character() = delete;
     Character(const std::string&, Type, TextureManager*);
     virtual ~Character();
 

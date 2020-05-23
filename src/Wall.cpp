@@ -10,7 +10,7 @@ Wall::Wall():
         width(collisionBox.width),
         height(collisionBox.height){}
 
-Wall::Wall(float x, float y, float Dx, float Dy):
+Wall::Wall(float x, float y, float dx, float dy):
         Entity(nullptr, Type::Wall),
         left(collisionBox.left),
         top(collisionBox.top),
@@ -19,8 +19,8 @@ Wall::Wall(float x, float y, float Dx, float Dy):
     
     left = x;
     top = y;
-    width = Dx;
-    height = Dy;
+    width = dx;
+    height = dy;
 }
 
 Wall::Wall(sf::FloatRect hitBox):

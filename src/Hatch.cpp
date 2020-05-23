@@ -5,7 +5,7 @@
  ***************/
 Hatch::Hatch(TextureManager *txtMng, sf::Color color):
         Entity(txtMng, Type::Hatch),
-        isOpen(true),
+        open(true),
         color(color){
 
     selectHatch();
@@ -18,19 +18,19 @@ Hatch::~Hatch(){
 
 void Hatch::openHatch(){
 
-    isOpen = true;
+    open = true;
     textureMgr->releaseResource(textureName);
     selectHatch();
 }
 
-bool Hatch::getIsOpen() const{
+bool Hatch::isOpen() const{
 
-    return isOpen;
+    return open;
 }
 
 void Hatch::selectHatch(){
 
-    if(isOpen){
+    if(open){
 
         textureName = "HatchOpen";
 

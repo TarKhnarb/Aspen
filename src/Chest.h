@@ -17,17 +17,22 @@ public:
     };
 
 public:
-
+    
+    Chest() = delete;
     Chest(TextureManager*, State = State::Closed);
     ~Chest();
 
 public:
-
+    
+    //TODO after inventories
+    
 private:
 
     void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
     void toggleState();
+    
+    State getState() const;
 
 private:
 

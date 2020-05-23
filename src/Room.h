@@ -11,7 +11,6 @@
 #include <sstream>
 #include <algorithm>
 
-#include "Orientation.h"
 #include "Rock.h"
 #include "Hole.h"
 #include "Chest.h"
@@ -65,7 +64,6 @@ public:
 
     Room() = delete;
     Room(TextureManager*, Type roomType = Type::Common);
-    Room(const Room&) = delete;
     ~Room();
 
 public: // Functions

@@ -97,10 +97,12 @@ void Entity::setPosition(const sf::Vector2f& position){
     setPosition(position.x, position.y);
 }
 
+// TODO rotations
+
 /*************
  * SetOrigin *
  *************/
-void Entity::setOrigin(float x, float y){
+void Entity::setOrigin(float x, float y){ // TODO doesn't work
     
     sf::Vector2f initialOrigin = getOrigin();
     sf::Transformable::setOrigin(x, y);

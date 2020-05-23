@@ -40,11 +40,11 @@ public:
 
 private:
 
-    void draw(sf::RenderTarget&, sf::RenderStates) const override;
-
     void placeDoor();
 
     unsigned returnStoi(std::istringstream &ss);
+    
+    void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
 private:
 

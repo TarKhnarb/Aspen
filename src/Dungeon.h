@@ -15,6 +15,7 @@ class Dungeon{
 
 public:
 
+    Dungeon() = delete;
     Dungeon(TextureManager*); // Lit les information necessaire et les stock dans Informations
 
 public:
@@ -41,7 +42,7 @@ private:
 
     unsigned returnCsvItemSTOI(std::istringstream &ss);
 
-    void setStage();
+    void setStage(); // TODO complete with seed managment
 
 private:
 

@@ -65,22 +65,12 @@ Orientation Door::getOrientation() const{
     return orientation;
 }
 
-/********
- * Draw *
- ********/
-void Door::draw(sf::RenderTarget &target, sf::RenderStates states) const{
-
-    states.transform *= getTransform();
-    target.draw(spriteDoor, states);
-    target.draw(spriteFrame, states);
-}
-
 /*************
  * PlaceDoor *
  *************/
 void Door::placeDoor(){
 
-    std::string filePath = "Data/Files/Dungeon/DoorCoordonates.cfg";
+    std::string filePath = "Data/Files/Dungeon/DoorCoordinates.cfg";
     std::ifstream file;
     file.open(filePath);
 
@@ -139,7 +129,7 @@ void Door::placeDoor(){
             collisionBox.height = 135.f;
             break;
 
-        default:
+        default: // TODO clean all of this after Entity::setRotation
             break;
     }
 }
@@ -152,4 +142,14 @@ unsigned Door::returnStoi(std::istringstream &ss){
     std::string result;
     std::getline(ss, result, ',');
     return std::stoi(result);
+}
+
+/********
+ * Draw *
+ ********/
+void Door::draw(sf::RenderTarget &target, sf::RenderStates states) const{
+
+    states.transform *= getTransform();
+    target.draw(spriteDoor, states);
+    target.draw(spriteFrame, states);
 }

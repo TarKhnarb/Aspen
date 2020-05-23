@@ -10,7 +10,8 @@
 class Rock : public Entity{
 
 public:
-
+    
+    Rock() = delete;
     Rock(unsigned life, TextureManager*);
     ~Rock();
 

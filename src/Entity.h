@@ -38,6 +38,7 @@ public:
     
 public:
     
+    Entity() = delete;
     Entity(TextureManager*, Type = None);
     virtual ~Entity() {}
     

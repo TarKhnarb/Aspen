@@ -1,6 +1,8 @@
 #ifndef GAME_HATCH_H
 #define GAME_HATCH_H
 
+// TODO rename Trapdoor (or TrapDoor)
+
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Color.hpp>
 
@@ -20,7 +22,7 @@ public:
 
     void openHatch();
 
-    bool getIsOpen() const;
+    bool isOpen() const;
 
 private:
 
@@ -30,7 +32,7 @@ private:
 
 private:
 
-    bool isOpen;
+    bool open;
 
     sf::Sprite sprite;
     sf::Color color;

@@ -70,10 +70,16 @@ Room::Type Room::getType() const{
  ***********/
 void Room::addDoor(const Orientation &orient, const Door::State &state){
 
-    auto found = std::find_if(doors.begin(), doors.end(), [orient] (const auto& d) { return d->getOrientation() == orient; });
-
-    if(found == doors.end()) // We show if the door don't already existing
+    auto hasOrient = [orient] (const auto& door){
+        
+        return door->getOrientation() == orient;
+    };
+    
+    auto found = std::find_if(doors.begin(), doors.end(), hasOrient);
+    
+    if(found == doors.end()) // We show if the orientation is still vacant
         doors.emplace_back(new Door(orient, state, textureMgr, color));
+    
     else
         throw std::invalid_argument("Room::addDoor() : the door already exist with this Orientation: " + std::to_string(static_cast<int>(orient)));
 }
@@ -87,6 +93,7 @@ void Room::affectType(unsigned seed){
     bool east = false;
     bool south = false;
     bool west = false;
+    
     for(auto &d : doors){
 
         Orientation orient = d->getOrientation();

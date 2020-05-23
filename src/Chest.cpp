@@ -21,7 +21,7 @@ Chest::Chest(TextureManager *textureMgr, State state):
  ***************/
 Chest::~Chest(){
 
-    textureMgr->releaseResource("Chest");
+    textureMgr->releaseResource(textureName);
 }
 
 /********
@@ -36,7 +36,6 @@ void Chest::draw(sf::RenderTarget &target, sf::RenderStates states) const{
 /***************
  * ToggleState *
  ***************/
-
 void Chest::toggleState(){
 
     state = (state == State::Closed) ? State::Open : State::Closed;
@@ -46,4 +45,12 @@ void Chest::toggleState(){
     textureMgr->requireResource(textureName);
 
     sprite.setTexture(*textureMgr->getResource(textureName));
+}
+
+/************
+ * GetState *
+ ************/
+Chest::State Chest::getState() const{
+    
+    return state;
 }
