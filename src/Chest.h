@@ -24,11 +24,15 @@ public:
 
 public:
 
+    //TODO after inventories
+
 private:
 
     void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
     void toggleState();
+
+    State getState() const;
 
 private:
 

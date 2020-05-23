@@ -46,3 +46,11 @@ void Chest::toggleState(){
 
     sprite.setTexture(*textureMgr->getResource(textureName));
 }
+
+/************
+ * GetState *
+ ************/
+Chest::State Chest::getState() const{
+    
+    return state;
+}

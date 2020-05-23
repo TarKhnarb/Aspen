@@ -50,6 +50,8 @@ private:
     unsigned maxRoomCount;
     
     TextureManager* textureMgr;
+
+    // TODO visited rooms (for minimap)
 };
 
 std::ostream& operator<<(std::ostream& stream, Stage &s);

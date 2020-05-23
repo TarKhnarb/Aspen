@@ -41,7 +41,7 @@ void Rock::hit(unsigned damage){
  ************/
 bool Rock::getState() const{
 
-    return life != 0;
+    return (life != 0);
 }
 
 /***********
@@ -57,7 +57,7 @@ unsigned Rock::getForm() const{
  **************/
 void Rock::selectForm(){
 
-    form = rand()%3;
+    form = rand() % 3;
     
     textureName = "Rock" + std::to_string(form + 1);
     

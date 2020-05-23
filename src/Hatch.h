@@ -1,6 +1,8 @@
 #ifndef GAME_HATCH_H
 #define GAME_HATCH_H
 
+// TODO rename Trapdoor (or TrapDoor)
+
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Color.hpp>
 

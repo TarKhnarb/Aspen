@@ -101,6 +101,7 @@ void Door::placeDoor(){
             collisionBox.top = y - 45.f;
             collisionBox.width = 135.f;
             collisionBox.height = 90.f;
+
             break;
 
         case Orientation::East:
@@ -109,6 +110,7 @@ void Door::placeDoor(){
             collisionBox.top = y - 135.f/2.f;
             collisionBox.width = 90.f;
             collisionBox.height = 135.f;
+
             break;
 
         case Orientation::South:
@@ -127,7 +129,7 @@ void Door::placeDoor(){
             collisionBox.height = 135.f;
             break;
 
-        default:
+        default: // TODO clean all of this after Entity::setRotation
             break;
     }
 }

@@ -42,7 +42,7 @@ private:
 
     unsigned returnCsvItemSTOI(std::istringstream &ss);
 
-    void setStage();
+    void setStage(); // TODO complete with seed managment
 
 private:
 
