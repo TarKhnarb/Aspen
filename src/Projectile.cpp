@@ -7,7 +7,7 @@ Projectile::Projectile(Character *owner, Orientation orient, TextureManager* txt
         Entity(txtMng, Type::Project),
         owner(owner),
         orientation(orient),
-        speed(owner->getFinalValue(ProjectileSpeed)){
+        speed(60.f){ //owner->getFinalValue(ProjectileSpeed)){
 
     setVelocity();
     selectProjectile();

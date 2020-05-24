@@ -292,32 +292,30 @@ void Room::checkMonsterCollisions(Entity&){}
  *****************************/
 Entity::Type Room::checkProjectileCollisions(Entity &entity){
 
-    /*for(auto itr = projectiles.begin(); itr != projectiles.end(); ++itr){
+  /*  for(auto &proj : projectiles){
 
-        Character *owner = itr->getOwner();
+        Character *owner = proj->getOwner();
         if(owner->getType() != entity.getType()){
 
             if(entity.collides(*proj, 0.f)){
 
-                switch(entity.getType()){
-
-                    case Entity::Player: Entity::Monster:
-                        proj.release();
-                        // on elève de la vie à l'entity
-                        break;
-
-                    case Entity::Rock:
-                        proj.release()
-                }
+                proj.release();
+                // on elève de la vie à l'entity
             }
         }
-    }
-
-    for(auto &proj : projectiles){
-
         if(proj){
 
+            for(const auto &wall : walls){
 
+                if(proj->collides(*wall, 0.f))
+                    proj.release();
+            }
+
+            for(const auto &chest : chests){
+
+                if(proj->collides(*chest, 0.f))
+                    proj.release();
+            }
         }
     }*/
 }

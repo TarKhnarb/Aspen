@@ -46,8 +46,6 @@ private:
     
     void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
-    void draw(sf::RenderTarget&, sf::RenderStates) const override;
-
 private:
 
     Orientation orientation;
