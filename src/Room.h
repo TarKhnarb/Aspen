@@ -82,7 +82,7 @@ public: // Functions
     
     void checkMonsterCollisions(Entity&);
 
-    Entity::Type checkProjectileCollisions(Entity&);
+    void checkProjectileCollisions();
 
     void update(sf::Time);
     

@@ -290,34 +290,23 @@ void Room::checkMonsterCollisions(Entity&){}
 /*****************************
  * CheckProjectileCollisions *
  *****************************/
-Entity::Type Room::checkProjectileCollisions(Entity &entity){
+void Room::checkProjectileCollisions(){
 
-  /*  for(auto &proj : projectiles){
+    for(auto &proj : projectiles){
 
-        Character *owner = proj->getOwner();
-        if(owner->getType() != entity.getType()){
-
-            if(entity.collides(*proj, 0.f)){
-
-                proj.release();
-                // on elève de la vie à l'entity
-            }
-        }
         if(proj){
 
-            for(const auto &wall : walls){
-
+            for(const auto &wall : walls)
                 if(proj->collides(*wall, 0.f))
                     proj.release();
-            }
 
-            for(const auto &chest : chests){
 
+            for(const auto &chest : chests)
                 if(proj->collides(*chest, 0.f))
                     proj.release();
-            }
+
         }
-    }*/
+    }
 }
 
 /**********

@@ -35,6 +35,13 @@ Character* Projectile::getOwner(){
 void Projectile::update(sf::Time time){
 
     move(velocity * time.asSeconds());
+    /*
+     * TODO  /!\ TROUVER UNE SOLUTION /!\ :
+     * TODO     Lors de la detexion d'une collision, il y a une erreur de segmentation.
+     * TODO     Cela ne pose pas de problème lorsque l'on tire à l'OUEST seulement dans les trois autres cas.
+     * TODO     Voir si cela ne vient pas de la position de la collisionBox du projectile,
+     * TODO     cela pourrait aussi venir de la façon dont j'ai essayé de les gérer.
+     */
 }
 
 /***************
@@ -100,7 +107,8 @@ void Projectile::selectProjectile(){
                             ownerBox.left + ((ownerBox.width - projBox.width)/2.f),
                             ownerBox.top - (projBox.height + 2.f * ownerBox.height));
                     collisionBox = projBox;
-                    collisionBox.height /= 3.f;
+                    collisionBox.height = collisionBox.height/3.f;
+                    std::cout << "North" << std::endl;
                 }
             }
             break;
@@ -126,6 +134,7 @@ void Projectile::selectProjectile(){
                     collisionBox = projBox;
                     collisionBox.width /= 3.f;
                     collisionBox.left += 2.f * collisionBox.width;
+                    std::cout << "East" << std::endl;
                 }
             }
             break;
@@ -151,6 +160,7 @@ void Projectile::selectProjectile(){
                     collisionBox = projBox;
                     collisionBox.height /= 3.f;
                     collisionBox.top += 2.f * collisionBox.height;
+                    std::cout << "South" << std::endl;
                 }
             }
             break;
@@ -176,6 +186,7 @@ void Projectile::selectProjectile(){
                     collisionBox = projBox;
                     collisionBox.width /= 3.f;
                     collisionBox.left += 2.f * collisionBox.width;
+                    std::cout << "West" << std::endl;
                 }
             }
             break;
