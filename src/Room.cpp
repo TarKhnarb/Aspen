@@ -236,7 +236,7 @@ void Room::placeTiles(){
 /***********************
  * CheckRoomCollisions *
  ***********************/
-std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Entity& entity){
+std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Character& entity){
     
     for(const auto &door : doors){
         
@@ -251,10 +251,12 @@ std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Entity& entity){
        entity.collides(*wall, 0.f);
     }
     
-    // TODO test CanFly, when statistics
-    for(const auto &hole : holes){
+    if(!entity.getStats()->getFinalValue(CanFly)){
         
-        entity.collides(*hole, 0.f);
+        for(const auto &hole : holes){
+            
+            entity.collides(*hole, 0.f);
+        }
     }
     
     for(const auto &rock : rocks){
@@ -285,29 +287,77 @@ std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Entity& entity){
 /**************************
  * CheckMonsterCollisions *
  **************************/
-void Room::checkMonsterCollisions(Entity&){}
+void Room::checkMonsterCollisions(Character& entity){}
 
 /*****************************
  * CheckProjectileCollisions *
  *****************************/
-void Room::checkProjectileCollisions(){
+void Room::checkProjectileCollisions(Character& entity){
 
-    for(auto &proj : projectiles){
-
-        if(proj){
-
-            for(const auto &wall : walls)
-                if(proj->collides(*wall, 0.f))
-                    proj.release();
-
-
-            for(const auto &chest : chests)
-                if(proj->collides(*chest, 0.f))
-                    proj.release();
-
+    for(const auto &proj : projectiles){
+        
+        if(proj->collides(entity, 0.f)){
+            
+            //toRemove.push_back(??);
+            //entity.hit(proj.damages)
         }
     }
 }
+
+void Room::checkProjRoomCollisions(){
+    
+    std::size_t projNb = 0;
+    
+    for(const auto &proj : projectiles){
+        
+        for(const auto &wall : walls){
+            
+            if(proj->collides(*wall, 0.f)){
+                
+                toRemove.push_back(projNb);
+            }
+        }
+        
+        for(const auto &rock : rocks){
+            
+            if(proj->collides(*rock, 0.f)){
+                
+                toRemove.push_back(projNb);
+                rock->hit(1);
+            }
+        }
+        
+        for(const auto &chest : chests){
+            
+            if(proj->collides(*chest, 0.f)){
+                
+                toRemove.push_back(projNb);
+            }
+        }
+        
+        ++projNb;
+    }
+}
+
+void Room::processRequests(){
+    
+    while(toRemove.begin() != toRemove.end()){
+        
+        std::size_t index = *toRemove.begin();
+        std::cout << index << std::endl;
+        projectiles.erase(projectiles.begin() + index);
+        toRemove.erase(toRemove.begin());
+        
+        for(std::size_t &i : toRemove){
+            
+            if(index < i){
+                
+                --i;
+            }
+        }
+    }
+}
+        
 
 /**********
  * Update *
@@ -356,10 +406,8 @@ void Room::addProjectile(Projectile *proj){
 
 void Room::deleteProjectiles(){
 
-    for(auto itr = projectiles.begin(); itr != projectiles.end(); ++itr){
-
-        itr->release();
-    }
+    projectiles.resize(0);
+    toRemove.resize(0);
 }
 
 /****************

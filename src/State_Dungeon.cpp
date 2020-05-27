@@ -59,7 +59,9 @@ void State_Dungeon::update(const sf::Time &time){
 
     dungeon.getCurrentRoom()->update(time);
 
-    //dungeon.getCurrentRoom()->checkProjectileCollisions();
+    dungeon.getCurrentRoom()->checkProjRoomCollisions();
+    
+    dungeon.getCurrentRoom()->checkProjectileCollisions(Aspen);
 
     auto info = dungeon.getCurrentRoom()->checkRoomCollisions(Aspen);
 
@@ -90,6 +92,8 @@ void State_Dungeon::update(const sf::Time &time){
         default:
             break;
     }
+    
+    dungeon.getCurrentRoom()->processRequests();
 }
 
 /********

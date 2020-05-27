@@ -78,11 +78,15 @@ public: // Functions
     
     void placeTiles();
     
-    std::pair<Entity::Type, Orientation> checkRoomCollisions(Entity&);
+    std::pair<Entity::Type, Orientation> checkRoomCollisions(Character&);
     
-    void checkMonsterCollisions(Entity&);
+    void checkMonsterCollisions(Character&);
 
-    void checkProjectileCollisions();
+    void checkProjectileCollisions(Character&);
+    
+    void checkProjRoomCollisions();
+    
+    void processRequests();
 
     void update(sf::Time);
     
@@ -116,6 +120,8 @@ private: // Variables
     std::vector<std::unique_ptr<Chest>> chests;
     std::vector<std::unique_ptr<Hatch>> hatchs;
     std::vector<std::unique_ptr<Projectile>> projectiles;
+    
+    std::vector<std::size_t> toRemove;
 
     Type type;
     
