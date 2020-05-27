@@ -96,7 +96,7 @@ void Player::changeRoom(Orientation orient){
     if(file.is_open()) {
 
         std::string line;
-        for(int i = 0; i < static_cast<int>(orient); ++i){
+        for(int i = 0; i < static_cast<int>(orient) + 1; ++i){
 
             if(file.eof())
                 throw std::runtime_error("Failed to load position for orientation : " + std::to_string(static_cast<int>(orient)));
@@ -249,20 +249,6 @@ Projectile* Player::getProjectile(){
     }
     
     return new Projectile(this, projOrientation, textureMgr);
-}
-
-/*****************
- * SetProjectile *
- *****************/
-Projectile* Player::getProjectile(){
-
-    Orientation dir = projOrientation;
-    projOrientation = Orientation::None;
-
-    if(dir == Orientation::None)
-        return nullptr;
-
-    return new Projectile(this, dir, textureMgr);
 }
 
 /**************

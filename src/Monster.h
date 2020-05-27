@@ -22,8 +22,6 @@ private:
 private:
 
     std::string name;
-
-    sf::Texture texture;
     sf::Sprite sprite;
 
 };

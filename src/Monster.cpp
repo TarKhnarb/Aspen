@@ -4,7 +4,7 @@
  * Constructor *
  ***************/
 Monster::Monster(std::string name, TextureManager * txtMgr):
-        Character(name, txtMgr),
+        Character(name, Type::Monster, txtMgr),
         name(name){
 
     selectTexture();
@@ -21,5 +21,8 @@ Monster::~Monster(){}
  *****************/
 void Monster::selectTexture(){
 
+    textureMgr->requireResource(name);
+    sprite.(*textureMgr->getResource(textureName));
 
+    collisionBox = sprite.getLocalBounds();
 }

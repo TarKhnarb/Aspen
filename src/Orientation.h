@@ -3,7 +3,6 @@
 
 enum class Orientation{
 
-    None,
     North,
     East,
     South,
@@ -11,7 +10,8 @@ enum class Orientation{
     NorthEast,
     SouthEast,
     SouthWest,
-    NorthWest
+    NorthWest,
+    None
 };
 
 #endif

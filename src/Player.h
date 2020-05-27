@@ -40,8 +40,6 @@ public:
 
     Projectile* getProjectile();
     
-    Projectile* getProjectile();
-    
 private:
 
     int returnStoi(std::istringstream &ss);
