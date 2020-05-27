@@ -7,7 +7,7 @@ Projectile::Projectile(Character *owner, Orientation orient, TextureManager* txt
         Entity(txtMng, Type::Project),
         owner(owner),
         orientation(orient),
-        speed(60.f){ //owner->getFinalValue(ProjectileSpeed)){
+        speed(100.f){ //owner->getFinalValue(ProjectileSpeed)){
 
     setVelocity();
     selectProjectile();
@@ -49,6 +49,8 @@ void Projectile::update(sf::Time time){
  ***************/
 void Projectile::setVelocity(){
 
+    velocity = sf::Vector2f();
+    
     float pxMove = 200.f * (1.f + speed/100.f);
 
     switch(orientation){
@@ -67,14 +69,30 @@ void Projectile::setVelocity(){
         case Orientation::West:
             velocity.x -= pxMove;
             break;
+        
+        case Orientation::NorthEast:
+            velocity.x += pxMove / static_cast<float>(sqrt(2.f));;
+            velocity.y -= pxMove / static_cast<float>(sqrt(2.f));;
+            break;
+        
+        case Orientation::NorthWest:
+            velocity.x -= pxMove / static_cast<float>(sqrt(2.f));;
+            velocity.y -= pxMove / static_cast<float>(sqrt(2.f));;
+            break;
+        
+        case Orientation::SouthWest:
+            velocity.x -= pxMove / static_cast<float>(sqrt(2.f));;
+            velocity.y += pxMove / static_cast<float>(sqrt(2.f));;
+            break;
+        
+        case Orientation::SouthEast:
+            velocity.x += pxMove / static_cast<float>(sqrt(2.f));;
+            velocity.y += pxMove / static_cast<float>(sqrt(2.f));;
+            break;
 
         default:
             break;
     }
-    /*if(velocity.x != 0.f && velocity.y != 0.f){ // diagonal movement
-
-        velocity /= static_cast<float>(sqrt(2.f)); // normalize vector
-    }*/ // Activate when 8 orientation
 }
 
 /********************

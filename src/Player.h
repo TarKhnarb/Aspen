@@ -40,6 +40,8 @@ public:
 
     Projectile* getProjectile();
     
+    Projectile* getProjectile();
+    
 private:
 
     int returnStoi(std::istringstream &ss);
@@ -60,7 +62,9 @@ private:
     
     EventManager* evtMgr;
 
-    Projectile *projectile;
+    Orientation projOrientation;
+    int projHorizontal;
+    int projVertical;
 
     Dungeon *dungeon;
 };

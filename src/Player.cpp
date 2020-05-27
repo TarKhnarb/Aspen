@@ -10,11 +10,11 @@ Player::Player(TextureManager *txtMng, EventManager* evtMgr):
         stats("Data/Files/Characters/Aspen.cfg"),
         baseSpeed (150.f),
         evtMgr(evtMgr),
-        projectile(nullptr),
+        projHorizontal(0),
+        projVertical(0),
         dungeon(nullptr){
 
     spriteSheet.loadSheet("Data/Files/SpriteSheets/PlayerSheet.sprite");
-    
     
     sf::Vector2f size = spriteSheet.getSpriteSize();
     
@@ -31,7 +31,6 @@ Player::Player(TextureManager *txtMng, EventManager* evtMgr):
     evtMgr->addCallback(StateType::Map, "MoveRight", &Player::setVelocity, this);
     evtMgr->addCallback(StateType::Map, "MoveDown", &Player::setVelocity, this);
     evtMgr->addCallback(StateType::Map, "MoveLeft", &Player::setVelocity, this);
-
 
     evtMgr->addCallback(StateType::Dungeon, "ShootUp", &Player::setProjectile, this);
     evtMgr->addCallback(StateType::Dungeon, "ShootRight", &Player::setProjectile, this);
@@ -64,6 +63,11 @@ Player::~Player(){
  * Update *
  **********/
 void Player::update(sf::Time time){
+    
+    if(velocity.x != 0.f && velocity.y != 0.f){ // diagonal movement
+        
+        velocity /= static_cast<float>(sqrt(2.f)); // normalize vector
+    }
 
     if(velocity.x != 0.f && velocity.y != 0.f){ // diagonal movement
 
@@ -145,14 +149,106 @@ void Player::setDungeon(Dungeon *dunge){
  *****************/
 void Player::setProjectile(EventDetails *details){
 
-    if (details->name == "ShootUp")
-        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, Orientation::North, textureMgr));
-    if (details->name == "ShootRight")
-        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, Orientation::East, textureMgr));
-    if (details->name == "ShootDown")
-        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, Orientation::South, textureMgr));
-    if (details->name == "ShootLeft")
-        dungeon->getCurrentRoom()->addProjectile(new Projectile(this, Orientation::West, textureMgr));
+    if (details->name == "ShootUp"){
+        
+        if (projVertical > -1)
+            --projVertical;
+    }
+    else if (details->name == "ShootRight"){
+        
+        if(projHorizontal < 1)
+            ++projHorizontal;
+    }
+    else if (details->name == "ShootDown"){
+        
+        if(projVertical < 1)
+            ++projVertical;
+    }
+    else if (details->name == "ShootLeft"){
+        
+        if(projHorizontal > -1)
+            --projHorizontal;
+    }
+}
+
+Projectile* Player::getProjectile(){
+    
+    Orientation projOrientation = Orientation::None;
+    
+    switch(projHorizontal){
+        
+        case -1:
+            switch(projVertical){
+                
+                case -1:
+                    projOrientation = Orientation::NorthWest;
+                    break;
+                
+                case 0:
+                    projOrientation = Orientation::West;
+                    break;
+                
+                case 1:
+                    projOrientation = Orientation::SouthWest;
+                    break;
+                
+                default:
+                    break;
+            }
+            break;
+        
+        case 0:
+            switch(projVertical){
+                
+                case -1:
+                    projOrientation = Orientation::North;
+                    break;
+                
+                case 0:
+                    break;
+                
+                case 1:
+                    projOrientation = Orientation::South;
+                    break;
+                
+                default:
+                    break;
+            }
+            break;
+        
+        case 1:
+            switch(projVertical){
+                
+                case -1:
+                    projOrientation = Orientation::NorthEast;
+                    break;
+                
+                case 0:
+                    projOrientation = Orientation::East;
+                    break;
+                
+                case 1:
+                    projOrientation = Orientation::SouthEast;
+                    break;
+                
+                default:
+                    break;
+            }
+            break;
+        
+        default:
+            break;
+    }
+    
+    projHorizontal = 0;
+    projVertical = 0;
+    
+    if(projOrientation == Orientation::None){
+        
+        return nullptr;
+    }
+    
+    return new Projectile(this, projOrientation, textureMgr);
 }
 
 /*****************
