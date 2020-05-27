@@ -7,7 +7,7 @@ Projectile::Projectile(Character *owner, Orientation orient, TextureManager* txt
         Entity(txtMng, Type::Project),
         owner(owner),
         orientation(orient),
-        speed(100.f){ //owner->getFinalValue(ProjectileSpeed)){
+        speed(owner->getStats()->getFinalValue(ProjectileSpeed)){
 
     setVelocity();
     selectProjectile();
@@ -126,7 +126,6 @@ void Projectile::selectProjectile(){
                             ownerBox.top - (projBox.height + 2.f * ownerBox.height));
                     collisionBox = projBox;
                     collisionBox.height = collisionBox.height/3.f;
-                    std::cout << "North" << std::endl;
                 }
             }
             break;
@@ -152,7 +151,6 @@ void Projectile::selectProjectile(){
                     collisionBox = projBox;
                     collisionBox.width /= 3.f;
                     collisionBox.left += 2.f * collisionBox.width;
-                    std::cout << "East" << std::endl;
                 }
             }
             break;
@@ -178,7 +176,6 @@ void Projectile::selectProjectile(){
                     collisionBox = projBox;
                     collisionBox.height /= 3.f;
                     collisionBox.top += 2.f * collisionBox.height;
-                    std::cout << "South" << std::endl;
                 }
             }
             break;
@@ -204,7 +201,6 @@ void Projectile::selectProjectile(){
                     collisionBox = projBox;
                     collisionBox.width /= 3.f;
                     collisionBox.left += 2.f * collisionBox.width;
-                    std::cout << "West" << std::endl;
                 }
             }
             break;

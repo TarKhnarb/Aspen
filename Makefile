@@ -62,7 +62,7 @@ $(O)/Stage.o: $(O)/Room.o
 $(O)/Room.o: $(ENTITY)
 	g++ $(FLAGS) $(S)/Room.cpp -o $(O)/Room.o
 
-$(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Statistics.o $(O)/Projectile.o
+$(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Projectile.o
 	g++ $(FLAGS) $(S)/Player.cpp -o $(O)/Player.o
 
 $(O)/Inventory.o: $(O)/Stuff.o $(O)/Potion.o
@@ -70,12 +70,6 @@ $(O)/Inventory.o: $(O)/Stuff.o $(O)/Potion.o
 
 #$(O)/Potion.o: $(O)/StackObject.o
 #	g++ $(FLAGS) $(S)/Potion.cpp -o $(O)/Potion.o
-
-$(O)/Statistics.o: $(O)/Bonus.o
-	g++ $(FLAGS) $(S)/Statistics.cpp -o $(O)/Statistics.o
-
-$(O)/Stuff.o: $(O)/Object.o $(O)/Bonus.o
-	g++ $(FLAGS) $(S)/Stuff.cpp -o $(O)/Stuff.o
 
 $(O)/Bonus.o:
 	g++ $(FLAGS) $(S)/Bonus.cpp -o $(O)/Bonus.o
@@ -89,8 +83,14 @@ $(O)/Entity.o:
 $(O)/Object.o: $(O)/Entity.o
 	g++ $(FLAGS) $(S)/Object.cpp -o $(O)/Object.o
 
-$(O)/Character.o: $(O)/Entity.o
+$(O)/Character.o: $(O)/Entity.o $(O)/Statistics.o
 	g++ $(FLAGS) $(S)/Character.cpp -o $(O)/Character.o
+
+$(O)/Statistics.o: $(O)/Bonus.o
+	g++ $(FLAGS) $(S)/Statistics.cpp -o $(O)/Statistics.o
+
+$(O)/Stuff.o: $(O)/Object.o $(O)/Bonus.o
+	g++ $(FLAGS) $(S)/Stuff.cpp -o $(O)/Stuff.o
 
 $(O)/Projectile.o: $(O)/Entity.o $(O)/Character.o
 	g++ $(FLAGS) $(S)/Projectile.cpp -o $(O)/Projectile.o
