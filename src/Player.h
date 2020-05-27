@@ -32,8 +32,6 @@ public:
     
     void setBaseSpeed(float);
 
-    Statistics* getStats();
-
     void setDungeon(Dungeon *dunge);
 
     void setProjectile(EventDetails*);
@@ -54,13 +52,11 @@ private:
 
     SpriteSheet spriteSheet;
     
-    Statistics stats;
-    
     float baseSpeed;
     
     EventManager* evtMgr;
 
-    Orientation projOrientation;
+    sf::Time timeSinceShot;
     int projHorizontal;
     int projVertical;
 

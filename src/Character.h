@@ -6,6 +6,7 @@
 #include <SFML/System/Time.hpp>
 
 #include "Entity.h"
+#include "Statistics.h"
 
 class Character : public Entity{
 
@@ -22,6 +23,8 @@ public:
     std::string getName() const;
     sf::Vector2f getVelocity() const;
     
+    Statistics* getStats();
+    
 private:
 
     virtual void draw(sf::RenderTarget&, sf::RenderStates) const = 0;
@@ -29,6 +32,8 @@ private:
 protected:
     
     sf::Vector2f velocity;
+    
+    Statistics stats;
     
 private:
 

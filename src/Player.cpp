@@ -7,9 +7,9 @@
 Player::Player(TextureManager *txtMng, EventManager* evtMgr):
         Character("Aspen", Type::Player, txtMng),
         spriteSheet(txtMng),
-        stats("Data/Files/Characters/Aspen.cfg"),
         baseSpeed (150.f),
         evtMgr(evtMgr),
+        timeSinceShot(sf::Time::Zero),
         projHorizontal(0),
         projVertical(0),
         dungeon(nullptr){
@@ -69,16 +69,13 @@ void Player::update(sf::Time time){
         velocity /= static_cast<float>(sqrt(2.f)); // normalize vector
     }
 
-    if(velocity.x != 0.f && velocity.y != 0.f){ // diagonal movement
-
-        velocity /= static_cast<float>(sqrt(2.f)); // normalize vector
-    }
-
     move(velocity * time.asSeconds());
     
     animate();
     spriteSheet.update(time.asSeconds() * (1.f + stats.getFinalValue(Speed)/100.f)); // accelerates anim
     
+    timeSinceShot += time;
+
     velocity = sf::Vector2f(0.f, 0.f); // reset velocity for the next update loop
 }
 
@@ -128,14 +125,6 @@ void Player::setBaseSpeed(float newSpeed){
     }
 }
 
-/************
- * GetStats *
- ************/
-Statistics* Player::getStats(){
-
-    return &stats;
-}
-
 /**************
  * SetDungeon *
  **************/
@@ -173,6 +162,11 @@ void Player::setProjectile(EventDetails *details){
 
 Projectile* Player::getProjectile(){
     
+    if(timeSinceShot.asSeconds() < 60.f / stats.getFinalValue(AttackSpeed)){
+
+        return nullptr;
+    }
+
     Orientation projOrientation = Orientation::None;
     
     switch(projHorizontal){
@@ -248,6 +242,7 @@ Projectile* Player::getProjectile(){
         return nullptr;
     }
     
+    timeSinceShot = sf::Time::Zero;
     return new Projectile(this, projOrientation, textureMgr);
 }
 

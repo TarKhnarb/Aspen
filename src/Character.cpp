@@ -6,6 +6,7 @@
 Character::Character(const std::string &name, Type type, TextureManager *textureMgr):
         Entity(textureMgr, type),
         velocity(0.f, 0.f),
+        stats("Data/Files/Characters/" + name + ".cfg"),
         name(name){}
 
 /**************
@@ -27,4 +28,12 @@ std::string Character::getName() const{
 sf::Vector2f Character::getVelocity() const{
     
     return velocity;
+}
+
+/************
+ * GetStats *
+ ************/
+Statistics* Character::getStats(){
+    
+    return &stats;
 }
