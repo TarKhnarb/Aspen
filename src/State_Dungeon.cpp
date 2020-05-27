@@ -50,6 +50,12 @@ void State_Dungeon::deactivate(){}
 void State_Dungeon::update(const sf::Time &time){
     
     Aspen.update(time);
+    
+    Projectile *proj = Aspen.getProjectile();
+    if(proj){
+        
+        dungeon.getCurrentRoom()->addProjectile(proj);
+    }
 
     dungeon.getCurrentRoom()->update(time);
 

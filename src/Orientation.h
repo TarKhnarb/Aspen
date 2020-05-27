@@ -6,7 +6,12 @@ enum class Orientation{
     North,
     East,
     South,
-    West
+    West,
+    NorthEast,
+    SouthEast,
+    SouthWest,
+    NorthWest,
+    None
 };
 
 #endif
