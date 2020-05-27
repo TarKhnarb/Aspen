@@ -53,12 +53,22 @@ Player::~Player(){
     evtMgr->removeCallback(StateType::Map, "MoveRight");
     evtMgr->removeCallback(StateType::Map, "MoveDown");
     evtMgr->removeCallback(StateType::Map, "MoveLeft");
+
+    evtMgr->removeCallback(StateType::Map, "ShootUp");
+    evtMgr->removeCallback(StateType::Map, "ShootRight");
+    evtMgr->removeCallback(StateType::Map, "ShootDown");
+    evtMgr->removeCallback(StateType::Map, "ShootLeft");
 }
 
 /**********
  * Update *
  **********/
 void Player::update(sf::Time time){
+
+    if(velocity.x != 0.f && velocity.y != 0.f){ // diagonal movement
+
+        velocity /= static_cast<float>(sqrt(2.f)); // normalize vector
+    }
 
     move(velocity * time.asSeconds());
     
@@ -73,7 +83,7 @@ void Player::update(sf::Time time){
  **************/
 void Player::changeRoom(Orientation orient){
 
-    std::string filePath = "Data/Files/Dungeon/PlayerCoordonates.cfg";
+    std::string filePath = "Data/Files/Dungeon/PlayerCoordinates.cfg";
     std::ifstream file;
     file.open(filePath);
 
@@ -82,7 +92,7 @@ void Player::changeRoom(Orientation orient){
     if(file.is_open()) {
 
         std::string line;
-        for(int i = 0; i < static_cast<int>(orient) + 1; ++i){
+        for(int i = 0; i < static_cast<int>(orient); ++i){
 
             if(file.eof())
                 throw std::runtime_error("Failed to load position for orientation : " + std::to_string(static_cast<int>(orient)));
@@ -145,6 +155,20 @@ void Player::setProjectile(EventDetails *details){
         dungeon->getCurrentRoom()->addProjectile(new Projectile(this, Orientation::West, textureMgr));
 }
 
+/*****************
+ * SetProjectile *
+ *****************/
+Projectile* Player::getProjectile(){
+
+    Orientation dir = projOrientation;
+    projOrientation = Orientation::None;
+
+    if(dir == Orientation::None)
+        return nullptr;
+
+    return new Projectile(this, dir, textureMgr);
+}
+
 /**************
  * ReturnStoi *
  **************/
@@ -158,7 +182,7 @@ int Player::returnStoi(std::istringstream &ss){
 /***************
  * SetVelocity *
  ***************/
-void Player::setVelocity(EventDetails* details){
+void Player::setVelocity(EventDetails *details){
     
     float pxMove = baseSpeed * (1.f + stats.getFinalValue(Speed)/100.f);
     
@@ -177,11 +201,6 @@ void Player::setVelocity(EventDetails* details){
     if (details->name == "MoveLeft"){
         
         velocity.x -= pxMove;
-    }
-    
-    if(velocity.x != 0.f && velocity.y != 0.f){ // diagonal movement
-        
-        velocity /= static_cast<float>(sqrt(2.f)); // normalize vector
     }
 }
 

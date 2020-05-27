@@ -37,6 +37,8 @@ public:
     void setDungeon(Dungeon *dunge);
 
     void setProjectile(EventDetails*);
+
+    Projectile* getProjectile();
     
 private:
 
