@@ -1,21 +1,33 @@
 #include "Bonus.h"
 
+/***************
+ * Constructor *
+ ***************/
 Bonus::Bonus(){
     
     absolute.fill(0.f);
     relative.fill(1.f);
 }
 
-Bonus::Bonus(const std::string& filename){
+/***************
+ * Constructor *
+ ***************/
+Bonus::Bonus(const std::string &filename){
     
     loadFromFile(filename);
 }
 
-void Bonus::loadFromFile(const std::string& filename){
+/****************
+ * LoadFromFile *
+ ****************/
+void Bonus::loadFromFile(const std::string &filename){
     
     // TODO
 }
 
+/*************
+ * GetValues *
+ *************/
 sf::Vector2f Bonus::getValues(StatName stat) const{
     
     sf::Vector2f values;

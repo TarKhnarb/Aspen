@@ -52,6 +52,11 @@ Player::~Player(){
     evtMgr->removeCallback(StateType::Map, "MoveRight");
     evtMgr->removeCallback(StateType::Map, "MoveDown");
     evtMgr->removeCallback(StateType::Map, "MoveLeft");
+
+    evtMgr->removeCallback(StateType::Map, "ShootUp");
+    evtMgr->removeCallback(StateType::Map, "ShootRight");
+    evtMgr->removeCallback(StateType::Map, "ShootDown");
+    evtMgr->removeCallback(StateType::Map, "ShootLeft");
 }
 
 /**********
@@ -63,14 +68,14 @@ void Player::update(sf::Time time){
         
         velocity /= static_cast<float>(sqrt(2.f)); // normalize vector
     }
-    
+
     move(velocity * time.asSeconds());
     
     animate();
     spriteSheet.update(time.asSeconds() * (1.f + stats.getFinalValue(Speed)/100.f)); // accelerates anim
     
     timeSinceShot += time;
-    
+
     velocity = sf::Vector2f(0.f, 0.f); // reset velocity for the next update loop
 }
 
@@ -79,7 +84,7 @@ void Player::update(sf::Time time){
  **************/
 void Player::changeRoom(Orientation orient){
 
-    std::string filePath = "Data/Files/Dungeon/PlayerCoordonates.cfg";
+    std::string filePath = "Data/Files/Dungeon/PlayerCoordinates.cfg";
     std::ifstream file;
     file.open(filePath);
 
@@ -158,10 +163,10 @@ void Player::setProjectile(EventDetails *details){
 Projectile* Player::getProjectile(){
     
     if(timeSinceShot.asSeconds() < 60.f / stats.getFinalValue(AttackSpeed)){
-        
+
         return nullptr;
     }
-    
+
     Orientation projOrientation = Orientation::None;
     
     switch(projHorizontal){
@@ -254,7 +259,7 @@ int Player::returnStoi(std::istringstream &ss){
 /***************
  * SetVelocity *
  ***************/
-void Player::setVelocity(EventDetails* details){
+void Player::setVelocity(EventDetails *details){
     
     float pxMove = baseSpeed * (1.f + stats.getFinalValue(Speed)/100.f);
     
