@@ -340,6 +340,8 @@ void Room::checkProjRoomCollisions(){
 
 void Room::processRequests(){
     
+    std::unique(toRemove.begin(), toRemove.end(), std::equal_to<std::size_t>());
+    
     while(toRemove.begin() != toRemove.end()){
         
         std::size_t index = *toRemove.begin();
