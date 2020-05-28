@@ -248,7 +248,7 @@ std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Character& entity
     
     for(const auto &wall : walls){
         
-       entity.collides(*wall, 0.f);
+    entity.collides(*wall, 0.f);
     }
     
     if(!entity.getStats()->getFinalValue(CanFly)){
@@ -257,19 +257,16 @@ std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Character& entity
             
             entity.collides(*hole, 0.f);
         }
-    }
-    
-    for(const auto &rock : rocks){
         
-        if(entity.collides(*rock, 0.f) && entity.getType() == Entity::Project){
+        for(const auto &rock : rocks){
             
-            rock->hit(1);
+            entity.collides(*rock, 0.f);
         }
     }
     
     for(const auto &chest : chests){
         
-        if(entity.collides(*chest, 0.f)){
+        if(entity.collides(*chest, 0.f) && entity.getType() == Entity::Player){
             
             return std::make_pair(Entity::Chest, static_cast<Orientation>(0));
         }
@@ -277,8 +274,10 @@ std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Character& entity
 
     for(const auto &hatch : hatchs){
 
-        if(entity.collides(*hatch, 0.f))
+        if(entity.collides(*hatch, 0.f) && entity.getType() == Entity::Player){
+            
             return std::make_pair(Entity::Hatch, static_cast<Orientation>(0));
+        }
     }
     
     return std::make_pair(Entity::None, static_cast<Orientation>(0));

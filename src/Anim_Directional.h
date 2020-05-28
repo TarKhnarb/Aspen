@@ -3,7 +3,7 @@
 
 #include "Anim_Base.h"
 
-class Anim_Directional : public Anim_Base{
+class Anim_Directional: public Anim_Base{
 
 protected:
 

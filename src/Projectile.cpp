@@ -114,18 +114,20 @@ void Projectile::selectProjectile(){
                 if(owner->getType() == Type::Monster){
 
                     spriteProj.scale(0.5f, 0.5f);
-                    spriteProj.setPosition(
-                            ownerBox.left + ((ownerBox.width - projBox.width)/2.f),
-                            ownerBox.top - (projBox.height + 2.f * ownerBox.height));
                     collisionBox = projBox;
-                }
-                else{
 
                     spriteProj.setPosition(
                             ownerBox.left + ((ownerBox.width - projBox.width)/2.f),
                             ownerBox.top - (projBox.height + 2.f * ownerBox.height));
+                }
+                else{
+
                     collisionBox = projBox;
                     collisionBox.height = collisionBox.height/3.f;
+
+                    spriteProj.setPosition(
+                            ownerBox.left + ((ownerBox.width - projBox.width)/2.f),
+                            ownerBox.top - (projBox.height + 2.f * ownerBox.height));
                 }
             }
             break;
@@ -138,19 +140,21 @@ void Projectile::selectProjectile(){
                 if(owner->getType() == Type::Monster){
 
                     spriteProj.scale(0.5f, 0.5f);
-                    spriteProj.setPosition(
-                            ownerBox.left + ownerBox.width + projBox.width,
-                            ownerBox.top);
                     collisionBox = projBox;
-                }
-                else{
 
                     spriteProj.setPosition(
                             ownerBox.left + ownerBox.width + projBox.width,
                             ownerBox.top);
+                }
+                else{
+
                     collisionBox = projBox;
                     collisionBox.width /= 3.f;
                     collisionBox.left += 2.f * collisionBox.width;
+
+                    spriteProj.setPosition(
+                            ownerBox.left + ownerBox.width + projBox.width,
+                            ownerBox.top);
                 }
             }
             break;
@@ -163,19 +167,21 @@ void Projectile::selectProjectile(){
                 if(owner->getType() == Type::Monster){
 
                     spriteProj.scale(0.5f, 0.5f);
-                    spriteProj.setPosition(
-                            ownerBox.left + ((ownerBox.width + projBox.width)/2.f),
-                            ownerBox.top + projBox.height + ownerBox.height);
                     collisionBox = projBox;
-                }
-                else{
 
                     spriteProj.setPosition(
                             ownerBox.left + ((ownerBox.width + projBox.width)/2.f),
                             ownerBox.top + projBox.height + ownerBox.height);
+                }
+                else{
+
                     collisionBox = projBox;
                     collisionBox.height /= 3.f;
                     collisionBox.top += 2.f * collisionBox.height;
+
+                    spriteProj.setPosition(
+                            ownerBox.left + ((ownerBox.width + projBox.width)/2.f),
+                            ownerBox.top + projBox.height + ownerBox.height);
                 }
             }
             break;
@@ -189,6 +195,8 @@ void Projectile::selectProjectile(){
                     
                     collisionBox = projBox;
                     spriteProj.scale(0.5f, 0.5f);
+                    collisionBox = projBox;
+
                     spriteProj.setPosition(
                             ownerBox.left - projBox.width,
                             ownerBox.top + projBox.height);
@@ -213,21 +221,22 @@ void Projectile::selectProjectile(){
                 if(owner->getType() == Type::Monster){
 
                     spriteProj.scale(0.5f, 0.5f);
+                    collisionBox = projBox;
+
                     spriteProj.setPosition(
                             ownerBox.left + ownerBox.width + projBox.width,
                             ownerBox.top - projBox.height);
-                    collisionBox = projBox;
                 }
                 else{
 
+                    collisionBox.width = projBox.width/5.f;
+                    collisionBox.height = projBox.height/5.f;
+                    collisionBox.left = projBox.width - collisionBox.width;
+                    collisionBox.top = projBox.top;
+
                     spriteProj.setPosition(
                             ownerBox.left + ownerBox.width + projBox.width,
                             ownerBox.top - projBox.height);
-
-                    collisionBox.width = projBox.width/10.f;
-                    collisionBox.height = projBox.height/10.f;
-                    collisionBox.left = projBox.width - collisionBox.width;
-                    collisionBox.top = projBox.top;
                 }
             }
             break;
@@ -240,20 +249,22 @@ void Projectile::selectProjectile(){
                 if(owner->getType() == Type::Monster){
 
                     spriteProj.scale(0.5f, 0.5f);
-                    spriteProj.setPosition(
-                            ownerBox.left + ownerBox.width + projBox.width,
-                            ownerBox.top + projBox.height);
                     collisionBox = projBox;
-                }
-                else{
 
                     spriteProj.setPosition(
                             ownerBox.left + ownerBox.width + projBox.width,
                             ownerBox.top + projBox.height);
-                    collisionBox.width = projBox.width / 10.f;
-                    collisionBox.height = projBox.height / 10.f;
+                }
+                else{
+
+                    collisionBox.width = projBox.width/5.f;
+                    collisionBox.height = projBox.height/5.f;
                     collisionBox.left = projBox.width - collisionBox.width;
                     collisionBox.top = projBox.top - collisionBox.height;
+
+                    spriteProj.setPosition(
+                            ownerBox.left + ownerBox.width + projBox.width,
+                            ownerBox.top + projBox.height);
                 }
             }
             break;
@@ -266,19 +277,21 @@ void Projectile::selectProjectile(){
                 if(owner->getType() == Type::Monster){
 
                     spriteProj.scale(0.5f, 0.5f);
+                    collisionBox = projBox;
+
                     spriteProj.setPosition(
                             ownerBox.left - projBox.width,
                             ownerBox.top + projBox.height);
-                    collisionBox = projBox;
                 }
                 else{
 
-                spriteProj.setPosition(
-                        ownerBox.left - projBox.width,
-                        ownerBox.top + projBox.height);
-                collisionBox.width = projBox.width / 10.f;
-                collisionBox.height = projBox.height / 10.f;
-                collisionBox.top = projBox.top - collisionBox.height;
+                    collisionBox.width = projBox.width/5.f;
+                    collisionBox.height = projBox.height/5.f;
+                    collisionBox.top = projBox.top - collisionBox.height;
+
+                    spriteProj.setPosition(
+                            ownerBox.left - projBox.width,
+                            ownerBox.top + projBox.height);
             }
         }
         break;
@@ -291,18 +304,20 @@ void Projectile::selectProjectile(){
                 if(owner->getType() == Type::Monster){
 
                     spriteProj.scale(0.5f, 0.5f);
-                    spriteProj.setPosition(
-                            ownerBox.left - projBox.width,
-                            ownerBox.top - projBox.height);
                     collisionBox = projBox;
-                }
-                else{
 
                     spriteProj.setPosition(
                             ownerBox.left - projBox.width,
                             ownerBox.top - projBox.height);
-                    collisionBox.width = projBox.width/10.f;
-                    collisionBox.height = projBox.height/10.f;
+                }
+                else{
+
+                    collisionBox.width = projBox.width/5.f;
+                    collisionBox.height = projBox.height/5.f;
+
+                    spriteProj.setPosition(
+                            ownerBox.left - projBox.width,
+                            ownerBox.top - projBox.height);
                 }
 
         }

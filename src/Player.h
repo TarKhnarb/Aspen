@@ -21,6 +21,7 @@ class Player: public Character{
 
 public:
 
+    Player() = delete;
     Player(TextureManager*, EventManager*);
     ~Player();
 
