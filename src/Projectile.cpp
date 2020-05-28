@@ -127,7 +127,7 @@ void Projectile::selectProjectile(){
                 else{
 
                     collisionBox = projBox;
-                    collisionBox.height = collisionBox.height/3.f;
+                    collisionBox.height /= 3.f;
 
                     setPosition(ownerBox.left + ((ownerBox.width - projBox.width)/2.f), ownerBox.top - (projBox.height + 2.f * ownerBox.height));
                 }
@@ -148,8 +148,8 @@ void Projectile::selectProjectile(){
                 else{
 
                     collisionBox = projBox;
-                    collisionBox.width /= 3.f;
-                    collisionBox.left += 2.f * collisionBox.width;
+                    collisionBox.height /= 3.f;
+                    collisionBox.left -= collisionBox.height;
 
                     setPosition(ownerBox.left + ownerBox.width + projBox.width, ownerBox.top);
                 }
@@ -172,7 +172,8 @@ void Projectile::selectProjectile(){
 
                     collisionBox = projBox;
                     collisionBox.height /= 3.f;
-                    collisionBox.top += 2.f * collisionBox.height;
+                    collisionBox.top -= collisionBox.height;
+                    collisionBox.left -= collisionBox.width;
 
                     setPosition(ownerBox.left + ((ownerBox.width + projBox.width)/2.f), ownerBox.top + projBox.height + ownerBox.height);
                 }
@@ -189,15 +190,15 @@ void Projectile::selectProjectile(){
                     collisionBox = projBox;
                     scale(0.5f, 0.5f);
 
-                    setPosition(ownerBox.left - projBox.width, ownerBox.top + projBox.height);
+                    setPosition(ownerBox.left - projBox.width, ownerBox.top);
                 }
                 else{
                     
                     collisionBox = projBox;
-                    collisionBox.width /= 3.f;
-                    collisionBox.left += 2.f * collisionBox.width;
+                    collisionBox.height /= 3.f;
+                    collisionBox.top -= collisionBox.height;
 
-                    setPosition(ownerBox.left - projBox.width, ownerBox.top + projBox.height);
+                    setPosition(ownerBox.left - projBox.width, ownerBox.top + projBox.width);
                 }
             }
             break;
@@ -216,8 +217,8 @@ void Projectile::selectProjectile(){
                 }
                 else{
 
-                    collisionBox.width = projBox.width/5.f;
-                    collisionBox.height = projBox.height/5.f;
+                    collisionBox.width = 10.f;
+                    collisionBox.height = 10.f;
                     collisionBox.left = projBox.width - collisionBox.width;
                     collisionBox.top = projBox.top;
 
@@ -240,9 +241,9 @@ void Projectile::selectProjectile(){
                 }
                 else{
 
-                    collisionBox.width = projBox.width/5.f;
-                    collisionBox.height = projBox.height/5.f;
-                    collisionBox.left = projBox.width - collisionBox.width;
+                    collisionBox.width = 10.f;
+                    collisionBox.height = 10.f;
+                    collisionBox.left = projBox.width - 2.f*collisionBox.width;
                     collisionBox.top = projBox.top - collisionBox.height;
 
                     setPosition(ownerBox.left + ownerBox.width + projBox.width, ownerBox.top + projBox.height);
@@ -264,9 +265,10 @@ void Projectile::selectProjectile(){
                 }
                 else{
 
-                    collisionBox.width = projBox.width/5.f;
-                    collisionBox.height = projBox.height/5.f;
+                    collisionBox.width = 10.f;
+                    collisionBox.height = 10.f;
                     collisionBox.top = projBox.top - collisionBox.height;
+                    collisionBox.left = projBox.left;
 
                     setPosition(ownerBox.left - projBox.width, ownerBox.top + projBox.height);
             }
@@ -287,8 +289,10 @@ void Projectile::selectProjectile(){
                 }
                 else{
 
-                    collisionBox.width = projBox.width/5.f;
-                    collisionBox.height = projBox.height/5.f;
+                    collisionBox.width = 10.f;
+                    collisionBox.height = 10.f;
+                    collisionBox.left = projBox.left;
+                    collisionBox.top = projBox.top;
 
                     setPosition(ownerBox.left - projBox.width, ownerBox.top - projBox.height);
                 }
