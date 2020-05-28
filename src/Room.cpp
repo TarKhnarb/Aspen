@@ -328,7 +328,8 @@ void Room::checkProjectileCollisions(Character& entity){
 
 void Room::processRequests(){
     
-    std::unique(toRemove.begin(), toRemove.end(), std::equal_to<std::size_t>());
+    auto uniqueEnd = std::unique(toRemove.begin(), toRemove.end(), std::equal_to<std::size_t>());
+    toRemove.erase(uniqueEnd, toRemove.end());
     
     while(toRemove.begin() != toRemove.end()){
         
@@ -339,7 +340,7 @@ void Room::processRequests(){
         
         for(std::size_t &i : toRemove){
             
-            if(index < i)
+            if(i > index)
                 --i;
         }
     }
@@ -465,13 +466,11 @@ void Room::placeWalls(){
 
 void Room::checkProjRoomCollisions(){
     
-    std::size_t index = 0;
-    
-    for(const auto &proj : projectiles){
+    for(std::size_t index = 0; index < toRemove.size(); ++index){
         
         for(const auto &wall : walls){
             
-            if(proj->collides(*wall, 0.f)){
+            if(projectiles[index]->collides(*wall, 0.f)){
                 
                 toRemove.push_back(index);
             }
@@ -479,7 +478,7 @@ void Room::checkProjRoomCollisions(){
         
         for(const auto &rock : rocks){
             
-            if(proj->collides(*rock, 0.f)){
+            if(projectiles[index]->collides(*rock, 0.f)){
                 
                 toRemove.push_back(index);
                 rock->hit(1);
@@ -488,13 +487,11 @@ void Room::checkProjRoomCollisions(){
         
         for(const auto &chest : chests){
             
-            if(proj->collides(*chest, 0.f)){
+            if(projectiles[index]->collides(*chest, 0.f)){
                 
                 toRemove.push_back(index);
             }
         }
-        
-        ++index;
     }
 }
 
