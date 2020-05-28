@@ -121,8 +121,3 @@ void State_Dungeon::centerPlayer(){
     sf::Vector2u windowSize = stateMgr->getContext()->wind->getWindow()->getSize();
     Aspen.setPosition((windowSize.x / 2.f) - 15.f, (windowSize.y / 2.f) - 30.f);
 }
-
-void State_Dungeon::setProjectile(){
-
-
-}

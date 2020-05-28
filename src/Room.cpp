@@ -302,6 +302,26 @@ void Room::checkProjectileCollisions(Character& entity){
             //entity.hit(proj.damages)
         }
         
+        for(const auto &rock : rocks){
+
+            if(proj->getOwner()->getType() == Entity::Player) {
+
+                if (proj->collides(*rock, 0.f)) {
+
+                    toRemove.push_back(index);
+                    rock->hit(1);
+                }
+            }
+        }
+        
+        for(const auto &chest : chests){
+            
+            if(proj->collides(*chest, 0.f)){
+                
+                toRemove.push_back(index);
+            }
+        }
+        
         ++index;
     }
 }
@@ -319,10 +339,8 @@ void Room::processRequests(){
         
         for(std::size_t &i : toRemove){
             
-            if(index < i){
-                
+            if(index < i)
                 --i;
-            }
         }
     }
 }

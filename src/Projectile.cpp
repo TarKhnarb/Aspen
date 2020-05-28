@@ -111,7 +111,6 @@ void Projectile::selectProjectile(){
 
                 sf::FloatRect projBox = spriteProj.getGlobalBounds();
                 sf::FloatRect ownerBox = owner->getBox();
-                
                 if(owner->getType() == Type::Monster){
 
                     collisionBox = projBox;
@@ -122,7 +121,7 @@ void Projectile::selectProjectile(){
                 else{
 
                     collisionBox = projBox;
-                    collisionBox.height = collisionBox.height/3.f;
+                    collisionBox.height /= 3.f;
 
                     setPosition(ownerBox.left + ((ownerBox.width - projBox.width)/2.f), ownerBox.top - (projBox.height + 2.f * ownerBox.height));
                 }
@@ -134,7 +133,6 @@ void Projectile::selectProjectile(){
                 setRotation(90.f);
                 sf::FloatRect projBox = spriteProj.getGlobalBounds();
                 sf::FloatRect ownerBox = owner->getBox();
-                
                 if(owner->getType() == Type::Monster){
 
                     collisionBox = projBox;
@@ -145,8 +143,8 @@ void Projectile::selectProjectile(){
                 else{
 
                     collisionBox = projBox;
-                    collisionBox.width /= 3.f;
-                    collisionBox.left += 2.f * collisionBox.width;
+                    collisionBox.height /= 3.f;
+                    collisionBox.left -= collisionBox.height;
 
                     setPosition(ownerBox.left + ownerBox.width + projBox.width, ownerBox.top);
                 }
@@ -158,7 +156,6 @@ void Projectile::selectProjectile(){
                 setRotation(180.f);
                 sf::FloatRect projBox = spriteProj.getGlobalBounds();
                 sf::FloatRect ownerBox = owner->getBox();
-                
                 if(owner->getType() == Type::Monster){
 
                     collisionBox = projBox;
@@ -170,7 +167,8 @@ void Projectile::selectProjectile(){
 
                     collisionBox = projBox;
                     collisionBox.height /= 3.f;
-                    collisionBox.top += 2.f * collisionBox.height;
+                    collisionBox.top -= collisionBox.height;
+                    collisionBox.left -= collisionBox.width;
 
                     setPosition(ownerBox.left + ((ownerBox.width + projBox.width)/2.f), ownerBox.top + projBox.height + ownerBox.height);
                 }
@@ -182,21 +180,20 @@ void Projectile::selectProjectile(){
                 setRotation(270.f);
                 sf::FloatRect projBox = spriteProj.getGlobalBounds();
                 sf::FloatRect ownerBox = owner->getBox();
-                
                 if(owner->getType() == Type::Monster){
                     
                     collisionBox = projBox;
                     scale(0.5f, 0.5f);
 
-                    setPosition(ownerBox.left - projBox.width, ownerBox.top + projBox.height);
+                    setPosition(ownerBox.left - projBox.width, ownerBox.top);
                 }
                 else{
                     
                     collisionBox = projBox;
-                    collisionBox.width /= 3.f;
-                    collisionBox.left += 2.f * collisionBox.width;
-                    
-                    setPosition(ownerBox.left - projBox.width, ownerBox.top + projBox.height);
+                    collisionBox.height /= 3.f;
+                    collisionBox.top -= collisionBox.height;
+
+                    setPosition(ownerBox.left - projBox.width, ownerBox.top + projBox.width);
                 }
             }
             break;
@@ -206,7 +203,6 @@ void Projectile::selectProjectile(){
                 setRotation(45.f);
                 sf::FloatRect projBox = spriteProj.getGlobalBounds();
                 sf::FloatRect ownerBox = owner->getBox();
-                
                 if(owner->getType() == Type::Monster){
 
                     collisionBox = projBox;
@@ -216,8 +212,8 @@ void Projectile::selectProjectile(){
                 }
                 else{
 
-                    collisionBox.width = projBox.width/5.f;
-                    collisionBox.height = projBox.height/5.f;
+                    collisionBox.width = 10.f;
+                    collisionBox.height = 10.f;
                     collisionBox.left = projBox.width - collisionBox.width;
                     collisionBox.top = projBox.top;
 
@@ -231,7 +227,6 @@ void Projectile::selectProjectile(){
                 setRotation(135.f);
                 sf::FloatRect projBox = spriteProj.getGlobalBounds();
                 sf::FloatRect ownerBox = owner->getBox();
-                
                 if(owner->getType() == Type::Monster){
 
                     collisionBox = projBox;
@@ -241,9 +236,9 @@ void Projectile::selectProjectile(){
                 }
                 else{
 
-                    collisionBox.width = projBox.width/5.f;
-                    collisionBox.height = projBox.height/5.f;
-                    collisionBox.left = projBox.width - collisionBox.width;
+                    collisionBox.width = 10.f;
+                    collisionBox.height = 10.f;
+                    collisionBox.left = projBox.width - 2.f*collisionBox.width;
                     collisionBox.top = projBox.top - collisionBox.height;
 
                     setPosition(ownerBox.left + ownerBox.width + projBox.width, ownerBox.top + projBox.height);
@@ -256,7 +251,6 @@ void Projectile::selectProjectile(){
                 setRotation(225.f);
                 sf::FloatRect projBox = spriteProj.getGlobalBounds();
                 sf::FloatRect ownerBox = owner->getBox();
-                
                 if(owner->getType() == Type::Monster){
 
                     collisionBox = projBox;
@@ -266,9 +260,10 @@ void Projectile::selectProjectile(){
                 }
                 else{
 
-                    collisionBox.width = projBox.width/5.f;
-                    collisionBox.height = projBox.height/5.f;
+                    collisionBox.width = 10.f;
+                    collisionBox.height = 10.f;
                     collisionBox.top = projBox.top - collisionBox.height;
+                    collisionBox.left = projBox.left;
 
                     setPosition(ownerBox.left - projBox.width, ownerBox.top + projBox.height);
             }
@@ -280,7 +275,6 @@ void Projectile::selectProjectile(){
                 setRotation(315.f);
                 sf::FloatRect projBox = spriteProj.getGlobalBounds();
                 sf::FloatRect ownerBox = owner->getBox();
-                
                 if(owner->getType() == Type::Monster){
 
                     collisionBox = projBox;
@@ -290,8 +284,10 @@ void Projectile::selectProjectile(){
                 }
                 else{
 
-                    collisionBox.width = projBox.width/5.f;
-                    collisionBox.height = projBox.height/5.f;
+                    collisionBox.width = 10.f;
+                    collisionBox.height = 10.f;
+                    collisionBox.left = projBox.left;
+                    collisionBox.top = projBox.top;
 
                     setPosition(ownerBox.left - projBox.width, ownerBox.top - projBox.height);
                 }
@@ -310,9 +306,7 @@ void Projectile::selectProjectile(){
 void Projectile::draw(sf::RenderTarget &target, sf::RenderStates states) const{
     
     sf::RectangleShape rect ({collisionBox.width, collisionBox.height});
-    
     rect.setPosition(collisionBox.left, collisionBox.top);
-    
     rect.setFillColor(sf::Color::Transparent);
     rect.setOutlineColor(sf::Color::Red);
     rect.setOutlineThickness(-1.f);
