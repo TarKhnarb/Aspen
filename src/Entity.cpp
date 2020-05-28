@@ -42,6 +42,7 @@ bool Entity::collides(Entity &other, float push){
         if(intersect.x > intersect.y){ // we move along the x-axis
             
             if(delta.x > 0.f){ // this is on the left side of other
+
                 move(intersect.x * (1 - push), 0.f);
                 other.move(-intersect.x * push, 0.f);
             }

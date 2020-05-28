@@ -263,19 +263,19 @@ void Player::setVelocity(EventDetails *details){
     
     float pxMove = baseSpeed * (1.f + stats.getFinalValue(Speed)/100.f);
     
-    if (details->name == "MoveUp"){
+    if(details->name == "MoveUp"){
         
         velocity.y -= pxMove;
     }
-    if (details->name == "MoveRight"){
+    if(details->name == "MoveRight"){
         
         velocity.x += pxMove;
     }
-    if (details->name == "MoveDown"){
+    if(details->name == "MoveDown"){
         
         velocity.y += pxMove;
     }
-    if (details->name == "MoveLeft"){
+    if(details->name == "MoveLeft"){
         
         velocity.x -= pxMove;
     }
