@@ -318,11 +318,14 @@ void Room::checkProjRoomCollisions(){
         }
         
         for(const auto &rock : rocks){
-            
-            if(proj->collides(*rock, 0.f)){
-                
-                toRemove.push_back(projNb);
-                rock->hit(1);
+
+            if(proj->getOwner()->getType() == Entity::Player) {
+
+                if (proj->collides(*rock, 0.f)) {
+
+                    toRemove.push_back(projNb);
+                    rock->hit(1);
+                }
             }
         }
         
@@ -349,10 +352,8 @@ void Room::processRequests(){
         
         for(std::size_t &i : toRemove){
             
-            if(index < i){
-                
+            if(index < i)
                 --i;
-            }
         }
     }
 }

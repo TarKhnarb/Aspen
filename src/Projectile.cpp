@@ -326,6 +326,9 @@ void Projectile::selectProjectile(){
         default:
             break;
     }
+
+    std::cout << collisionBox.left << " / " << collisionBox.top << std::endl;
+
 }
 
 /********
@@ -334,9 +337,7 @@ void Projectile::selectProjectile(){
 void Projectile::draw(sf::RenderTarget &target, sf::RenderStates states) const{
     
     sf::RectangleShape rect ({collisionBox.width, collisionBox.height});
-    std::cout << collisionBox.width << collisionBox.height << std::endl;
     rect.setPosition(collisionBox.left, collisionBox.top);
-    std::cout << collisionBox.left << collisionBox.top << std::endl;
     rect.setFillColor(sf::Color::Transparent);
     rect.setOutlineColor(sf::Color::Red);
     rect.setOutlineThickness(-1.f);
