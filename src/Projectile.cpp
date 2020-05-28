@@ -104,12 +104,6 @@ void Projectile::selectProjectile(){
 
     textureMgr->requireResource(textureName);
     spriteProj.setTexture(*textureMgr->getResource(textureName));
-    
-    sf::FloatRect box = owner->getBox();
-    
-    std::cout << box.left << " " << box.top << std::endl;
-    std::cout << box.width << " " << box.height << std::endl;
-    std::cout << std::endl;
 
     switch(orientation){
 
@@ -145,6 +139,7 @@ void Projectile::selectProjectile(){
 
                     collisionBox = projBox;
                     scale(0.5f, 0.5f);
+                    
                     setPosition(ownerBox.left + ownerBox.width + projBox.width, ownerBox.top);
                 }
                 else{
@@ -307,9 +302,6 @@ void Projectile::selectProjectile(){
         default:
             break;
     }
-    
-    std::cout << collisionBox.left << " " << collisionBox.top << std::endl;
-    std::cout << collisionBox.width << " " << collisionBox.height << std::endl;
 }
 
 /********

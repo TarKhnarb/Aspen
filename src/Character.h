@@ -20,6 +20,10 @@ public:
 
     virtual void update(sf::Time) = 0;
     
+    void hit(float);
+    
+    bool isAlive() const;
+    
     std::string getName() const;
     sf::Vector2f getVelocity() const;
     

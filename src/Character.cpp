@@ -14,6 +14,16 @@ Character::Character(const std::string &name, Type type, TextureManager *texture
  **************/
 Character::~Character(){}
 
+void Character::hit(float damages){
+    
+    stats.modify(Life, -damages);
+}
+
+bool Character::isAlive() const{
+    
+    return (stats.getFinalValue(Life) > 0.f);
+}
+
 /***********
  * GetName *
  ***********/

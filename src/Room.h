@@ -85,8 +85,6 @@ public: // Functions
 
     void checkProjectileCollisions(Character&);
     
-    void checkProjRoomCollisions();
-    
     void processRequests();
 
     void update(sf::Time);
@@ -104,10 +102,12 @@ private:
     std::string getTilesPath(int roomId); // return Room path witch type corresponding
 
     void placeWalls();
-
-    int returnStoi(std::istringstream &ss);
+    
+    void checkProjRoomCollisions();
 
     void draw(sf::RenderTarget&, sf::RenderStates) const override;
+    
+    int returnStoi(std::istringstream &ss);
     
 private: // Variables
     

@@ -22,6 +22,9 @@ public:
     
     void loadFromFile(const std::string&);
     
+    void resetLife();
+    void modify(StatName, float);
+    
     float getBaseValue(StatName) const;
     float getFinalValue(StatName) const;
     
@@ -30,7 +33,13 @@ public:
     
 private:
     
+    void updateFinal();
+    void updateBase();
+    
+private:
+    
     std::array<float, StatCount> values;
+    std::array<float, StatCount> finals;
     std::vector<Bonus*> bonuses;
 };
 

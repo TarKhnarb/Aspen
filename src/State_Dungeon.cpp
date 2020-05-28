@@ -58,12 +58,10 @@ void State_Dungeon::update(const sf::Time &time){
     }
 
     dungeon.getCurrentRoom()->update(time);
-
-    //dungeon.getCurrentRoom()->checkProjRoomCollisions();
     
-    //dungeon.getCurrentRoom()->checkProjectileCollisions(Aspen);
+    dungeon.getCurrentRoom()->checkProjectileCollisions(Aspen);
 
-    auto info = dungeon.getCurrentRoom()->checkRoomCollisions(Aspen);
+    std::pair<Entity::Type, Orientation> info = dungeon.getCurrentRoom()->checkRoomCollisions(Aspen);
 
     switch(info.first){
         
@@ -93,7 +91,7 @@ void State_Dungeon::update(const sf::Time &time){
             break;
     }
     
-    //dungeon.getCurrentRoom()->processRequests();
+    dungeon.getCurrentRoom()->processRequests();
 }
 
 /********

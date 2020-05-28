@@ -293,48 +293,16 @@ void Room::checkMonsterCollisions(Character& entity){}
  *****************************/
 void Room::checkProjectileCollisions(Character& entity){
 
+    std::size_t index = 0;
     for(const auto &proj : projectiles){
         
         if(proj->collides(entity, 0.f)){
             
-            //toRemove.push_back(??);
+            toRemove.push_back(index);
             //entity.hit(proj.damages)
         }
-    }
-}
-
-void Room::checkProjRoomCollisions(){
-    
-    std::size_t projNb = 0;
-    
-    for(const auto &proj : projectiles){
         
-        for(const auto &wall : walls){
-            
-            if(proj->collides(*wall, 0.f)){
-                
-                toRemove.push_back(projNb);
-            }
-        }
-        
-        for(const auto &rock : rocks){
-            
-            if(proj->collides(*rock, 0.f)){
-                
-                toRemove.push_back(projNb);
-                rock->hit(1);
-            }
-        }
-        
-        for(const auto &chest : chests){
-            
-            if(proj->collides(*chest, 0.f)){
-                
-                toRemove.push_back(projNb);
-            }
-        }
-        
-        ++projNb;
+        ++index;
     }
 }
 
@@ -345,7 +313,7 @@ void Room::processRequests(){
     while(toRemove.begin() != toRemove.end()){
         
         std::size_t index = *toRemove.begin();
-        std::cout << index << std::endl;
+        
         projectiles.erase(projectiles.begin() + index);
         toRemove.erase(toRemove.begin());
         
@@ -371,6 +339,8 @@ void Room::update(sf::Time time){
             proj->update(time);
         }
     }
+    
+    checkProjRoomCollisions();
 }
 
 /*************
@@ -475,14 +445,39 @@ void Room::placeWalls(){
     file.close();
 }
 
-/**************
- * ReturnStoi *
- **************/
-int Room::returnStoi(std::istringstream &ss){
-
-    std::string result;
-    std::getline(ss, result, ',');
-    return std::stoi(result);
+void Room::checkProjRoomCollisions(){
+    
+    std::size_t index = 0;
+    
+    for(const auto &proj : projectiles){
+        
+        for(const auto &wall : walls){
+            
+            if(proj->collides(*wall, 0.f)){
+                
+                toRemove.push_back(index);
+            }
+        }
+        
+        for(const auto &rock : rocks){
+            
+            if(proj->collides(*rock, 0.f)){
+                
+                toRemove.push_back(index);
+                rock->hit(1);
+            }
+        }
+        
+        for(const auto &chest : chests){
+            
+            if(proj->collides(*chest, 0.f)){
+                
+                toRemove.push_back(index);
+            }
+        }
+        
+        ++index;
+    }
 }
 
 /********
@@ -523,4 +518,14 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const{
             target.draw(*proj, states);
         }
     }
+}
+
+/**************
+ * ReturnStoi *
+ **************/
+int Room::returnStoi(std::istringstream &ss){
+
+    std::string result;
+    std::getline(ss, result, ',');
+    return std::stoi(result);
 }

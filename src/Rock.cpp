@@ -29,6 +29,9 @@ void Rock::hit(unsigned damage){
 
         life = 0;
         
+        collisionBox.width = 0.f;
+        collisionBox.height = 0.f;
+        
         textureMgr->requireResource("BrokenRock");
         sprite.setTexture(*textureMgr->getResource("BrokenRock"));
         textureMgr->releaseResource(textureName);
