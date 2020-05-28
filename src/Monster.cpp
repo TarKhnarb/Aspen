@@ -22,7 +22,7 @@ Monster::~Monster(){}
 void Monster::selectTexture(){
 
     textureMgr->requireResource(name);
-    sprite.(*textureMgr->getResource(textureName));
+    sprite.setTexture(*textureMgr->getResource(textureName));
 
     collisionBox = sprite.getLocalBounds();
 }

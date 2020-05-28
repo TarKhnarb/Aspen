@@ -186,21 +186,21 @@ void Projectile::selectProjectile(){
                 sf::FloatRect projBox = spriteProj.getGlobalBounds();
                 sf::FloatRect ownerBox = owner->getBox();
                 if(owner->getType() == Type::Monster){
-
+                    
+                    collisionBox = projBox;
                     spriteProj.scale(0.5f, 0.5f);
                     spriteProj.setPosition(
                             ownerBox.left - projBox.width,
                             ownerBox.top + projBox.height);
-                    collisionBox = projBox;
                 }
                 else{
-
-                    spriteProj.setPosition(
-                            ownerBox.left - projBox.width,
-                            ownerBox.top + projBox.height);
+                    
                     collisionBox = projBox;
                     collisionBox.width /= 3.f;
                     collisionBox.left += 2.f * collisionBox.width;
+                    spriteProj.setPosition(
+                            ownerBox.left - projBox.width,
+                            ownerBox.top + projBox.height);
                 }
             }
             break;
@@ -317,7 +317,16 @@ void Projectile::selectProjectile(){
  * Draw *
  ********/
 void Projectile::draw(sf::RenderTarget &target, sf::RenderStates states) const{
-
+    
+    sf::RectangleShape rect ({collisionBox.width, collisionBox.height});
+    std::cout << collisionBox.width << collisionBox.height << std::endl;
+    rect.setPosition(collisionBox.left, collisionBox.top);
+    std::cout << collisionBox.left << collisionBox.top << std::endl;
+    rect.setFillColor(sf::Color::Transparent);
+    rect.setOutlineColor(sf::Color::Red);
+    rect.setOutlineThickness(-1.f);
+    target.draw(rect, states);
+    
     states.transform *= getTransform();
     target.draw(spriteProj, states);
 }

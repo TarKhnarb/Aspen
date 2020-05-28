@@ -163,6 +163,9 @@ void Player::setProjectile(EventDetails *details){
 Projectile* Player::getProjectile(){
     
     if(timeSinceShot.asSeconds() < 60.f / stats.getFinalValue(AttackSpeed)){
+        
+        projHorizontal = 0;
+        projVertical = 0;
 
         return nullptr;
     }
