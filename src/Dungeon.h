@@ -16,7 +16,7 @@ class Dungeon{
 public:
 
     Dungeon() = delete;
-    Dungeon(TextureManager*); // Lit les information necessaire et les stock dans Informations
+    Dungeon(SharedContext*); // Lit les information necessaire et les stock dans Informations
 
 public:
 
@@ -61,7 +61,7 @@ private:
 
     std::string filePath;
     
-    TextureManager *textureMgr;
+    SharedContext *context;
 };
 
 #endif

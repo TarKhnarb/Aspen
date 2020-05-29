@@ -6,7 +6,7 @@
  ***************/
 State_Dungeon::State_Dungeon(StateManager* stateMgr):
         BaseState(stateMgr),
-        dungeon(stateMgr->getContext()->textureManager),
+        dungeon(stateMgr->getContext()),
         Aspen(*stateMgr->getContext()->aspen){
 
     Aspen.setDungeon(&dungeon);

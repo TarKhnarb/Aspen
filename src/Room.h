@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <functional>
 
+#include "SharedContext.h"
 #include "Rock.h"
 #include "Hole.h"
 #include "Chest.h"
@@ -65,7 +66,7 @@ public:
 public:
 
     Room() = delete;
-    Room(TextureManager*, Type roomType = Type::Common);
+    Room(SharedContext*, Type roomType = Type::Common);
     ~Room();
 
 public: // Functions
@@ -80,6 +81,8 @@ public: // Functions
     
     void placeTiles();
     
+    void update(sf::Time);
+    
     std::pair<Entity::Type, Orientation> checkRoomCollisions(Character&);
     
     void checkMonsterCollisions(Character&);
@@ -87,8 +90,6 @@ public: // Functions
     void checkProjectileCollisions(Character&);
     
     void processRequests();
-
-    void update(sf::Time);
     
     void openDoors();
 
@@ -122,11 +123,13 @@ private: // Variables
     std::vector<std::unique_ptr<Chest>> chests;
     std::vector<std::unique_ptr<Hatch>> hatchs;
     std::vector<std::unique_ptr<Projectile>> projectiles;
+    std::vector<std::unique_ptr<Monster>> monsters;
     
     std::vector<std::size_t> toRemove;
 
     Type type;
     
+    SharedContext *context;
     TextureManager *textureMgr;
 };
 

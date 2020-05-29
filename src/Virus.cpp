@@ -4,7 +4,8 @@ Virus::Virus(Character *target, TextureManager* txtMgr):
     Monster("Virus", target, txtMgr),
     stateTime(sf::Time::Zero),
     isMoving(false),
-    dashesNb(0u){
+    dashesNb(0u),
+    travelled(0.f){
         
     calculateDestination();
 }
@@ -37,14 +38,17 @@ void Virus::update(sf::Time dt){
     
     if(isMoving){
         
-        move(velocity);
+        sf::Vector2f realMove = velocity * dt.asSeconds();
+        move(realMove);
         
-        sf::Vector2f dist = getDistance();
-        float fDist = sqrt(dist.x * dist.x + dist.y * dist.y);
+        float distance = sqrt(realMove.x * realMove.x + realMove.y * realMove.y);
+        travelled += distance;
         
-        if(fDist <= 8.f){ // totally arbitrary
+        if(travelled >= 100.f * (1.f + stats.getFinalValue(Speed)/100.f)){
             
             ++dashesNb;
+            travelled = 0.f;
+            
             calculateDestination();
         }
     }
@@ -76,8 +80,8 @@ void Virus::calculateDestination(){
     
     destination = target->getPosition();
     
-    direction = getDistance();
-    direction /= (direction.x * direction.x + direction.y * direction.y); // normalize the vector
+    sf::Vector2f direction = getDistance();
+    direction /= static_cast<float>(sqrt(direction.x * direction.x + direction.y * direction.y)); // normalize the vector
     
     velocity = direction * getBaseSpeed() * (1.f + stats.getFinalValue(Speed)/100.f); // move
 }

@@ -32,8 +32,9 @@ private:
     
     unsigned dashesNb;
     
+    float travelled;
+    
     sf::Vector2f destination;
-    sf::Vector2f direction; // 1-unit vector
 };
 
 #endif

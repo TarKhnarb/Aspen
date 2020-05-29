@@ -4,7 +4,7 @@ S = src
 FLAGS = -c -Wall
 
 STAT_O = $(O)/State_Dungeon.o $(O)/State_GamePause.o $(O)/State_Map.o $(O)/State_GameOver.o $(O)/State_Statistics.o
-ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Projectile.o $(O)/Stuff.o #$(O)/Potion.o #$(O)/StackObject.o $(O)/Virus.o
+ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Projectile.o $(O)/Stuff.o $(O)/Virus.o #$(O)/Potion.o #$(O)/StackObject.o
 
 
 all: $(O) $(B) $(O)/Aspen.o

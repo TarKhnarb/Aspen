@@ -15,7 +15,7 @@ public:
 
     Stage() = delete;
 
-    Stage(unsigned size, unsigned minRoom, unsigned maxRoom, TextureManager*);
+    Stage(unsigned size, unsigned minRoom, unsigned maxRoom, SharedContext*);
 
 public:
 
@@ -49,7 +49,7 @@ private:
 
     unsigned maxRoomCount;
     
-    TextureManager* textureMgr;
+    SharedContext *context;
 
     // TODO visited rooms (for minimap)
 };

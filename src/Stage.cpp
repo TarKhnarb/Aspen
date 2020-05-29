@@ -3,11 +3,11 @@
 /***************
  * Constructor *
  ***************/
-Stage::Stage(unsigned size, unsigned minRoom, unsigned maxRoom, TextureManager* textureMgr):
+Stage::Stage(unsigned size, unsigned minRoom, unsigned maxRoom, SharedContext *shared):
         stageSize(size),
         minRoomCount(minRoom),
         maxRoomCount(maxRoom),
-        textureMgr(textureMgr){
+        context(shared){
 
     if(maxRoom >= size*size)
         throw std::invalid_argument("Stage::Stage() : Number of rooms is too big for the given size");
@@ -52,7 +52,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                     if ((roomsCnt < roomsNb - 2) && (rand()%entropy == entropy - 1)){ // Place une salle seulement si le mod est différent de 0
 
-                        roomMap[i][mid - k].reset(new Room(textureMgr));
+                        roomMap[i][mid - k].reset(new Room(context));
                         ++roomsCnt;
                     }
                 }
@@ -62,7 +62,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                 if((roomsCnt < roomsNb - 2) && (rand()%entropy == entropy - 1)){
 
-                    roomMap[mid - k][mid - k].reset(new Room(textureMgr));
+                    roomMap[mid - k][mid - k].reset(new Room(context));
                     ++roomsCnt;
                 }
             }
@@ -73,7 +73,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                     if((roomsCnt < roomsNb - 2) && (rand()%entropy == entropy - 1)){
 
-                        roomMap[mid + k][j].reset(new Room(textureMgr));
+                        roomMap[mid + k][j].reset(new Room(context));
                         ++roomsCnt;
                     }
                 }
@@ -85,7 +85,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                     if((roomsCnt < roomsNb - 2) && (rand()%entropy == entropy - 1)){
 
-                        roomMap[mid - k][j].reset(new Room(textureMgr));
+                        roomMap[mid - k][j].reset(new Room(context));
                         ++roomsCnt;
                     }
                 }
@@ -97,7 +97,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                     if((roomsCnt < roomsNb - 2) && (rand()%entropy == entropy - 1)){
 
-                        roomMap[i][mid + k].reset(new Room(textureMgr));
+                        roomMap[i][mid + k].reset(new Room(context));
                         ++roomsCnt;
                     }
                 }
@@ -112,7 +112,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                         if((roomsCnt == roomsNb - 2) && (rand()%entropy == entropy - 1)){ // Place une salle seulement si le mod est différent de 0
 
-                            roomMap[i][mid - k].reset(new Room(textureMgr, Room::Boost));
+                            roomMap[i][mid - k].reset(new Room(context, Room::Boost));
                             ++roomsCnt;
                         }
                     }
@@ -122,7 +122,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                     if((roomsCnt == roomsNb - 2) && (rand()%entropy == entropy - 1)){
 
-                        roomMap[mid - k][mid - k].reset(new Room(textureMgr, Room::Boost));
+                        roomMap[mid - k][mid - k].reset(new Room(context, Room::Boost));
                         ++roomsCnt;
                     }
                 }
@@ -133,7 +133,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                         if((roomsCnt == roomsNb - 2) && (rand()%entropy == entropy - 1)){
 
-                            roomMap[mid + k][j].reset(new Room(textureMgr, Room::Boost));
+                            roomMap[mid + k][j].reset(new Room(context, Room::Boost));
                             ++roomsCnt;
                         }
                     }
@@ -145,7 +145,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                         if((roomsCnt == roomsNb - 2) && (rand()%entropy == entropy - 1)){
 
-                            roomMap[mid - k][j].reset(new Room(textureMgr, Room::Boost));
+                            roomMap[mid - k][j].reset(new Room(context, Room::Boost));
                             ++roomsCnt;
                         }
                     }
@@ -157,7 +157,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                         if((roomsCnt == roomsNb - 2) && (rand()%entropy == entropy - 1)){
 
-                            roomMap[i][mid + k].reset(new Room(textureMgr, Room::Boost));
+                            roomMap[i][mid + k].reset(new Room(context, Room::Boost));
                             roomsCnt ++;
                         }
                     }
@@ -174,7 +174,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                         if((roomsCnt == roomsNb - 1) && (rand()%entropy == entropy - 1)){ // Place une salle seulement si le mod est différent de 0
 
-                            roomMap[i][mid - k].reset(new Room(textureMgr, Room::Boss));
+                            roomMap[i][mid - k].reset(new Room(context, Room::Boss));
                             ++roomsCnt;
                         }
                     }
@@ -184,7 +184,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                     if((roomsCnt == roomsNb - 1) && (rand()%entropy == entropy - 1)){
 
-                        roomMap[mid - k][mid - k].reset(new Room(textureMgr, Room::Boss));
+                        roomMap[mid - k][mid - k].reset(new Room(context, Room::Boss));
                         ++roomsCnt;
                     }
                 }
@@ -195,7 +195,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                         if((roomsCnt == roomsNb - 1) && (rand()%entropy == entropy - 1)){
 
-                            roomMap[mid + k][j].reset(new Room(textureMgr, Room::Boss));
+                            roomMap[mid + k][j].reset(new Room(context, Room::Boss));
                             ++roomsCnt;
                         }
                     }
@@ -207,7 +207,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                         if((roomsCnt == roomsNb - 1) && (rand()%entropy == entropy - 1)){
 
-                            roomMap[mid - k][j].reset(new Room(textureMgr, Room::Boss));
+                            roomMap[mid - k][j].reset(new Room(context, Room::Boss));
                             ++roomsCnt;
                         }
                     }
@@ -219,7 +219,7 @@ void Stage::generate(unsigned &stageNumber, unsigned seed){
 
                         if((roomsCnt == roomsNb - 1) && (rand()%entropy == entropy - 1)){
 
-                            roomMap[i][mid + k].reset(new Room(textureMgr, Room::Boss));
+                            roomMap[i][mid + k].reset(new Room(context, Room::Boss));
                             roomsCnt ++;
                         }
                     }
@@ -284,9 +284,9 @@ void Stage::reset(unsigned stage){
     unsigned mid = (stageSize - 1)/2;
 
     if(stage == 0)
-        roomMap[mid][mid].reset(new Room(textureMgr, Room::Start));
+        roomMap[mid][mid].reset(new Room(context, Room::Start));
     else
-        roomMap[mid][mid].reset(new Room(textureMgr, Room::CommonStart));
+        roomMap[mid][mid].reset(new Room(context, Room::CommonStart));
 }
 
 /*******************

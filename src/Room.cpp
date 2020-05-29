@@ -3,9 +3,10 @@
 /***************
  * Constructor *
  ***************/
-Room::Room(TextureManager *textureMgr, Room::Type roomType):
+Room::Room(SharedContext *shared, Room::Type roomType):
         color(sf::Color::White),
-        textureMgr(textureMgr){
+        context(shared),
+        textureMgr(context->textureManager){
             
     setType(roomType);
     
@@ -38,6 +39,10 @@ void Room::setType(Room::Type roomType){
                 
                 std::unique_ptr<Hatch> hatch(new Hatch(textureMgr, color)); // add a trapdoor to the room
                 hatchs.push_back(std::move(hatch));
+                
+                std::unique_ptr<Virus> virus(new Virus(context->aspen, textureMgr));
+                virus->setPosition(400.f, 200.f);
+                monsters.push_back(std::move(virus));
             }
             break;
         
@@ -233,6 +238,28 @@ void Room::placeTiles(){
     file.close();
 }
 
+/**********
+ * Update *
+ **********/
+void Room::update(sf::Time time){
+
+    for(auto &proj : projectiles){
+
+        if(proj){
+            proj->update(time);
+        }
+    }
+    
+    for(auto &monster : monsters){
+        
+        if(monster){
+            monster->update(time);
+        }
+    }
+    
+    checkProjRoomCollisions();
+}
+
 /***********************
  * CheckRoomCollisions *
  ***********************/
@@ -349,22 +376,6 @@ void Room::processRequests(){
                 --i;
         }
     }
-}
-        
-
-/**********
- * Update *
- **********/
-void Room::update(sf::Time time){
-
-    for(auto &proj : projectiles){
-
-        if(proj){
-            proj->update(time);
-        }
-    }
-    
-    checkProjRoomCollisions();
 }
 
 /*************
@@ -536,6 +547,13 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 
         if(proj){
             target.draw(*proj, states);
+        }
+    }
+    
+    for(const auto &monster : monsters){
+        
+        if(monster){
+            target.draw(*monster, states);
         }
     }
 }

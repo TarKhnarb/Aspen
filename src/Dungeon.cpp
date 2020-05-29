@@ -3,10 +3,10 @@
 /***************
  * Constructor *
  ***************/
-Dungeon::Dungeon(TextureManager *textureMgr):
+Dungeon::Dungeon(SharedContext *shared):
         actualStage(0),
         filePath("Data/Files/Dungeon/DungeonInformation.csv"),
-        textureMgr(textureMgr){
+        context(shared){
 
     fillInformation();
     maxStageNumber = information.size();
@@ -164,7 +164,7 @@ unsigned Dungeon::returnCsvItemSTOI(std::istringstream &ss){
  ************/
 void Dungeon::setStage(){
 
-    currentStage.reset(new Stage(information[0].at(0), information[0].at(1), information[0].at(2), textureMgr));
+    currentStage.reset(new Stage(information[0].at(0), information[0].at(1), information[0].at(2), context));
 
     information.erase(information.begin());
 
