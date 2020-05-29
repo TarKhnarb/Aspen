@@ -1,12 +1,21 @@
 #include "State_Statistics.h"
 #include "StateManager.h"
 
+/***************
+ * Constructor *
+ ***************/
 State_Statistics::State_Statistics(StateManager *stateMgr):
         BaseState(stateMgr),
         Aspen(*stateMgr->getContext()->aspen){}
 
+/**************
+ * Destructor *
+ **************/
 State_Statistics::~State_Statistics(){}
 
+/************
+ * OnCreate *
+ ************/
 void State_Statistics::onCreate(){
 
     setTransparent(true);
@@ -23,8 +32,14 @@ void State_Statistics::onCreate(){
     actualLife.setFillColor(sf::Color::Green);
 }
 
+/*************
+ * OnDestroy *
+ *************/
 void State_Statistics::onDestroy(){}
 
+/**********
+ * Update *
+ **********/
 void State_Statistics::update(const sf::Time &time){
 
     float life = Aspen.getStats()->getFinalValue(Life) / Aspen.getStats()->getFinalValue(MaxLife);
@@ -32,6 +47,9 @@ void State_Statistics::update(const sf::Time &time){
     actualLife.setPosition(2.f, 2.f + 100.f - actualLife.getSize().y);
 }
 
+/********
+ * Draw *
+ ********/
 void State_Statistics::draw(){
 
     Window* window = stateMgr->getContext()->wind;
