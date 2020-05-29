@@ -31,6 +31,7 @@ void Virus::update(sf::Time dt){
         
         isMoving = true;
         dashesNb = 0u;
+        
         calculateDestination();
     }
     
@@ -47,7 +48,6 @@ void Virus::update(sf::Time dt){
         if(travelled >= 100.f * (1.f + stats.getFinalValue(Speed)/100.f)){
             
             ++dashesNb;
-            travelled = 0.f;
             
             calculateDestination();
         }
@@ -77,6 +77,8 @@ sf::Vector2f Virus::getDistance() const{
 }
 
 void Virus::calculateDestination(){
+    
+    travelled = 0.f;
     
     destination = target->getPosition();
     
