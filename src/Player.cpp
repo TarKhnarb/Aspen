@@ -21,20 +21,20 @@ Player::Player(TextureManager *txtMng, EventManager* evtMgr):
     collisionBox.top = 5/6.f * size.y;
     collisionBox.height = 1/3.f * size.y;
     
-    evtMgr->addCallback(StateType::Dungeon, "MoveUp", &Player::setVelocity, this);
-    evtMgr->addCallback(StateType::Dungeon, "MoveRight", &Player::setVelocity, this);
-    evtMgr->addCallback(StateType::Dungeon, "MoveDown", &Player::setVelocity, this);
-    evtMgr->addCallback(StateType::Dungeon, "MoveLeft", &Player::setVelocity, this);
+    evtMgr->addCallback(StateType::Statistics, "MoveUp", &Player::setVelocity, this);
+    evtMgr->addCallback(StateType::Statistics, "MoveRight", &Player::setVelocity, this);
+    evtMgr->addCallback(StateType::Statistics, "MoveDown", &Player::setVelocity, this);
+    evtMgr->addCallback(StateType::Statistics, "MoveLeft", &Player::setVelocity, this);
 
     evtMgr->addCallback(StateType::Map, "MoveUp", &Player::setVelocity, this);
     evtMgr->addCallback(StateType::Map, "MoveRight", &Player::setVelocity, this);
     evtMgr->addCallback(StateType::Map, "MoveDown", &Player::setVelocity, this);
     evtMgr->addCallback(StateType::Map, "MoveLeft", &Player::setVelocity, this);
 
-    evtMgr->addCallback(StateType::Dungeon, "ShootUp", &Player::setProjectile, this);
-    evtMgr->addCallback(StateType::Dungeon, "ShootRight", &Player::setProjectile, this);
-    evtMgr->addCallback(StateType::Dungeon, "ShootDown", &Player::setProjectile, this);
-    evtMgr->addCallback(StateType::Dungeon, "ShootLeft", &Player::setProjectile, this);
+    evtMgr->addCallback(StateType::Statistics, "ShootUp", &Player::setProjectile, this);
+    evtMgr->addCallback(StateType::Statistics, "ShootRight", &Player::setProjectile, this);
+    evtMgr->addCallback(StateType::Statistics, "ShootDown", &Player::setProjectile, this);
+    evtMgr->addCallback(StateType::Statistics, "ShootLeft", &Player::setProjectile, this);
 }
 
 /**************
@@ -42,20 +42,20 @@ Player::Player(TextureManager *txtMng, EventManager* evtMgr):
  **************/
 Player::~Player(){
     
-    evtMgr->removeCallback(StateType::Dungeon, "MoveUp");
-    evtMgr->removeCallback(StateType::Dungeon, "MoveRight");
-    evtMgr->removeCallback(StateType::Dungeon, "MoveDown");
-    evtMgr->removeCallback(StateType::Dungeon, "MoveLeft");
+    evtMgr->removeCallback(StateType::Statistics, "MoveUp");
+    evtMgr->removeCallback(StateType::Statistics, "MoveRight");
+    evtMgr->removeCallback(StateType::Statistics, "MoveDown");
+    evtMgr->removeCallback(StateType::Statistics, "MoveLeft");
     
     evtMgr->removeCallback(StateType::Map, "MoveUp");
     evtMgr->removeCallback(StateType::Map, "MoveRight");
     evtMgr->removeCallback(StateType::Map, "MoveDown");
     evtMgr->removeCallback(StateType::Map, "MoveLeft");
 
-    evtMgr->removeCallback(StateType::Map, "ShootUp");
-    evtMgr->removeCallback(StateType::Map, "ShootRight");
-    evtMgr->removeCallback(StateType::Map, "ShootDown");
-    evtMgr->removeCallback(StateType::Map, "ShootLeft");
+    evtMgr->removeCallback(StateType::Statistics, "ShootUp");
+    evtMgr->removeCallback(StateType::Statistics, "ShootRight");
+    evtMgr->removeCallback(StateType::Statistics, "ShootDown");
+    evtMgr->removeCallback(StateType::Statistics, "ShootLeft");
 }
 
 /**********

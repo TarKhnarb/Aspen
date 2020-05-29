@@ -19,6 +19,7 @@
 #include "Door.h"
 #include "Hatch.h"
 #include "Projectile.h"
+#include "Virus.h"
 
 class Room : public sf::Drawable{
 

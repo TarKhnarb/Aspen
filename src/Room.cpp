@@ -304,7 +304,7 @@ void Room::checkProjectileCollisions(Character& entity){
         
         for(const auto &rock : rocks){
 
-            if(proj->getOwner()->getType() == Entity::Player) {
+            if(rock->getState() && proj->getOwner()->getType() == Entity::Player) {
 
                 if (proj->collides(*rock, 0.f)) {
 
@@ -316,10 +316,14 @@ void Room::checkProjectileCollisions(Character& entity){
         
         for(const auto &chest : chests){
             
-            if(proj->collides(*chest, 0.f)){
-                
+            if(proj->collides(*chest, 0.f))
                 toRemove.push_back(index);
-            }
+        }
+
+        for(const auto & wall : walls){
+
+            if(proj->collides(*wall, 0.f))
+                toRemove.push_back(index);
         }
         
         ++index;
@@ -336,6 +340,7 @@ void Room::processRequests(){
         std::size_t index = *toRemove.begin();
         
         projectiles.erase(projectiles.begin() + index);
+        std::cout << index << std::endl;
         toRemove.erase(toRemove.begin());
         
         for(std::size_t &i : toRemove){

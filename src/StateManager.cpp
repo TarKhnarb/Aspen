@@ -12,7 +12,7 @@ StateManager::StateManager(SharedContext *shared):
     registerState<State_Dungeon>(StateType::Dungeon);
     registerState<State_Map>(StateType::Map);
     //registerState<State_Base>(StateType::Base);
-    //registerState<State_Statistics>(StateType::Statistics);
+    registerState<State_Statistics>(StateType::Statistics);
     //registerState<State_Inventory>(StateType::Inventory);
     //registerState<State_Npc>(StateType::Npc);
     //registerState<State_MiniMap>(StateType::MiniMap);
