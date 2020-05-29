@@ -2,7 +2,7 @@ B = bin
 O = obj
 S = src
 FLAGS = -c -Wall
-STAT_O = $(O)/State_Dungeon.o $(O)/State_GamePause.o $(O)/State_Map.o $(O)/State_GameOver.o
+STAT_O = $(O)/State_Dungeon.o $(O)/State_GamePause.o $(O)/State_Map.o $(O)/State_GameOver.o $(O)/State_Statistics.o
 ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Projectile.o $(O)/Stuff.o #$(O)/Potion.o #$(O)/StackObject.o
 
 all: $(O) $(B) $(O)/Aspen.o
@@ -37,6 +37,9 @@ $(O)/State_GamePause.o: $(O)/EventManager.o
 
 $(O)/State_GameOver.o: $(O)/EventManager.o $(O)/Player.o
 	g++ $(FLAGS) $(S)/State_GameOver.cpp -o $(O)/State_GameOver.o
+
+$(O)/State_Statistics.o: $(O)/EventManager.o $(O)/Player.o
+	g++ $(FLAGS) $(S)/State_Statistics.cpp -o $(O)/State_Statistics.o
 
 $(O)/EventManager.o:
 	g++ $(FLAGS) $(S)/EventManager.cpp -o $(O)/EventManager.o

@@ -37,6 +37,7 @@ void State_Dungeon::activate(){
     
     Aspen.setScale(1.f, 1.f);
     Aspen.setBaseSpeed(150.f);
+    stateMgr->switchTo(StateType::Statistics);
 }
 
 /**************
@@ -84,6 +85,7 @@ void State_Dungeon::update(const sf::Time &time){
 
                 stateMgr->switchTo(StateType::GameOver);
                 stateMgr->remove(StateType::Dungeon);
+                stateMgr->remove(StateType::Statistics);
             }
             break;
 

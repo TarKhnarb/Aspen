@@ -13,6 +13,7 @@
 #include "State_GamePause.h"
 #include "State_Map.h"
 #include "State_GameOver.h"
+#include "State_Statistics.h"
 
 enum class StateType{
 
