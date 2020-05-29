@@ -3,26 +3,36 @@
 /***************
  * Constructor *
  ***************/
-Monster::Monster(std::string name, TextureManager * txtMgr):
+Monster::Monster(const std::string &name, Character *target, TextureManager *txtMgr):
         Character(name, Type::Monster, txtMgr),
-        name(name){
-
+        target(target){
+    
+    setBaseSpeed(150.f);
+    
     selectTexture();
 }
 
 /**************
  * Destructor *
  **************/
-Monster::~Monster(){}
-
+Monster::~Monster(){
+    
+    textureMgr->releaseResource(getName());
+}
 
 /*****************
  * SelectTexture *
  *****************/
 void Monster::selectTexture(){
 
-    textureMgr->requireResource(name);
-    sprite.setTexture(*textureMgr->getResource(textureName));
+    textureMgr->requireResource(getName());
+    sprite.setTexture(*textureMgr->getResource(getName()));
 
     collisionBox = sprite.getLocalBounds();
+}
+
+void Monster::draw(sf::RenderTarget &target, sf::RenderStates states) const{
+    
+    states.transform *= getTransform();
+    target.draw(sprite, states);
 }

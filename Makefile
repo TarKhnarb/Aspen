@@ -3,7 +3,7 @@ O = obj
 S = src
 FLAGS = -c -Wall
 STAT_O = $(O)/State_Dungeon.o $(O)/State_GamePause.o $(O)/State_Map.o $(O)/State_GameOver.o
-ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Projectile.o $(O)/Stuff.o #$(O)/Potion.o #$(O)/StackObject.o
+ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Projectile.o $(O)/Stuff.o #$(O)/Potion.o #$(O)/StackObject.o $(O)/Virus.o
 
 all: $(O) $(B) $(O)/Aspen.o
 	g++ -ggdb $(O)/*.o -o $(B)/Aspen -lsfml-graphics -lsfml-window -lsfml-system
@@ -64,6 +64,12 @@ $(O)/Room.o: $(ENTITY)
 
 $(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Projectile.o
 	g++ $(FLAGS) $(S)/Player.cpp -o $(O)/Player.o
+
+$(O)/Virus.o: $(O)/Monster.o
+	g++ $(FLAGS) $(S)/Virus.cpp -o $(O)/Virus.o
+
+$(O)/Monster.o:	$(O)/Character.o $(O)/Projectile.o
+	g++ $(FLAGS) $(S)/Monster.cpp -o $(O)/Monster.o
 
 $(O)/Inventory.o: $(O)/Stuff.o $(O)/Potion.o
 	g++ $(FLAGS) $(S)/Inventory.cpp -o $(O)/Inventory.o

@@ -7,6 +7,7 @@
 
 #include "Entity.h"
 #include "Statistics.h"
+#include "Projectile.h"
 
 class Character : public Entity{
 
@@ -20,7 +21,12 @@ public:
 
     virtual void update(sf::Time) = 0;
     
+    Projectile* getProjectile();
+    
     void hit(float);
+    
+    void setBaseSpeed(float);
+    float getBaseSpeed() const;
     
     bool isAlive() const;
     
@@ -42,6 +48,8 @@ protected:
 private:
 
     std::string name;
+    
+    float baseSpeed;
 };
 
 #endif

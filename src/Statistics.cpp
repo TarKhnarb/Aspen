@@ -50,6 +50,8 @@ void Statistics::loadFromFile(const std::string &filename){
 void Statistics::resetLife(){
     
     values[Life] = values[MaxLife];
+    
+    updateFinal();
 }
 
 void Statistics::modify(StatName stat, float modif){

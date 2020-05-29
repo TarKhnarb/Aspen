@@ -3,8 +3,10 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
-#include "Character.h"
+#include "Entity.h"
 #include "Orientation.h"
+
+class Character;
 
 class Projectile : public Entity{
 

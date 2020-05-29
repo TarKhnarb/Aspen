@@ -7,7 +7,6 @@
 Player::Player(TextureManager *txtMng, EventManager* evtMgr):
         Character("Aspen", Type::Player, txtMng),
         spriteSheet(txtMng),
-        baseSpeed (150.f),
         evtMgr(evtMgr),
         timeSinceShot(sf::Time::Zero),
         projHorizontal(0),
@@ -112,17 +111,6 @@ void Player::changeRoom(Orientation orient){
     file.close();
 
     setPosition(x, y);
-}
-
-/****************
- * SetBaseSpeed *
- ****************/
-void Player::setBaseSpeed(float newSpeed){
-    
-    if(newSpeed > 0.f){
-        
-        baseSpeed = newSpeed;
-    }
 }
 
 /**************
@@ -264,7 +252,7 @@ int Player::returnStoi(std::istringstream &ss){
  ***************/
 void Player::setVelocity(EventDetails *details){
     
-    float pxMove = baseSpeed * (1.f + stats.getFinalValue(Speed)/100.f);
+    float pxMove = getBaseSpeed() * (1.f + stats.getFinalValue(Speed)/100.f);
     
     if(details->name == "MoveUp"){
         

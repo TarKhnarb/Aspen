@@ -30,8 +30,6 @@ public:
     void update(sf::Time time);
 
     void changeRoom(Orientation orient);
-    
-    void setBaseSpeed(float);
 
     void setDungeon(Dungeon *dunge);
 
