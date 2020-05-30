@@ -8,12 +8,12 @@
 #include <functional>
 
 #include "SharedContext.h"
-#include "State_Intro.h"
-#include "State_Dungeon.h"
-#include "State_GamePause.h"
-#include "State_Map.h"
-#include "State_GameOver.h"
-#include "State_Statistics.h"
+#include "States/State_Intro.h"
+#include "States/State_Dungeon.h"
+#include "States/State_GamePause.h"
+#include "States/State_Map.h"
+#include "States/State_GameOver.h"
+#include "States/State_Statistics.h"
 
 enum class StateType{
 

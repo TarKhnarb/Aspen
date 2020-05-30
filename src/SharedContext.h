@@ -4,7 +4,7 @@
 #include "Window.h"
 #include "EventManager.h"
 #include "TextureManager.h"
-#include "Player.h"
+#include "Entity/Player.h"
 
 class Projectile;
 

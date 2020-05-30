@@ -1,6 +1,14 @@
 B = bin
 O = obj
 S = src
+Sa = src/Animation
+Sd = src/Dungeon
+Se = src/Entity
+SeM = src/Entity/Monster
+SeO = src/Entity/Object
+SeR = src/Entity/RoomElements
+Sm = src/Map
+Ss = src/States
 FLAGS = -c -Wall
 
 STAT_O = $(O)/State_Dungeon.o $(O)/State_GamePause.o $(O)/State_Map.o $(O)/State_GameOver.o $(O)/State_Statistics.o
@@ -26,22 +34,22 @@ $(O)/StateManager.o: $(STAT_O) $(O)/Projectile.o
 	g++ $(FLAGS) $(S)/StateManager.cpp -o $(O)/StateManager.o
 
 #$(O)/State_Intro.o: $(O)/EventManager.o
-#	g++ $(FLAGS) $(S)/State_Intro.cpp -o $(O)/State_Intro.o
+#	g++ $(FLAGS) $(Ss)/State_Intro.cpp -o $(O)/State_Intro.o
 
 $(O)/State_Dungeon.o: $(O)/EventManager.o $(O)/Dungeon.o $(O)/Player.o
-	g++ $(FLAGS) $(S)/State_Dungeon.cpp -o $(O)/State_Dungeon.o
+	g++ $(FLAGS) $(Ss)/State_Dungeon.cpp -o $(O)/State_Dungeon.o
 
 $(O)/State_Map.o: $(O)/EventManager.o $(O)/Player.o $(O)/Map.o
-	g++ $(FLAGS) $(S)/State_Map.cpp -o $(O)/State_Map.o
+	g++ $(FLAGS) $(Ss)/State_Map.cpp -o $(O)/State_Map.o
 
 $(O)/State_GamePause.o: $(O)/EventManager.o
-	g++ $(FLAGS) $(S)/State_GamePause.cpp -o $(O)/State_GamePause.o
+	g++ $(FLAGS) $(Ss)/State_GamePause.cpp -o $(O)/State_GamePause.o
 
 $(O)/State_GameOver.o: $(O)/EventManager.o $(O)/Player.o
-	g++ $(FLAGS) $(S)/State_GameOver.cpp -o $(O)/State_GameOver.o
+	g++ $(FLAGS) $(Ss)/State_GameOver.cpp -o $(O)/State_GameOver.o
 
 $(O)/State_Statistics.o: $(O)/EventManager.o $(O)/Player.o
-	g++ $(FLAGS) $(S)/State_Statistics.cpp -o $(O)/State_Statistics.o
+	g++ $(FLAGS) $(Ss)/State_Statistics.cpp -o $(O)/State_Statistics.o
 
 $(O)/EventManager.o:
 	g++ $(FLAGS) $(S)/EventManager.cpp -o $(O)/EventManager.o
@@ -50,79 +58,79 @@ $(O)/SpriteSheet.o: $(O)/Anim_Base.o $(O)/Anim_Directional.o
 	g++ $(FLAGS) $(S)/SpriteSheet.cpp -o $(O)/SpriteSheet.o
 
 $(O)/Anim_Base.o:
-	g++ $(FLAGS) $(S)/Anim_Base.cpp -o $(O)/Anim_Base.o
+	g++ $(FLAGS) $(Sa)/Anim_Base.cpp -o $(O)/Anim_Base.o
 
 $(O)/Anim_Directional.o:
-	g++ $(FLAGS) $(S)/Anim_Directional.cpp -o $(O)/Anim_Directional.o
+	g++ $(FLAGS) $(Sa)/Anim_Directional.cpp -o $(O)/Anim_Directional.o
 
 $(O)/Map.o: $(O)/Wall.o
-	g++ $(FLAGS) $(S)/Map.cpp -o $(O)/Map.o
+	g++ $(FLAGS) $(Sm)/Map.cpp -o $(O)/Map.o
 
 $(O)/Dungeon.o: $(O)/Stage.o
-	g++ $(FLAGS) $(S)/Dungeon.cpp -o $(O)/Dungeon.o
+	g++ $(FLAGS) $(Sd)/Dungeon.cpp -o $(O)/Dungeon.o
 
 $(O)/Stage.o: $(O)/Room.o
-	g++ $(FLAGS) $(S)/Stage.cpp -o $(O)/Stage.o
+	g++ $(FLAGS) $(Sd)/Stage.cpp -o $(O)/Stage.o
 
 $(O)/Room.o: $(ENTITY)
-	g++ $(FLAGS) $(S)/Room.cpp -o $(O)/Room.o
+	g++ $(FLAGS) $(Sd)/Room.cpp -o $(O)/Room.o
 
 $(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Projectile.o
-	g++ $(FLAGS) $(S)/Player.cpp -o $(O)/Player.o
+	g++ $(FLAGS) $(Se)/Player.cpp -o $(O)/Player.o
 
 $(O)/Virus.o: $(O)/Monster.o
-	g++ $(FLAGS) $(S)/Virus.cpp -o $(O)/Virus.o
+	g++ $(FLAGS) $(SeM)/Virus.cpp -o $(O)/Virus.o
 
 $(O)/Monster.o:	$(O)/Character.o $(O)/Projectile.o
-	g++ $(FLAGS) $(S)/Monster.cpp -o $(O)/Monster.o
+	g++ $(FLAGS) $(SeM)/Monster.cpp -o $(O)/Monster.o
 
 $(O)/Inventory.o: $(O)/Stuff.o $(O)/Potion.o
-	g++ $(FLAGS) $(S)/Inventory.cpp -o $(O)/Inventory.o
+	g++ $(FLAGS) $(Se)/Inventory.cpp -o $(O)/Inventory.o
 
 #$(O)/Potion.o: $(O)/StackObject.o
-#	g++ $(FLAGS) $(S)/Potion.cpp -o $(O)/Potion.o
+#	g++ $(FLAGS) $(SeO)/Potion.cpp -o $(O)/Potion.o
 
 $(O)/Bonus.o:
-	g++ $(FLAGS) $(S)/Bonus.cpp -o $(O)/Bonus.o
+	g++ $(FLAGS) $(SeO)/Bonus.cpp -o $(O)/Bonus.o
 
 $(O)/StackObject.o: $(O)/Object.o
-	g++ $(FLAGS) $(S)/StackObject.cpp -o $(O)/StackObject.o
+	g++ $(FLAGS) $(SeO)/StackObject.cpp -o $(O)/StackObject.o
 
 $(O)/Entity.o:
-	g++ $(FLAGS) $(S)/Entity.cpp -o $(O)/Entity.o
+	g++ $(FLAGS) $(Se)/Entity.cpp -o $(O)/Entity.o
 
 $(O)/Object.o: $(O)/Entity.o
-	g++ $(FLAGS) $(S)/Object.cpp -o $(O)/Object.o
+	g++ $(FLAGS) $(SeO)/Object.cpp -o $(O)/Object.o
 
 $(O)/Character.o: $(O)/Entity.o $(O)/Statistics.o
-	g++ $(FLAGS) $(S)/Character.cpp -o $(O)/Character.o
+	g++ $(FLAGS) $(Se)/Character.cpp -o $(O)/Character.o
 
 $(O)/Statistics.o: $(O)/Bonus.o
-	g++ $(FLAGS) $(S)/Statistics.cpp -o $(O)/Statistics.o
+	g++ $(FLAGS) $(SeO)/Statistics.cpp -o $(O)/Statistics.o
 
 $(O)/Stuff.o: $(O)/Object.o $(O)/Bonus.o
-	g++ $(FLAGS) $(S)/Stuff.cpp -o $(O)/Stuff.o
+	g++ $(FLAGS) $(SeO)/Stuff.cpp -o $(O)/Stuff.o
 
 $(O)/Projectile.o: $(O)/Entity.o $(O)/Character.o
-	g++ $(FLAGS) $(S)/Projectile.cpp -o $(O)/Projectile.o
+	g++ $(FLAGS) $(SeR)/Projectile.cpp -o $(O)/Projectile.o
 
 $(O)/Hatch.o: $(O)/Entity.o
-	g++ $(FLAGS) $(S)/Hatch.cpp -o $(O)/Hatch.o
+	g++ $(FLAGS) $(SeR)/Hatch.cpp -o $(O)/Hatch.o
 
 $(O)/Door.o: $(O)/Entity.o
-	g++ $(FLAGS) $(S)/Door.cpp -o $(O)/Door.o
+	g++ $(FLAGS) $(Sd)/Door.cpp -o $(O)/Door.o
 
 $(O)/Wall.o: $(O)/Entity.o
-	g++ $(FLAGS) $(S)/Wall.cpp -o $(O)/Wall.o
+	g++ $(FLAGS) $(SeR)/Wall.cpp -o $(O)/Wall.o
 
 $(O)/Chest.o: $(O)/Entity.o
-	g++ $(FLAGS) $(S)/Chest.cpp -o $(O)/Chest.o
+	g++ $(FLAGS) $(SeR)/Chest.cpp -o $(O)/Chest.o
 
 $(O)/Rock.o: $(O)/Entity.o
-	g++ $(FLAGS) $(S)/Rock.cpp -o $(O)/Rock.o
+	g++ $(FLAGS) $(SeR)/Rock.cpp -o $(O)/Rock.o
 
 $(O)/Hole.o: $(O)/Entity.o
-	g++ $(FLAGS) $(S)/Hole.cpp -o $(O)/Hole.o
+	g++ $(FLAGS) $(SeR)/Hole.cpp -o $(O)/Hole.o
 
 $(O):
 	mkdir $(O)

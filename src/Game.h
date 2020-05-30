@@ -6,7 +6,7 @@
 #include "StateManager.h"
 #include "TextureManager.h"
 #include "SharedContext.h"
-#include "Player.h"
+#include "Entity/Player.h"
 
 class Game{
 

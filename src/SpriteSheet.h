@@ -9,8 +9,8 @@
 
 #include "TextureManager.h"
 #include "Orientation.h"
-#include "Anim_Base.h"
-#include "Anim_Directional.h"
+#include "Animation/Anim_Base.h"
+#include "Animation/Anim_Directional.h"
 
 using Animations = std::unordered_map<std::string, Anim_Base*>;
 
