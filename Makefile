@@ -55,7 +55,7 @@ $(O)/EventManager.o:
 	g++ $(FLAGS) $(S)/EventManager.cpp -o $(O)/EventManager.o
 
 $(O)/SpriteSheet.o: $(O)/Anim_Base.o $(O)/Anim_Directional.o
-	g++ $(FLAGS) $(S)/SpriteSheet.cpp -o $(O)/SpriteSheet.o
+	g++ $(FLAGS) $(Sa)/SpriteSheet.cpp -o $(O)/SpriteSheet.o
 
 $(O)/Anim_Base.o:
 	g++ $(FLAGS) $(Sa)/Anim_Base.cpp -o $(O)/Anim_Base.o
