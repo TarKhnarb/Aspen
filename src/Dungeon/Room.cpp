@@ -255,9 +255,12 @@ void Room::update(sf::Time time){
         if(monster){
             monster->update(time);
         }
+        
+        checkRoomCollisions(*monster);
     }
     
     checkProjRoomCollisions();
+    checkProjMonstersCollisions();
 }
 
 /***********************
@@ -313,7 +316,16 @@ std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Character& entity
 /**************************
  * CheckMonsterCollisions *
  **************************/
-void Room::checkMonsterCollisions(Character& entity){}
+void Room::checkMonsterCollisions(Character& entity){
+    
+    for(const auto &monster : monsters){
+        
+        if(monster->collides(entity, 0.2f)){
+            
+            // TODO résolution des dégats
+        }
+    }
+}
 
 /*****************************
  * CheckProjectileCollisions *
@@ -327,30 +339,6 @@ void Room::checkProjectileCollisions(Character& entity){
             
             toRemove.push_back(index);
             //entity.hit(proj.damages)
-        }
-        
-        for(const auto &rock : rocks){
-
-            if(rock->getState() && proj->getOwner()->getType() == Entity::Player) {
-
-                if (proj->collides(*rock, 0.f)) {
-
-                    toRemove.push_back(index);
-                    rock->hit(1);
-                }
-            }
-        }
-        
-        for(const auto &chest : chests){
-            
-            if(proj->collides(*chest, 0.f))
-                toRemove.push_back(index);
-        }
-
-        for(const auto & wall : walls){
-
-            if(proj->collides(*wall, 0.f))
-                toRemove.push_back(index);
         }
         
         ++index;
@@ -482,7 +470,7 @@ void Room::placeWalls(){
 
 void Room::checkProjRoomCollisions(){
     
-    for(std::size_t index = 0; index < toRemove.size(); ++index){
+    for(std::size_t index = 0; index < projectiles.size(); ++index){
         
         for(const auto &wall : walls){
             
@@ -508,6 +496,14 @@ void Room::checkProjRoomCollisions(){
                 toRemove.push_back(index);
             }
         }
+    }
+}
+
+void Room::checkProjMonstersCollisions(){
+    
+    for(const auto &monster : monsters){
+        
+        checkProjectileCollisions(*monster);
     }
 }
 
