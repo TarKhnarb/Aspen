@@ -12,19 +12,17 @@ Object::Object(const std::string &name, TextureManager *txtMgr, std::size_t numb
 
     loadFromFile();
 
-    if(number > stackSize){
-
-        number = stackSize;
-    }
+    if(this->number > stackSize)
+        this->number = stackSize;
 }
 
 /***************
  * Constructor *
  ***************/
-Object::Object(const Object &obj, std::size_t nb):
+Object::Object(const Object &obj, std::size_t number):
         Entity(getTextureManager(), Entity::Object){
 
-    Object(obj.getName(), getTextureManager(), nb);
+    Object(obj.getName(), getTextureManager(), number);
 }
 
 /**************

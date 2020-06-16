@@ -22,9 +22,6 @@ public:
     
     Stuff() = delete;
     Stuff(const std::string&, TextureManager*);
-    Stuff(Object*);
-
-    ~Stuff();
     
 public:
 
@@ -32,12 +29,17 @@ public:
 
 private:
 
-    void loadFromFile();
+    void loadFromFile() override;
+
+    void draw(sf::RenderTarget &, sf::RenderStates) const override;
+
+    void setSprite() override;
 
 private:
     
     StuffType stuffType;
-    Object *object;
+
+    sf::Sprite sprite;
 };  
 
 #endif

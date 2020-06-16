@@ -26,7 +26,7 @@ public:
     
     Object() = delete;
     Object(const std::string&, TextureManager*, std::size_t number = 1);
-    Object(const Object &obj, std::size_t nb = 1);
+    Object(const Object &obj, std::size_t number = 1);
     ~Object();
     
 public:
@@ -50,13 +50,13 @@ public:
     
 private:
 
-    void setSprite();
+    virtual void setSprite();
 
     int usePotion(std::size_t);
 
     virtual void loadFromFile();
 
-    virtual void draw(sf::RenderTarget &, sf::RenderStates) const;
+    virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
 
 private:
     

@@ -163,7 +163,7 @@ Bonus* Inventory::equip(std::size_t index){
             Stuff::StuffType type = Stuff(bag[index]->getName(), bag[index]->getTextureManager()).getStuffType();
             if (!stuff[type]) {
 
-                stuff[type] = std::move(std::unique_ptr<Stuff>(new Stuff(bag[index].get())));
+                stuff[type] = std::move(bag[index]);
                 bag[index].release();
                 return stuff[type]->getBonus();
             }

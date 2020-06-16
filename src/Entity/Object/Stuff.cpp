@@ -7,27 +7,12 @@ Stuff::Stuff(const std::string &name, TextureManager* txtMgr):
         Object(name, txtMgr){
 
     loadFromFile();
+    setSprite();
 }
 
-/***************
- * Constructor *
- ***************/
-Stuff::Stuff(Object *obj):
-        Object(obj->getName(), getTextureManager()),
-        object(obj){
-
-    Stuff(object->getName(), getTextureManager());
-}
-
-/**************
- * Destructor *
- **************/
-Stuff::~Stuff(){
-
-    if(object)
-        delete object;
-}
-
+/****************
+ * LoadFromFile *
+ ****************/
 void Stuff::loadFromFile(){
 
     std::string filename = "Data/Files/Objects/" + name + ".cfg";
@@ -65,6 +50,26 @@ void Stuff::loadFromFile(){
     }
 }
 
+void Stuff::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+
+    states.transform *= getTransform();
+    target.draw(sprite, states);
+}
+
+/*************
+ * SetSprite *
+ *************/
+void Stuff::setSprite(){
+
+    textureMgr->requireResource(name);
+    sprite.setTexture(*textureMgr->getResource(name));
+
+    collisionBox = sprite.getGlobalBounds();
+}
+
+/****************
+ * GetStuffType *
+ ****************/
 Stuff::StuffType Stuff::getStuffType() const{
     
     return stuffType;
