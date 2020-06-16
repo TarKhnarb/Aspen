@@ -1,46 +1,46 @@
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
-#include <string>
-#include <cmath>
 #include <SFML/Graphics/Sprite.hpp>
 
+#include <string>
+#include <cmath>
+#include <utility>
+
 #include "../Entity.h"
+#include "Bonus.h"
 
 class Object : public Entity{
     
 public:
     
     enum ObjectType{
-        
-        Weapon,
-        Helmet,
-        Amulet,
-        ChestPlate,
-        Leggings,
-        Boots,
-        StuffCount,
-        
+
+        Stuff,
         Potion,
-        Loot
+        Loot,
+        Count
     };
     
 public:
     
     Object() = delete;
-    Object(const std::string&, TextureManager*, std::size_t = 1);
+    Object(const std::string&, TextureManager*, std::size_t number = 1);
+    Object(const Object &obj, std::size_t nb = 1);
     ~Object();
     
 public:
-    
+
     std::string getName() const;
-    int getBuyPrice() const;
-    int getSellPrice() const;
-    
     std::size_t getNumber() const;
+    ObjectType getObjectType() const;
     std::size_t getStackSize() const;
+    Bonus* getBonus() const;
+    std::pair<int, int> getPrices() const;
+
     bool empty() const;
-    
+    bool full() const;
+
     Object& operator+=(std::size_t&);
     Object& operator+=(Object&);
     Object& operator-=(std::size_t&);
@@ -48,32 +48,33 @@ public:
     Object& operator++();
     Object& operator--();
     
-    virtual int use(std::size_t = 1);
-    virtual ObjectType getObjectType() const;
-    virtual Bonus* getBonus();
-    
 private:
-    
-    virtual void loadFromFile();
-    
+
     void setSprite();
-    
-    void draw(sf::RenderTarget&, sf::RenderStates) const override;
-    
+
+    int usePotion(std::size_t);
+
+    virtual void loadFromFile();
+
+    virtual void draw(sf::RenderTarget &, sf::RenderStates) const;
+
 private:
     
     sf::Sprite sprite;
     
-    std::size_t number;
-    
 protected:
     
-    std::size_t stackSize;
-    
     std::string name;
-    
-    int buyPrice;
-    int sellPrice;
+
+    std::size_t number;
+
+    ObjectType type;
+
+    std::size_t stackSize;
+
+    Bonus *bonus;
+
+    std::pair<int, int> prices; // 0: buy, 1: sell
 };
 
 #endif

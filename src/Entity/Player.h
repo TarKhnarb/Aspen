@@ -10,7 +10,7 @@
 #include "../EventManager.h"
 #include "RoomElements/Projectile.h"
 #include "Character.h"
-#include "../Animation/SpriteSheet.h"
+#include "../SpriteSheet.h"
 #include "Object/Statistics.h"
 //#include "Dungeon.h"
 

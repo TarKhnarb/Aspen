@@ -3,9 +3,7 @@
 
 #include <vector>
 
-#include "Stuff.h"
-#include "StackObject.h"
-#include "Potion.h"
+#include "Object/Stuff.h"
 
 class Inventory{
     
@@ -15,14 +13,14 @@ public:
     
     bool addObject(Object&);
     bool removeObject(Object&);
-    bool removeObject(const std::string&, std::size_t &nb = 1);
-    bool removeObject(std::size_t, std::size_t &nb = 1);
+    bool removeObject(const std::string&, std::size_t nb = 1); // Pasage en données résultat pas nécésssaire pour le nb (A voir)
+    bool removeObject(std::size_t, std::size_t nb = 1);
     void clearObject(std::size_t);
     std::size_t numberOf(const std::string&) const;
     
     Bonus* equip(std::size_t);
     Bonus* unequip(std::size_t);
-    
+
     void refillStacks();
     void sort();
     
@@ -33,6 +31,8 @@ private:
     
     std::vector<std::unique_ptr<Stuff>> stuff;
     std::vector<std::unique_ptr<Object>> bag;
+
+    bool hasStuff;
 };
 
 Object* newObject(const Object&);

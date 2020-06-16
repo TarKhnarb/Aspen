@@ -7,10 +7,10 @@
 #include <unordered_map>
 
 
-#include "../TextureManager.h"
-#include "../Orientation.h"
-#include "../Animation/Anim_Base.h"
-#include "../Animation/Anim_Directional.h"
+#include "TextureManager.h"
+#include "Orientation.h"
+#include "Animation/Anim_Base.h"
+#include "Animation/Anim_Directional.h"
 
 using Animations = std::unordered_map<std::string, Anim_Base*>;
 

@@ -2,7 +2,6 @@
 #define GAME_STUFF_H
 
 #include "Object.h"
-#include "Bonus.h"
 
 class Stuff : public Object{
     
@@ -23,19 +22,22 @@ public:
     
     Stuff() = delete;
     Stuff(const std::string&, TextureManager*);
+    Stuff(Object*);
+
+    ~Stuff();
     
 public:
-    
-    void loadFromFile(const std::string&);
-    
+
     StuffType getStuffType() const;
-    Bonus* getBonus();
-    
+
+private:
+
+    void loadFromFile();
+
 private:
     
     StuffType stuffType;
-    
-    Bonus bonus;
+    Object *object;
 };  
 
 #endif

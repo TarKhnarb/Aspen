@@ -11,12 +11,13 @@ Sm = src/Map
 Ss = src/States
 FLAGS = -c -Wall
 
-STAT_O = $(O)/State_Dungeon.o $(O)/State_GamePause.o $(O)/State_Map.o $(O)/State_GameOver.o $(O)/State_Statistics.o
-ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Projectile.o $(O)/Stuff.o $(O)/Virus.o #$(O)/Potion.o #$(O)/StackObject.o
+STAT_O = $(O)/State_Dungeon.o $(O)/State_GamePause.o $(O)/State_Map.o $(O)/State_GameOver.o $(O)/State_Statistics.o #$(O)/State_Intro.o
+ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Projectile.o $(O)/Stuff.o $(O)/Virus.o
 
 
 all: $(O) $(B) $(O)/Aspen.o
 	g++ -ggdb $(O)/*.o -o $(B)/Aspen -lsfml-graphics -lsfml-window -lsfml-system
+
 
 $(O)/Aspen.o: $(O)/Game.o $(O)/SpriteSheet.o
 	g++ $(FLAGS) $(S)/Aspen.cpp -o $(O)/Aspen.o
@@ -33,8 +34,8 @@ $(O)/Window.o: $(O)/EventManager.o
 $(O)/StateManager.o: $(STAT_O) $(O)/Projectile.o
 	g++ $(FLAGS) $(S)/StateManager.cpp -o $(O)/StateManager.o
 
-#$(O)/State_Intro.o: $(O)/EventManager.o
-#	g++ $(FLAGS) $(Ss)/State_Intro.cpp -o $(O)/State_Intro.o
+$(O)/State_Intro.o: $(O)/EventManager.o
+	g++ $(FLAGS) $(Ss)/State_Intro.cpp -o $(O)/State_Intro.o
 
 $(O)/State_Dungeon.o: $(O)/EventManager.o $(O)/Dungeon.o $(O)/Player.o
 	g++ $(FLAGS) $(Ss)/State_Dungeon.cpp -o $(O)/State_Dungeon.o
@@ -55,7 +56,7 @@ $(O)/EventManager.o:
 	g++ $(FLAGS) $(S)/EventManager.cpp -o $(O)/EventManager.o
 
 $(O)/SpriteSheet.o: $(O)/Anim_Base.o $(O)/Anim_Directional.o
-	g++ $(FLAGS) $(Sa)/SpriteSheet.cpp -o $(O)/SpriteSheet.o
+	g++ $(FLAGS) $(S)/SpriteSheet.cpp -o $(O)/SpriteSheet.o
 
 $(O)/Anim_Base.o:
 	g++ $(FLAGS) $(Sa)/Anim_Base.cpp -o $(O)/Anim_Base.o
@@ -75,7 +76,7 @@ $(O)/Stage.o: $(O)/Room.o
 $(O)/Room.o: $(ENTITY)
 	g++ $(FLAGS) $(Sd)/Room.cpp -o $(O)/Room.o
 
-$(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Projectile.o
+$(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Projectile.o $(O)/Inventory.o
 	g++ $(FLAGS) $(Se)/Player.cpp -o $(O)/Player.o
 
 $(O)/Virus.o: $(O)/Monster.o
@@ -84,32 +85,26 @@ $(O)/Virus.o: $(O)/Monster.o
 $(O)/Monster.o:	$(O)/Character.o $(O)/Projectile.o
 	g++ $(FLAGS) $(SeM)/Monster.cpp -o $(O)/Monster.o
 
-$(O)/Inventory.o: $(O)/Stuff.o $(O)/Potion.o
+$(O)/Inventory.o: $(O)/Stuff.o
 	g++ $(FLAGS) $(Se)/Inventory.cpp -o $(O)/Inventory.o
 
-#$(O)/Potion.o: $(O)/StackObject.o
-#	g++ $(FLAGS) $(SeO)/Potion.cpp -o $(O)/Potion.o
+$(O)/Stuff.o: $(O)/Object.o
+	g++ $(FLAGS) $(SeO)/Stuff.cpp -o $(O)/Stuff.o
+
+$(O)/Object.o: $(O)/Entity.o $(O)/Bonus.o
+	g++ $(FLAGS) $(SeO)/Object.cpp -o $(O)/Object.o
 
 $(O)/Bonus.o:
 	g++ $(FLAGS) $(SeO)/Bonus.cpp -o $(O)/Bonus.o
 
-$(O)/StackObject.o: $(O)/Object.o
-	g++ $(FLAGS) $(SeO)/StackObject.cpp -o $(O)/StackObject.o
-
 $(O)/Entity.o:
 	g++ $(FLAGS) $(Se)/Entity.cpp -o $(O)/Entity.o
-
-$(O)/Object.o: $(O)/Entity.o
-	g++ $(FLAGS) $(SeO)/Object.cpp -o $(O)/Object.o
 
 $(O)/Character.o: $(O)/Entity.o $(O)/Statistics.o
 	g++ $(FLAGS) $(Se)/Character.cpp -o $(O)/Character.o
 
 $(O)/Statistics.o: $(O)/Bonus.o
 	g++ $(FLAGS) $(SeO)/Statistics.cpp -o $(O)/Statistics.o
-
-$(O)/Stuff.o: $(O)/Object.o $(O)/Bonus.o
-	g++ $(FLAGS) $(SeO)/Stuff.cpp -o $(O)/Stuff.o
 
 $(O)/Projectile.o: $(O)/Entity.o $(O)/Character.o
 	g++ $(FLAGS) $(SeR)/Projectile.cpp -o $(O)/Projectile.o

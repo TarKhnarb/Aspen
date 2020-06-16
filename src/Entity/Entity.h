@@ -64,7 +64,9 @@ public:
     
     Type getType() const;
     sf::FloatRect getBox() const;
-    
+
+    TextureManager* getTextureManager() const;
+
 protected:
     
     void setType(Type);

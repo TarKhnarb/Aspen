@@ -64,3 +64,27 @@ Monster's Loots :
 >        * Novichoc
     
 ---
+
+### Files presentation :
+
+> StackSize
+
+> Type
+
+> BuyPrice
+
+> SellPrice
+
+> Life
+
+> Attack
+
+> AttackSpeed
+
+> ProjectileSpeed
+
+> Defence
+
+> Speed
+
+> CanFly

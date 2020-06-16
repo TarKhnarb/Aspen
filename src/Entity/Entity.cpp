@@ -187,6 +187,14 @@ sf::FloatRect Entity::getBox() const{
     return collisionBox;
 }
 
+/*********************
+ * GetTextureManager *
+ *********************/
+TextureManager* Entity::getTextureManager() const{
+
+    return textureMgr;
+}
+
 /***********
  * setType *
  ***********/

@@ -1,5 +1,5 @@
 #include "Anim_Directional.h"
-#include "SpriteSheet.h"
+#include "../SpriteSheet.h"
 
 /*************
  * FrameStep *

@@ -1,5 +1,5 @@
 #include "Anim_Base.h"
-#include "SpriteSheet.h"
+#include "../SpriteSheet.h"
 
 /***************
  * Constructor *
