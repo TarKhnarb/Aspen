@@ -106,6 +106,8 @@ private:
     void placeWalls();
     
     void checkProjRoomCollisions();
+    
+    void checkProjMonstersCollisions();
 
     void draw(sf::RenderTarget&, sf::RenderStates) const override;
     

@@ -60,6 +60,7 @@ void State_Dungeon::update(const sf::Time &time){
 
     dungeon.getCurrentRoom()->update(time);
     
+    dungeon.getCurrentRoom()->checkMonsterCollisions(Aspen);
     dungeon.getCurrentRoom()->checkProjectileCollisions(Aspen);
 
     std::pair<Entity::Type, Orientation> info = dungeon.getCurrentRoom()->checkRoomCollisions(Aspen);
