@@ -1,11 +1,13 @@
 #include "Inventory.h"
 
 Inventory::Inventory(bool hasStuff, std::size_t bagSize):
-        bag(bagSize, nullptr),
         hasStuff(hasStuff){
-            
+
+    for(unsigned i = 0; i < bagSize; ++i)
+        bag[i] = std::make_shared<Object>(nullptr);
     if(hasStuff)
-        stuff.assign(static_cast<int>(Stuff::StuffCount), nullptr);
+        for(unsigned i = 0; i < static_cast<int>(Stuff::StuffCount); ++i)
+            stuff[i] = std::make_shared<Stuff>(nullptr);
 }
 
 
@@ -64,7 +66,7 @@ bool Inventory::removeObject(Object &toRemove){
             
             if(object && object->getName() == toRemove.getName()){
             
-                object.release();
+                object.reset();
                 return true;
             }
         }
@@ -86,7 +88,7 @@ bool Inventory::removeObject(const std::string &toRemove, std::size_t nb){
             }
             else if(nb >= 1){
                 
-                object.release();
+                object.reset();
                 --nb;
             }
         }
@@ -109,7 +111,7 @@ bool Inventory::removeObject(std::size_t index, std::size_t nb){
         }
         else if(nb >= 1){
             
-            bag[index].release();
+            bag[index].reset();
             --nb;
         }
     }
@@ -163,8 +165,8 @@ Bonus* Inventory::equip(std::size_t index){
             Stuff::StuffType type = Stuff(bag[index]->getName(), bag[index]->getTextureManager()).getStuffType();
             if (!stuff[type]) {
 
-                stuff[type] = std::move(bag[index]);
-                bag[index].release();
+                stuff[type] = std::make_shared(bag[index]);
+                bag[index].reset();
                 return stuff[type]->getBonus();
             }
         }
@@ -185,7 +187,7 @@ Bonus* Inventory::unequip(std::size_t index){ // can be used with Stuff::StuffTy
             Bonus *bonus = stuff[index]->getBonus();
             if (addObject(*stuff[index])) {
 
-                stuff[index].release();
+                stuff[index].reset();
                 return bonus;
             }
         }

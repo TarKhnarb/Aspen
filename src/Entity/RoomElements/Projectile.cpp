@@ -36,13 +36,6 @@ Character* Projectile::getOwner(){
 void Projectile::update(sf::Time time){
 
     move(velocity * time.asSeconds());
-    /*
-     * TODO  /!\ TROUVER UNE SOLUTION /!\ :
-     * TODO     Lors de la detexion d'une collision, il y a une erreur de segmentation.
-     * TODO     Cela ne pose pas de problème lorsque l'on tire à l'OUEST seulement dans les trois autres cas.
-     * TODO     Voir si cela ne vient pas de la position de la collisionBox du projectile,
-     * TODO     cela pourrait aussi venir de la façon dont j'ai essayé de les gérer.
-     */
 }
 
 /***************
@@ -117,14 +110,14 @@ void Projectile::selectProjectile(){
                     collisionBox = projBox;
                     scale(0.5f, 0.5f);
 
-                    setPosition(ownerBox.left + ((ownerBox.width - projBox.width)/2.f), ownerBox.top - (projBox.height + 2.f * ownerBox.height));
+                    setPosition(ownerBox.left + ((ownerBox.width - projBox.width)/2.f), ownerBox.top - (2.f * projBox.height/3.f));
                 }
                 else{
 
                     collisionBox = projBox;
                     collisionBox.height /= 3.f;
 
-                    setPosition(ownerBox.left + ((ownerBox.width - projBox.width)/2.f), ownerBox.top - (projBox.height + 2.f * ownerBox.height));
+                    setPosition(ownerBox.left + ((ownerBox.width - projBox.width)/2.f), ownerBox.top - (2.f * projBox.height/3.f));
                 }
             }
             break;
@@ -162,7 +155,7 @@ void Projectile::selectProjectile(){
                     collisionBox = projBox;
                     scale(0.5f, 0.5f);
 
-                    setPosition(ownerBox.left + ((ownerBox.width + projBox.width)/2.f), ownerBox.top + projBox.height + ownerBox.height);
+                    setPosition(ownerBox.left + ((ownerBox.width + projBox.width)/2.f), ownerBox.top + ownerBox.height);
                 }
                 else{
 
@@ -171,7 +164,7 @@ void Projectile::selectProjectile(){
                     collisionBox.top -= collisionBox.height;
                     collisionBox.left -= collisionBox.width;
 
-                    setPosition(ownerBox.left + ((ownerBox.width + projBox.width)/2.f), ownerBox.top + projBox.height + ownerBox.height);
+                    setPosition(ownerBox.left + ((ownerBox.width + projBox.width)/2.f), ownerBox.top + ownerBox.height);
                 }
             }
             break;

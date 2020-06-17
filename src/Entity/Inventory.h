@@ -2,6 +2,7 @@
 #define GAME_INVENTORY_H
 
 #include <vector>
+#include <memory>
 
 #include "Object/Stuff.h"
 
@@ -29,8 +30,8 @@ public:
     
 private:
     
-    std::vector<std::unique_ptr<Stuff>> stuff;
-    std::vector<std::unique_ptr<Object>> bag;
+    std::vector<std::shared_ptr<Stuff>> stuff;
+    std::vector<std::shared_ptr<Object>> bag;
 
     bool hasStuff;
 };

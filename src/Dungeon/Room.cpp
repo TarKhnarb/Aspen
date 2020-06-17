@@ -335,7 +335,7 @@ void Room::checkProjectileCollisions(Character& entity){
     std::size_t index = 0;
     for(const auto &proj : projectiles){
         
-        if(proj->collides(entity, 0.f)){
+        if(proj->collides(entity, 0.f) && proj->getOwner()->getName() != entity.getName()){
             
             toRemove.push_back(index);
             //entity.hit(proj.damages)

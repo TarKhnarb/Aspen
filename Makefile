@@ -76,7 +76,7 @@ $(O)/Stage.o: $(O)/Room.o
 $(O)/Room.o: $(ENTITY)
 	g++ $(FLAGS) $(Sd)/Room.cpp -o $(O)/Room.o
 
-$(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Projectile.o $(O)/Inventory.o
+$(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Projectile.o #$(O)/Inventory.o
 	g++ $(FLAGS) $(Se)/Player.cpp -o $(O)/Player.o
 
 $(O)/Virus.o: $(O)/Monster.o
@@ -85,8 +85,8 @@ $(O)/Virus.o: $(O)/Monster.o
 $(O)/Monster.o:	$(O)/Character.o $(O)/Projectile.o
 	g++ $(FLAGS) $(SeM)/Monster.cpp -o $(O)/Monster.o
 
-$(O)/Inventory.o: $(O)/Stuff.o
-	g++ $(FLAGS) $(Se)/Inventory.cpp -o $(O)/Inventory.o
+#$(O)/Inventory.o: $(O)/Stuff.o
+#	g++ $(FLAGS) $(Se)/Inventory.cpp -o $(O)/Inventory.o
 
 $(O)/Stuff.o: $(O)/Object.o
 	g++ $(FLAGS) $(SeO)/Stuff.cpp -o $(O)/Stuff.o
