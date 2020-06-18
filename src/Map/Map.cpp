@@ -15,6 +15,7 @@ Map::Map(TextureManager *txtMng):
 
     placeWalls();
     placeHouses();
+    placeTrees();
 }
 
 Map::~Map(){
@@ -29,6 +30,9 @@ Entity::Type Map::checkMapCollisions(Entity &entity){
 
     for(const auto &house : houses)
         entity.collides(*house, 0.f);
+
+    for(const auto &tree : trees)
+        entity.collides(*tree, 0.f);
 
     if(entity.collides(dungeonDoor, 0.f))
         return Entity::Wall;
@@ -62,6 +66,39 @@ void Map::placeWalls(){
                     walls.push_back(std::move(wall));
                 }
             }
+            ++lineNb;
+        }
+
+    }
+    else
+        throw std::runtime_error ("Failed to load " + filename);
+
+    file.close();
+}
+
+void Map::placeTrees(){
+
+    std::ifstream file;
+    std::string filename("Data/Files/Map/Trees.cfg");
+    file.open(filename);
+
+    if(file.is_open()){
+
+        int lineNb = 0;
+        while(!file.eof()){
+
+            std::string line;
+            std::getline(file, line);
+            std::istringstream sLine(line);
+
+            std::string coordX, coordY;
+
+            sLine >> coordX >> coordY;
+
+            std::unique_ptr<Tree> tree(new Tree(lineNb ,txtMng));
+            tree->setPosition(static_cast<float>(std::stoi(coordX)), static_cast<float>(std::stoi(coordY)));
+            trees.push_back(std::move(tree));
+
             ++lineNb;
         }
 
@@ -142,4 +179,7 @@ void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const{
 
     for(const auto &house : houses)
         target.draw(*house, states);
+
+    for(const auto & tree : trees)
+        target.draw(*tree, states);
 }

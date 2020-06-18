@@ -65,11 +65,14 @@ $(O)/Anim_Base.o:
 $(O)/Anim_Directional.o:
 	g++ $(FLAGS) $(Sa)/Anim_Directional.cpp -o $(O)/Anim_Directional.o
 
-$(O)/Map.o: $(O)/Wall.o $(O)/House.o
+$(O)/Map.o: $(O)/Wall.o $(O)/House.o $(O)/Tree.o
 	g++ $(FLAGS) $(Sm)/Map.cpp -o $(O)/Map.o
 
 $(O)/House.o: $(O)/Entity.o
 	g++ $(FLAGS) $(SeMa)/House.cpp -o $(O)/House.o
+
+$(O)/Tree.o: $(O)/Entity.o
+	g++ $(FLAGS) $(SeMa)/Tree.cpp -o $(O)/Tree.o
 
 $(O)/Dungeon.o: $(O)/Stage.o
 	g++ $(FLAGS) $(Sd)/Dungeon.cpp -o $(O)/Dungeon.o

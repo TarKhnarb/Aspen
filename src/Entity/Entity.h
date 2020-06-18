@@ -35,6 +35,7 @@ public:
         Potion,
         Project,
         House,
+        Tree,
         Npc
     };
     

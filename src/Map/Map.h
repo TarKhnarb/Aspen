@@ -17,6 +17,7 @@
 #include "../TextureManager.h"
 #include "../Entity/RoomElements/Wall.h"
 #include "../Entity/Map/House.h"
+#include "../Entity/Map/Tree.h"
 
 class Map: public sf::Drawable{
 
@@ -35,11 +36,11 @@ private:
 
     void placeWalls(); // TODO change to a better algorithm which made the biggest rectangle of walls for a lighten code
 
-    void placeNpcs(); // TODO place different Npc with their house
-
     void placeTrees(); // TODO place all trees (25)
 
     void placeHouses(); // TODO place Npc Houses, Base and Dungeon
+
+    void placeNpcs(); // TODO place different Npc in front of their house
 
     int returnStoi(std::istringstream ss);
 
@@ -51,9 +52,10 @@ private:
 
     sf::RectangleShape background;
     sf::Sprite map;
+    std::vector<std::unique_ptr<Wall>> walls;
+    std::vector<std::unique_ptr<Tree>> trees;
     std::vector<std::unique_ptr<House>> houses;
 
-    std::vector<std::unique_ptr<Wall>> walls;
     Wall dungeonDoor;
 
     sf::Vector2f spawnPoint;
