@@ -16,6 +16,7 @@
 
 #include "../TextureManager.h"
 #include "../Entity/RoomElements/Wall.h"
+#include "../Entity/Map/House.h"
 
 class Map: public sf::Drawable{
 
@@ -36,7 +37,9 @@ private:
 
     void placeNpcs(); // TODO place different Npc with their house
 
-    void placeBase(); // TODO place the house of Aspen to access at his Base
+    void placeTrees(); // TODO place all trees (25)
+
+    void placeHouses(); // TODO place Npc Houses, Base and Dungeon
 
     int returnStoi(std::istringstream ss);
 
@@ -48,6 +51,7 @@ private:
 
     sf::RectangleShape background;
     sf::Sprite map;
+    std::vector<std::unique_ptr<House>> houses;
 
     std::vector<std::unique_ptr<Wall>> walls;
     Wall dungeonDoor;

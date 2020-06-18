@@ -355,7 +355,6 @@ void Room::processRequests(){
         std::size_t index = *toRemove.begin();
         
         projectiles.erase(projectiles.begin() + index);
-        std::cout << index << std::endl;
         toRemove.erase(toRemove.begin());
         
         for(std::size_t &i : toRemove){
@@ -371,11 +370,9 @@ void Room::processRequests(){
  *************/
 void Room::openDoors(){
 
-    for(auto &d : doors){
-
+    for(auto &d : doors)
         if(d->getState() != Door::State::Key)
             d->setState(Door::State::Open);
-    }
 }
 
 /*************
@@ -383,11 +380,9 @@ void Room::openDoors(){
  *************/
 void Room::closeDoors(){
 
-    for(auto &d : doors){
-
+    for(auto &d : doors)
         if(d->getState() != Door::State::Key)
             d->setState(Door::State::Closed);
-    }
 }
 
 /*****************
@@ -472,39 +467,27 @@ void Room::checkProjRoomCollisions(){
     
     for(std::size_t index = 0; index < projectiles.size(); ++index){
         
-        for(const auto &wall : walls){
-            
-            if(projectiles[index]->collides(*wall, 0.f)){
-                
+        for(const auto &wall : walls)
+            if(projectiles[index]->collides(*wall, 0.f))
                 toRemove.push_back(index);
-            }
-        }
         
-        for(const auto &rock : rocks){
-            
+        for(const auto &rock : rocks)
             if(projectiles[index]->collides(*rock, 0.f)){
                 
                 toRemove.push_back(index);
                 rock->hit(1);
             }
-        }
         
-        for(const auto &chest : chests){
-            
-            if(projectiles[index]->collides(*chest, 0.f)){
-                
+        for(const auto &chest : chests)
+            if(projectiles[index]->collides(*chest, 0.f))
                 toRemove.push_back(index);
-            }
-        }
     }
 }
 
 void Room::checkProjMonstersCollisions(){
     
-    for(const auto &monster : monsters){
-        
+    for(const auto &monster : monsters)
         checkProjectileCollisions(*monster);
-    }
 }
 
 /********
@@ -514,44 +497,28 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     
     target.draw(background, states);
     
-    for(const auto &door : doors){
-        
+    for(const auto &door : doors)
         target.draw(*door, states);
-    }
     
-    for(const auto &hole : holes){
-        
+    for(const auto &hole : holes)
         target.draw(*hole, states);
-    }
     
-    for(const auto &rock : rocks){
-        
+    for(const auto &rock : rocks)
         target.draw(*rock, states);
-    }
     
-    for(const auto &chest : chests){
-        
+    for(const auto &chest : chests)
         target.draw(*chest, states);
-    }
 
-    for(const auto &hatch : hatchs){
-
+    for(const auto &hatch : hatchs)
         target.draw(*hatch, states);
-    }
 
-    for(const auto &proj : projectiles){
-
-        if(proj){
+    for(const auto &proj : projectiles)
+        if(proj)
             target.draw(*proj, states);
-        }
-    }
     
-    for(const auto &monster : monsters){
-        
-        if(monster){
+    for(const auto &monster : monsters)
+        if(monster)
             target.draw(*monster, states);
-        }
-    }
 }
 
 /**************

@@ -33,7 +33,9 @@ public:
         Stuff,
         StackObject,
         Potion,
-        Project
+        Project,
+        House,
+        Npc
     };
     
 public:

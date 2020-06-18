@@ -14,6 +14,7 @@ Map::Map(TextureManager *txtMng):
     map.setPosition(640.f, 360.f);
 
     placeWalls();
+    placeHouses();
 }
 
 Map::~Map(){
@@ -23,15 +24,14 @@ Map::~Map(){
 
 Entity::Type Map::checkMapCollisions(Entity &entity){
 
-    for(const auto &wall : walls){
-
+    for(const auto &wall : walls)
         entity.collides(*wall, 0.f);
-    }
 
-    if(entity.collides(dungeonDoor, 0.f)){
+    for(const auto &house : houses)
+        entity.collides(*house, 0.f);
 
+    if(entity.collides(dungeonDoor, 0.f))
         return Entity::Wall;
-    }
 
     return Entity::None;
 }
@@ -72,8 +72,74 @@ void Map::placeWalls(){
     file.close();
 }
 
+void Map::placeHouses(){
+
+    std::ifstream file;
+    std::string filename("Data/Files/Map/Houses.cfg");
+    file.open(filename);
+
+    std::string line;
+    if(file.is_open()){
+
+        while(!file.eof()){
+
+            std::string line;
+            std::getline(file, line);
+            std::istringstream sLine(line);
+
+            std::string readName, coordX, coordY;
+
+            sLine >> readName >> coordX >> coordY;
+
+            if(readName == "Base"){
+
+                std::unique_ptr<House> house(new House("BaseHouse" ,txtMng));
+                house->setPosition(static_cast<float>(std::stoi(coordX)), static_cast<float>(std::stoi(coordY)));
+                houses.push_back(std::move(house));
+            }
+            else if(readName == "Dungeon"){
+
+                std::unique_ptr<House> house(new House("Dungeon" ,txtMng));
+                house->setPosition(static_cast<float>(std::stoi(coordX)), static_cast<float>(std::stoi(coordY)));
+                houses.push_back(std::move(house));
+            }
+            else if(readName == "Blacksmith"){
+
+                std::unique_ptr<House> house(new House("BlacksmithHouse" ,txtMng));
+                house->setPosition(static_cast<float>(std::stoi(coordX)), static_cast<float>(std::stoi(coordY)));
+                houses.push_back(std::move(house));
+            }
+            else if(readName == "Witch"){
+
+                std::unique_ptr<House> house(new House("WitchHouse" ,txtMng));
+                house->setPosition(static_cast<float>(std::stoi(coordX)), static_cast<float>(std::stoi(coordY)));
+                houses.push_back(std::move(house));
+            }
+            else if(readName == "Crafter"){
+
+                std::unique_ptr<House> house(new House("CrafterHouse" ,txtMng));
+                house->setPosition(static_cast<float>(std::stoi(coordX)), static_cast<float>(std::stoi(coordY)));
+                houses.push_back(std::move(house));
+            }
+            else if(readName == "Trader"){
+
+                std::unique_ptr<House> house(new House("TraderHouse" ,txtMng));
+                house->setPosition(static_cast<float>(std::stoi(coordX)), static_cast<float>(std::stoi(coordY)));
+                houses.push_back(std::move(house));
+            }
+        }
+    }
+    else
+        throw std::runtime_error ("Failed to load " + filename);
+
+    file.close();
+}
+
 void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const{
 
     target.draw(background, states);
     target.draw(map, states);
+
+    for(const auto &house : houses)
+        target.draw(*house, states);
 }

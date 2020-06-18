@@ -4,15 +4,16 @@ S = src
 Sa = src/Animation
 Sd = src/Dungeon
 Se = src/Entity
-SeM = src/Entity/Monster
+SeMo = src/Entity/Monster
 SeO = src/Entity/Object
 SeR = src/Entity/RoomElements
+SeMa = src/Entity/Map
 Sm = src/Map
 Ss = src/States
 FLAGS = -c -Wall
 
 STAT_O = $(O)/State_Dungeon.o $(O)/State_GamePause.o $(O)/State_Map.o $(O)/State_GameOver.o $(O)/State_Statistics.o #$(O)/State_Intro.o
-ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Projectile.o $(O)/Stuff.o $(O)/Virus.o
+ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Projectile.o $(O)/House.o $(O)/Stuff.o $(O)/Virus.o
 
 
 all: $(O) $(B) $(O)/Aspen.o
@@ -64,8 +65,11 @@ $(O)/Anim_Base.o:
 $(O)/Anim_Directional.o:
 	g++ $(FLAGS) $(Sa)/Anim_Directional.cpp -o $(O)/Anim_Directional.o
 
-$(O)/Map.o: $(O)/Wall.o
+$(O)/Map.o: $(O)/Wall.o $(O)/House.o
 	g++ $(FLAGS) $(Sm)/Map.cpp -o $(O)/Map.o
+
+$(O)/House.o: $(O)/Entity.o
+	g++ $(FLAGS) $(SeMa)/House.cpp -o $(O)/House.o
 
 $(O)/Dungeon.o: $(O)/Stage.o
 	g++ $(FLAGS) $(Sd)/Dungeon.cpp -o $(O)/Dungeon.o
@@ -80,10 +84,10 @@ $(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Projectile.o #$(O)/Inven
 	g++ $(FLAGS) $(Se)/Player.cpp -o $(O)/Player.o
 
 $(O)/Virus.o: $(O)/Monster.o
-	g++ $(FLAGS) $(SeM)/Virus.cpp -o $(O)/Virus.o
+	g++ $(FLAGS) $(SeMo)/Virus.cpp -o $(O)/Virus.o
 
 $(O)/Monster.o:	$(O)/Character.o $(O)/Projectile.o
-	g++ $(FLAGS) $(SeM)/Monster.cpp -o $(O)/Monster.o
+	g++ $(FLAGS) $(SeMo)/Monster.cpp -o $(O)/Monster.o
 
 #$(O)/Inventory.o: $(O)/Stuff.o
 #	g++ $(FLAGS) $(Se)/Inventory.cpp -o $(O)/Inventory.o
