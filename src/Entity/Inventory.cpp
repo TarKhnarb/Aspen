@@ -4,10 +4,10 @@ Inventory::Inventory(bool hasStuff, std::size_t bagSize):
         hasStuff(hasStuff){
 
     for(unsigned i = 0; i < bagSize; ++i)
-        bag[i] = std::make_shared<Object>(nullptr);
+        bag[i] = std::make_unique<Object>(nullptr);
     if(hasStuff)
         for(unsigned i = 0; i < static_cast<int>(Stuff::StuffCount); ++i)
-            stuff[i] = std::make_shared<Stuff>(nullptr);
+            stuff[i] = std::make_unique<Stuff>(nullptr);
 }
 
 
@@ -83,7 +83,7 @@ bool Inventory::removeObject(const std::string &toRemove, std::size_t nb){
             
             if(object->getObjectType() != Object::Stuff) {
 
-                Object obj(*object, nb);
+                Object obj(object.get(), nb);
                 *object -= obj;
             }
             else if(nb >= 1){
@@ -106,7 +106,7 @@ bool Inventory::removeObject(std::size_t index, std::size_t nb){
         
         if(bag[index]->getObjectType() != Object::Stuff){
 
-            Object obj(*bag[index], nb);
+            Object obj(bag[index].get(), nb);
             *bag[index] -= obj;
         }
         else if(nb >= 1){
@@ -162,10 +162,10 @@ Bonus* Inventory::equip(std::size_t index){
 
         if (bag[index] && bag[index]->getObjectType() == Object::Stuff) {
 
-            Stuff::StuffType type = Stuff(bag[index]->getName(), bag[index]->getTextureManager()).getStuffType();
+            Stuff::StuffType type = Stuff(bag[index].get()).getStuffType();
             if (!stuff[type]) {
 
-                stuff[type] = std::make_shared(bag[index]);
+                stuff[type].reset(std::move(new Stuff(bag[index].get())));
                 bag[index].reset();
                 return stuff[type]->getBonus();
             }
@@ -198,6 +198,16 @@ Bonus* Inventory::unequip(std::size_t index){ // can be used with Stuff::StuffTy
 
 void Inventory::refillStacks(){}
 void Inventory::sort(){}
+
+unsigned Inventory::getBagSize(){
+
+    return bag.size();
+}
+
+unsigned Inventory::getStuffSize(){
+
+    return stuff.size();
+}
 
 /*************
  * Accessors *

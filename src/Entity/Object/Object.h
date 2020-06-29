@@ -26,7 +26,7 @@ public:
     
     Object() = delete;
     Object(const std::string&, TextureManager*, std::size_t number = 1);
-    Object(const Object &obj, std::size_t number = 1);
+    Object(const Object *obj, std::size_t number = 1);
     ~Object();
     
 public:

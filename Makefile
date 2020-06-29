@@ -13,12 +13,11 @@ Ss = src/States
 FLAGS = -c -Wall
 
 STAT_O = $(O)/State_Dungeon.o $(O)/State_GamePause.o $(O)/State_Map.o $(O)/State_GameOver.o $(O)/State_Statistics.o #$(O)/State_Intro.o
-ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Projectile.o $(O)/House.o $(O)/Stuff.o $(O)/Virus.o
+ENTITY = $(O)/Hole.o $(O)/Rock.o $(O)/Chest.o $(O)/Wall.o $(O)/Door.o $(O)/Hatch.o $(O)/Projectile.o $(O)/House.o $(O)/Stuff.o $(O)/Virus.o #$(O)/LittleDeath.o
 
 
 all: $(O) $(B) $(O)/Aspen.o
 	g++ -ggdb $(O)/*.o -o $(B)/Aspen -lsfml-graphics -lsfml-window -lsfml-system
-
 
 $(O)/Aspen.o: $(O)/Game.o $(O)/SpriteSheet.o
 	g++ $(FLAGS) $(S)/Aspen.cpp -o $(O)/Aspen.o
@@ -89,11 +88,14 @@ $(O)/Player.o: $(O)/Character.o $(O)/SpriteSheet.o $(O)/Projectile.o #$(O)/Inven
 $(O)/Virus.o: $(O)/Monster.o
 	g++ $(FLAGS) $(SeMo)/Virus.cpp -o $(O)/Virus.o
 
+$(O)/LittleDeath.o: $(O)/Monster.o
+	g++ $(FLAGS) $(SeMo)/LittleDeath.cpp -o $(O)/LittleDeath.o
+
 $(O)/Monster.o:	$(O)/Character.o $(O)/Projectile.o
 	g++ $(FLAGS) $(SeMo)/Monster.cpp -o $(O)/Monster.o
 
-#$(O)/Inventory.o: $(O)/Stuff.o
-#	g++ $(FLAGS) $(Se)/Inventory.cpp -o $(O)/Inventory.o
+$(O)/Inventory.o: $(O)/Stuff.o
+	g++ $(FLAGS) $(Se)/Inventory.cpp -o $(O)/Inventory.o
 
 $(O)/Stuff.o: $(O)/Object.o
 	g++ $(FLAGS) $(SeO)/Stuff.cpp -o $(O)/Stuff.o

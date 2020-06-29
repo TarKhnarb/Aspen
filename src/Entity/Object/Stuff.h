@@ -21,7 +21,7 @@ public:
 public:
     
     Stuff() = delete;
-    Stuff(const std::string&, TextureManager*);
+    Stuff(Object*);
     
 public:
 

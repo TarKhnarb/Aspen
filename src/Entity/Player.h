@@ -12,6 +12,7 @@
 #include "Character.h"
 #include "../SpriteSheet.h"
 #include "Object/Statistics.h"
+//#include "Inventory.h"
 //#include "Dungeon.h"
 
 class Dungeon;
@@ -36,6 +37,8 @@ public:
     void setProjectile(EventDetails*);
 
     Projectile* getProjectile();
+
+    //Inventory* getInventory();
     
 private:
 
@@ -60,6 +63,8 @@ private:
     int projVertical;
 
     Dungeon *dungeon;
+
+    //odifications appoInventory inventory;
 };
 
 #endif

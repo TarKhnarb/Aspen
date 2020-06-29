@@ -12,6 +12,7 @@ Player::Player(TextureManager *txtMng, EventManager* evtMgr):
         projHorizontal(0),
         projVertical(0),
         dungeon(nullptr){
+        //inventory(true, 16){
 
     spriteSheet.loadSheet("Data/Files/SpriteSheets/PlayerSheet.sprite");
     
@@ -35,6 +36,8 @@ Player::Player(TextureManager *txtMng, EventManager* evtMgr):
     evtMgr->addCallback(StateType::Statistics, "ShootRight", &Player::setProjectile, this);
     evtMgr->addCallback(StateType::Statistics, "ShootDown", &Player::setProjectile, this);
     evtMgr->addCallback(StateType::Statistics, "ShootLeft", &Player::setProjectile, this);
+
+    //evtMgr->addCallback(StateType::Inventory, "OpenInventory", &State_Inventory::draw, this);
 }
 
 /**************
@@ -126,23 +129,23 @@ void Player::setDungeon(Dungeon *dunge){
  *****************/
 void Player::setProjectile(EventDetails *details){
 
-    if (details->name == "ShootUp"){
-        
-        if (projVertical > -1)
+    if(details->name == "ShootUp"){
+
+        if(projVertical > -1)
             --projVertical;
     }
-    else if (details->name == "ShootRight"){
-        
+    else if(details->name == "ShootRight"){
+
         if(projHorizontal < 1)
             ++projHorizontal;
     }
-    else if (details->name == "ShootDown"){
-        
+    else if(details->name == "ShootDown"){
+
         if(projVertical < 1)
             ++projVertical;
     }
-    else if (details->name == "ShootLeft"){
-        
+    else if(details->name == "ShootLeft"){
+
         if(projHorizontal > -1)
             --projHorizontal;
     }
@@ -236,6 +239,11 @@ Projectile* Player::getProjectile(){
     timeSinceShot = sf::Time::Zero;
     return new Projectile(this, projOrientation, textureMgr);
 }
+
+/*Inventory* Player::getInventory(){
+
+    return &inventory;
+}*/
 
 /**************
  * ReturnStoi *

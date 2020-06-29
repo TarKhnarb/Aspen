@@ -19,10 +19,11 @@ Object::Object(const std::string &name, TextureManager *txtMgr, std::size_t numb
 /***************
  * Constructor *
  ***************/
-Object::Object(const Object &obj, std::size_t number):
+Object::Object(const Object *obj, std::size_t number):
         Entity(getTextureManager(), Entity::Object){
 
-    Object(obj.getName(), getTextureManager(), number);
+    if(obj)
+        Object(obj->getName(), getTextureManager(), number);
 }
 
 /**************

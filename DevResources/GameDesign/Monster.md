@@ -7,15 +7,15 @@
 ---
 ## Monsters :
 ### Monstres :
->    * Gripe espagnole
->    * Peste noire
+>    * Virus
+>    * Little Death
 >    * Tenia
 >    * Listéria
 >    * Blob
 
 ### Boss :
 >    * Cymothoa exigua
->    * Gripe H1N1
+>    * Death
 >    * VIH
 >    * Covid 19
 
@@ -23,14 +23,14 @@
 ---
 ``A developer``
 ## Monsters IA:
-* Gripe espagnole:
+* Virus:
 > Type:
 >> Flying monster, infighting.
 >
 > IA:
 >> The monster alternates between a pause time (2s) and two consecutive dash in direction of the player of  ~100px
 
-* Peste noire:
+* Little Death:
 > Type:
 >> Walking monster, range fighting.
 >
@@ -65,7 +65,7 @@
 > IA:
 >> The monster alternate between time pause (0./1.5s) and line up with the player in dash and shooting him if the dash don't touch the player.
 
-* Gripe H1N1:
+* Death:
 > Type:
 >> Flying monster, infighting.
 >

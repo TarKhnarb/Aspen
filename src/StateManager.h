@@ -14,6 +14,7 @@
 #include "States/State_Map.h"
 #include "States/State_GameOver.h"
 #include "States/State_Statistics.h"
+//#include "States/State_Inventory.h"
 
 enum class StateType{
 

@@ -3,8 +3,8 @@
 /***************
  * Constructor *
  ***************/
-Stuff::Stuff(const std::string &name, TextureManager* txtMgr):
-        Object(name, txtMgr){
+Stuff::Stuff(Object *object):
+        Object(*object){
 
     loadFromFile();
     setSprite();

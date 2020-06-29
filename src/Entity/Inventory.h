@@ -9,9 +9,12 @@
 class Inventory{
     
 public:
-    
+
+    Inventory() = delete;
     Inventory(bool, std::size_t);
-    
+
+public:
+
     bool addObject(Object&);
     bool removeObject(Object&);
     bool removeObject(const std::string&, std::size_t nb = 1); // Pasage en données résultat pas nécésssaire pour le nb (A voir)
@@ -24,14 +27,17 @@ public:
 
     void refillStacks();
     void sort();
+
+    unsigned getBagSize() const;
+    unsigned getStuffSize() const;
     
     Stuff* getStuff(std::size_t);
     Object* getObject(std::size_t);
     
 private:
     
-    std::vector<std::shared_ptr<Stuff>> stuff;
-    std::vector<std::shared_ptr<Object>> bag;
+    std::vector<std::unique_ptr<Stuff>> stuff;
+    std::vector<std::unique_ptr<Object>> bag;
 
     bool hasStuff;
 };

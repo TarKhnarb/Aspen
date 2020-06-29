@@ -21,6 +21,7 @@
 #include "../Entity/RoomElements/Hatch.h"
 #include "../Entity/RoomElements/Projectile.h"
 #include "../Entity/Monster/Virus.h"
+//#include "../Entity/Monster/LittleDeath.h"
 
 class Room : public sf::Drawable{
 

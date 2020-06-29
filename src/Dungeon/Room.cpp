@@ -43,6 +43,10 @@ void Room::setType(Room::Type roomType){
                 std::unique_ptr<Virus> virus(new Virus(context->aspen, textureMgr));
                 virus->setPosition(400.f, 200.f);
                 monsters.push_back(std::move(virus));
+
+                /*std::unique_ptr<LittleDeath> littleDeath(new LittleDeath(context->aspen, textureMgr));
+                littleDeath->setPosition(600.f, 200.f);
+                monsters.push_back(std::move(littleDeath));*/
             }
             break;
         
@@ -252,9 +256,8 @@ void Room::update(sf::Time time){
     
     for(auto &monster : monsters){
         
-        if(monster){
+        if(monster)
             monster->update(time);
-        }
         
         checkRoomCollisions(*monster);
     }
@@ -268,47 +271,29 @@ void Room::update(sf::Time time){
  ***********************/
 std::pair<Entity::Type, Orientation> Room::checkRoomCollisions(Character& entity){
     
-    for(const auto &door : doors){
-        
-        if(entity.collides(*door, 0.f) && entity.getType() == Entity::Player){
-
+    for(const auto &door : doors)
+        if(entity.collides(*door, 0.f) && entity.getType() == Entity::Player)
             return std::make_pair(Entity::Door, door->getOrientation());
-        }
-    }
     
-    for(const auto &wall : walls){
-        
-    entity.collides(*wall, 0.f);
-    }
+    for(const auto &wall : walls)
+        entity.collides(*wall, 0.f);
     
     if(!entity.getStats()->getFinalValue(CanFly)){
         
-        for(const auto &hole : holes){
-            
+        for(const auto &hole : holes)
             entity.collides(*hole, 0.f);
-        }
         
-        for(const auto &rock : rocks){
-            
+        for(const auto &rock : rocks)
             entity.collides(*rock, 0.f);
-        }
     }
     
-    for(const auto &chest : chests){
-        
-        if(entity.collides(*chest, 0.f) && entity.getType() == Entity::Player){
-            
+    for(const auto &chest : chests)
+        if(entity.collides(*chest, 0.f) && entity.getType() == Entity::Player)
             return std::make_pair(Entity::Chest, static_cast<Orientation>(0));
-        }
-    }
 
-    for(const auto &hatch : hatchs){
-
-        if(entity.collides(*hatch, 0.f) && entity.getType() == Entity::Player){
-            
+    for(const auto &hatch : hatchs)
+        if(entity.collides(*hatch, 0.f) && entity.getType() == Entity::Player)
             return std::make_pair(Entity::Hatch, static_cast<Orientation>(0));
-        }
-    }
     
     return std::make_pair(Entity::None, static_cast<Orientation>(0));
 }
@@ -357,11 +342,9 @@ void Room::processRequests(){
         projectiles.erase(projectiles.begin() + index);
         toRemove.erase(toRemove.begin());
         
-        for(std::size_t &i : toRemove){
-            
+        for(std::size_t &i : toRemove)
             if(i > index)
                 --i;
-        }
     }
 }
 
